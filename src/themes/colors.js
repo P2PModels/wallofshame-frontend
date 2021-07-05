@@ -1,5 +1,5 @@
-// Main color is red[500]
-
+// Add custom colors to pallete
+// Main color is __color_name__[500]
 export const red = {
     50: '#ffebed',
     100: '#ffc2c8',

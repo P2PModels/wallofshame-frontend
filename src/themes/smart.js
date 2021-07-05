@@ -1,6 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 import { red, grey, greenBlue } from './colors'
 
+// Custom theme, find docs in: https://material-ui.com/customization/default-theme/
 const theme = createMuiTheme({
     palette: {
         primary: {

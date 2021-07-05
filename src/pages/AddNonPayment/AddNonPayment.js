@@ -49,6 +49,7 @@ export default function AddNonPayment() {
         <div>
             <CssBaseline />
             <main>
+                {/* Page title */}
                 <Box className={classes.titleContainer}>
                     <Grid
                         container
@@ -68,6 +69,7 @@ export default function AddNonPayment() {
                         </Grid>
                     </Grid>
                 </Box>
+                {/* Form */}
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container>
                         <Grid item xs={8}>

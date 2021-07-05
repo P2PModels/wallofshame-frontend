@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { Link as RouterLink } from 'react-router-dom'
-import Controls from './controls/Controls'
+import Mui from './Mui/Mui'
 
 const logoSrc = './assets/smart-logo.png'
 
@@ -160,7 +160,7 @@ export default function Header() {
     const getMenuButtons = () => {
         return headersData.map(({ label, href }, i) => {
             return (
-                <Controls.Button
+                <Mui.Button
                     {...{
                         text: label,
                         to: href,
@@ -170,7 +170,7 @@ export default function Header() {
                     key={i}
                 >
                     {label}
-                </Controls.Button>
+                </Mui.Button>
             )
         })
     }

@@ -67,7 +67,7 @@ export default function Dashboard() {
                                 <Orders />
                             </Paper>
                         </Grid>
-                        {/* Simple maps map */}
+                        {/* React-simple-maps map */}
                         <Grid item xs={12} lg={6}>
                             <Paper className={classes.paper}>
                                 <MapChart />

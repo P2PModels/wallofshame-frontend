@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core'
 
+// Custom hook
 export function useForm(initialFValues) {
     const [values, setValues] = useState(initialFValues)
 
@@ -15,7 +16,6 @@ export function useForm(initialFValues) {
 
     return {
         values,
-        setValues,
         handleInputChange,
     }
 }

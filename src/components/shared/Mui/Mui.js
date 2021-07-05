@@ -5,7 +5,7 @@ import CheckboxGroup from './CheckboxGroup'
 import DatePicker from './DatePicker'
 import Button from './Button'
 
-const Controls = {
+const Mui = {
     Input,
     RadioGroup,
     Select,
@@ -14,4 +14,4 @@ const Controls = {
     Button,
 }
 
-export default Controls
+export default Mui
