@@ -94,15 +94,15 @@ export default function IssueBadgeForm() {
         }
     }
 
-    if (loading) return <Typography>Cargando...</Typography>
-    if (error)
-        return (
-            <InfoDialog
-                title="Error"
-                contentText={error.message}
-                closeButtonText="Cerrar"
-            />
-        )
+    // if (loading) return <Typography>Cargando...</Typography>
+    // if (error)
+    //     return (
+    //         <InfoDialog
+    //             title="Error"
+    //             contentText={error.message}
+    //             closeButtonText="Cerrar"
+    //         />
+    //     )
 
     return (
         <div className={classes.root}>
