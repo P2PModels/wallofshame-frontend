@@ -13,18 +13,24 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import { Link as RouterLink } from 'react-router-dom'
 import Controls from './controls/Controls'
+import MetamaskButton from '../../components/MetamaskButton'
 
 const logoSrc = './assets/smart-logo.png'
 
-const headersData = [
+const headerMenuLinks = [
     {
-        label: 'Add non-payment',
-        href: '/add-non-payment',
-    },
-    {
-        label: 'Dashboard',
+        label: 'Panel central',
         href: '/',
     },
+    {
+        label: 'Emitir sello',
+        href: '/issue-badge',
+    },
+    // {
+    //     label: '🦊',
+    //     href: '/account',
+    //     style: { backgroundColor: '#f6851b' },
+    // },
 ]
 
 const useStyles = makeStyles(theme => ({
@@ -133,7 +139,7 @@ export default function Header() {
     }
 
     const getDrawerChoices = () => {
-        return headersData.map(({ label, href }, i) => {
+        return headerMenuLinks.map(({ label, href, style }) => {
             return (
                 <Link
                     {...{
@@ -142,8 +148,9 @@ export default function Header() {
                         color: 'inherit',
                         style: { textDecoration: 'none' },
                         key: label,
+                        className: menuButton,
+                        style: style,
                     }}
-                    key={i}
                 >
                     <MenuItem>{label}</MenuItem>
                 </Link>
@@ -158,16 +165,17 @@ export default function Header() {
     )
 
     const getMenuButtons = () => {
-        return headersData.map(({ label, href }, i) => {
+        return headerMenuLinks.map(({ label, href, style }, i) => {
             return (
                 <Controls.Button
                     {...{
+                        key: i,
                         text: label,
                         to: href,
                         component: RouterLink,
                         className: menuButton,
+                        style: style,
                     }}
-                    key={i}
                 >
                     {label}
                 </Controls.Button>
@@ -180,7 +188,7 @@ export default function Header() {
             className={header}
             color="transparent"
             variant="outlined"
-            position="static"
+            position="absolute"
         >
             {mobileView ? displayMobile() : displayDesktop()}
         </AppBar>

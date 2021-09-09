@@ -5,8 +5,8 @@ import {
     FormLabel,
     RadioGroup as MuiRadioGroup,
     FormControlLabel,
-    Radio,
 } from '@material-ui/core'
+import { Radio } from '@material-ui/core'
 
 function RadioGroup(props) {
     const { label, name, value, onChange, items, ...other } = props
@@ -28,12 +28,6 @@ function RadioGroup(props) {
     )
 }
 
-RadioGroup.propTypes = {
-    label: PropTypes.string,
-    name: PropTypes.string,
-    value: PropTypes.string,
-    onChange: PropTypes.func,
-    item: PropTypes.array,
-}
+RadioGroup.propTypes = {}
 
 export default RadioGroup

@@ -11,7 +11,7 @@ const Controls = {
     Select,
     CheckboxGroup,
     DatePicker,
-    Button,
+    Button
 }
 
 export default Controls

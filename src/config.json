@@ -1,0 +1,6 @@
+{
+    "gql": {
+        "localhost": "http://localhost:4000/",
+        "theGraphDev": "https://api.studio.thegraph.com/query/290/dbadge/v0.0.4"
+    }
+}

@@ -8,6 +8,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 function Select(props) {
+
     const { name, label, value, onChange, options, ...other } = props
 
     return (
@@ -35,7 +36,7 @@ Select.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    options: PropTypes.array,
+    options: PropTypes.array
 }
 
 export default Select

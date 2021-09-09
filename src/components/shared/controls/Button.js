@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import { Button as MuiButton } from '@material-ui/core'
 
 function Button(props) {
+
     const { text, size, color, variant, onClick, ...other } = props
 
     return (
         <MuiButton
-            size={size || 'large'}
-            color={color || 'primary'}
-            variant={variant || 'contained'}
+            size={size||"large"}
+            color={color||"primary"}
+            variant={variant||"contained"}
             onClick={onClick}
             {...other}
         >
@@ -23,8 +24,9 @@ Button.propTypes = {
     size: PropTypes.string,
     color: PropTypes.string,
     variant: PropTypes.string,
-    onClick: PropTypes.func,
-    other: PropTypes.object,
+    onClick: PropTypes.func, 
+    other: PropTypes.object
 }
 
 export default Button
+
