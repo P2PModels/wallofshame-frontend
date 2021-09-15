@@ -1,16 +1,16 @@
 import { React, useState } from 'react'
-// import { useMutation } from '@apollo/client'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
 import { v4 as uuid } from 'uuid'
 import { useForm, Form } from '../../components/shared/useForm'
 import Controls from '../../components/shared/controls/Controls'
-import InfoDialog from '../../components/shared/InfoDialog'
 import * as issueBadgeOptions from '../../services/issueBadgeOptions'
 
 // import { ISSUE_BADGE } from '../../services/dbadge_backend/queries'
 import { ethers } from 'ethers'
-import { useMetamask } from 'use-metamask'
+import { useEthers } from '@usedapp/core'
+
+
 import Badge from '../../services/dbadge_backend/Badge.json'
 
 const genderItems = [
@@ -62,14 +62,17 @@ const recipient = '0x05eC46AeBA9Ed0bfC7318bA950977a22386A3fc2'
 export default function IssueBadgeForm() {
     const classes = useStyles()
 
-    const { metaState } = useMetamask()
+    const {
+        library: provider,
+        active,
+    } = useEthers()
 
     const { values, handleInputChange, submit } = useForm(initialFValues)
     // const [issueBadge, { data, loading, error }] = useMutation(ISSUE_BADGE)
 
     const issueBadgeBlockchain = async () => {
         // This code should be a component or hook
-        const signer = metaState.web3.getSigner()
+        const signer = provider.getSigner()
         // console.log('Signer: ')
         // console.log(signer)
         const badgeIssuerInstance = new ethers.Contract(
@@ -108,7 +111,6 @@ export default function IssueBadgeForm() {
         <div className={classes.root}>
             <Form
                 onSubmit={submit(issueBadgeBlockchain)}
-                // onSubmit={submit(issueBadge, { variables: { data: values } })}
             >
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
@@ -152,7 +154,7 @@ export default function IssueBadgeForm() {
                         <Controls.Button
                             type="submit"
                             text="EMITIR SELLO"
-                            disabled={!metaState.isConnected}
+                            disabled={!active}
                         />
                     </Grid>
                 </Grid>

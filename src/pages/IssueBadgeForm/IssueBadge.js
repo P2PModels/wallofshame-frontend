@@ -8,7 +8,7 @@ import {
     Grid,
 } from '@material-ui/core'
 import IssueBadgeForm from './IssueBadgeForm'
-import MetamaskButton from '../../components/MetamaskButton'
+// import MetamaskButton from '../../components/MetamaskButton'
 
 const useStyles = makeStyles(theme => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -83,9 +83,9 @@ export default function IssueBadge() {
                             </Typography>
                             <IssueBadgeForm />
                         </Grid>
-                        <Grid item xs={3} className={classes.flexItemEnd}>
+                        {/* <Grid item xs={3} className={classes.flexItemEnd}>
                             <MetamaskButton />
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </Container>
             </main>

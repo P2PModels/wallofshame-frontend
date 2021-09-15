@@ -13,7 +13,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import { Link as RouterLink } from 'react-router-dom'
 import Controls from './controls/Controls'
-import MetamaskButton from '../../components/MetamaskButton'
+import AccountModule from '../AccountModule/AccountModule'
 
 const logoSrc = './assets/smart-logo.png'
 
@@ -26,11 +26,6 @@ const headerMenuLinks = [
         label: 'Emitir sello',
         href: '/issue-badge',
     },
-    // {
-    //     label: '🦊',
-    //     href: '/account',
-    //     style: { backgroundColor: '#f6851b' },
-    // },
 ]
 
 const useStyles = makeStyles(theme => ({
@@ -52,9 +47,9 @@ const useStyles = makeStyles(theme => ({
         },
     },
     menuButton: {
-        fontFamily: 'Open Sans, sans-serif',
-        fontWeight: 700,
-        size: '18px',
+        // fontFamily: 'Open Sans, sans-serif',
+        // fontWeight: 700,
+        // size: '18px',
         marginLeft: '38px',
     },
     toolbar: {
@@ -96,8 +91,9 @@ export default function Header() {
         return (
             <Container>
                 <Toolbar className={toolbar} disableGutters>
-                    {customLogo}
-                    <div>{getMenuButtons()}</div>
+                    {customLogo} 
+                    <div>{getMenuButtons()} </div>
+                    <AccountModule />
                 </Toolbar>
             </Container>
         )
