@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useEthers } from '@usedapp/core'
-// import { useWeb3React } from '@web3-react/core'
 import useEagerConnect from '../../hooks/useEagerConnect'
 import useInactiveListener from '../../hooks/useInactiveListener'
 import { getNetwork } from '../../networks'
@@ -34,15 +33,6 @@ const AccountModule = () => {
     activate,
     deactivate, 
   } = useEthers()
-  // const web3React = useWeb3React()
-  // const {
-    // library,
-  //   connector,
-  //   account,
-  //   chainId,
-  //   activate,
-  //   deactivate,
-  // } = web3React
   const [activatingConnector, setActivatingConnector] = useState()
   const [openModal, setOpenModal] = useState(false)
   const [error, setError] = useState(undefined)
