@@ -1,7 +1,6 @@
 import React from 'react'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { MetamaskStateProvider } from 'use-metamask'
 
 import './App.css'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -16,6 +15,18 @@ import theme from './themes/smart'
 
 import config from './config.json'
 
+
+import { ChainId, DAppProvider } from '@usedapp/core'
+
+const dAppConfig = {
+//   readOnlyChainId: ChainId.Rinkeby,
+//   readOnlyUrls: {
+//     [ChainId.Rinkeby]: '',
+//   },
+    supportedChains: [ ChainId.Rinkeby ],
+}
+      
+
 const client = new ApolloClient({
     uri: config.gql.theGraphDev,
     cache: new InMemoryCache(),
@@ -24,22 +35,22 @@ const client = new ApolloClient({
 function App() {
     return (
         <ApolloProvider client={client}>
-            <BrowserRouter>
-                <ThemeProvider theme={theme}>
-                    <Header />
-                    <Switch>
-                        <Route exact path="/">
-                            <Dashboard></Dashboard>
-                        </Route>
-                        <Route exact path="/issue-badge">
-                            <MetamaskStateProvider>
-                                <IssueBadge></IssueBadge>
-                            </MetamaskStateProvider>
-                        </Route>
-                    </Switch>
-                    <Footer />
-                </ThemeProvider>
-            </BrowserRouter>
+            <DAppProvider config={dAppConfig}>
+                <BrowserRouter>
+                    <ThemeProvider theme={theme}>
+                        <Header />
+                        <Switch>
+                            <Route exact path="/">
+                                <Dashboard></Dashboard>
+                            </Route>
+                            <Route exact path="/issue-badge">
+                                    <IssueBadge></IssueBadge>
+                            </Route>
+                        </Switch>
+                        <Footer />
+                    </ThemeProvider>
+                </BrowserRouter>
+            </DAppProvider>
         </ApolloProvider>
     )
 }
