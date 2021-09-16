@@ -5,7 +5,8 @@ import useInactiveListener from '../../hooks/useInactiveListener'
 import { getNetwork } from '../../networks'
 import { transformError } from '../../wallet-providers'
 import { makeStyles } from '@material-ui/core/styles'
-import { Button } from '@material-ui/core'
+
+import Controls from '../../components/shared/controls/Controls'
 
 // import ExitToApp from '@material-ui/icons/ExitToApp'
 
@@ -18,6 +19,7 @@ const useStyles = makeStyles(theme => ({
   wrapper: {
     display: 'flex',
     alignItems: 'center',
+    height: '100%',
   },
   disconnectButton: {
     marginLeft: theme.spacing(1),
@@ -74,26 +76,23 @@ const AccountModule = () => {
   return (
     <div className={wrapper}>
       {account ? (
-        <React.Fragment>
-          <IdentityBadge entity={account} network={networkName} />
-          <Button
+        <>
+          <IdentityBadge address={account} network={networkName} />
+          <Controls.Button
             variant="contained"
             color="secondary"
-            size="small"
             className={disconnectButton}
             onClick={() => deactivate()}
-          >
-            Disconnect
-          </Button>
-        </React.Fragment>
+            text="Desconectar"
+          />
+        </>
       ) : (
-        <Button
+        <Controls.Button
           variant="contained"
           color="primary"
           onClick={() => setOpenModal(true)}
-        >
-          Connect Account
-        </Button>
+          text="Conectar cuenta"
+        />
       )}
 
       <ProvidersModal

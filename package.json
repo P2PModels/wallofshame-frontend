@@ -12,6 +12,7 @@
         "@testing-library/react": "^11.1.0",
         "@testing-library/user-event": "^12.1.10",
         "@usedapp/core": "^0.4.7",
+        "@web3-react/core": "^6.1.9",
         "@web3-react/injected-connector": "^6.0.7",
         "csvtojson": "^2.0.10",
         "d3-geo": "^2.0.2",

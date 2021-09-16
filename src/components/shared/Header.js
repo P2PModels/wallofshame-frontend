@@ -47,9 +47,6 @@ const useStyles = makeStyles(theme => ({
         },
     },
     menuButton: {
-        // fontFamily: 'Open Sans, sans-serif',
-        // fontWeight: 700,
-        // size: '18px',
         marginLeft: '38px',
     },
     toolbar: {
@@ -135,7 +132,7 @@ export default function Header() {
     }
 
     const getDrawerChoices = () => {
-        return headerMenuLinks.map(({ label, href, style }) => {
+        return headerMenuLinks.map(({ label, href }) => {
             return (
                 <Link
                     {...{
@@ -145,7 +142,6 @@ export default function Header() {
                         style: { textDecoration: 'none' },
                         key: label,
                         className: menuButton,
-                        style: style,
                     }}
                 >
                     <MenuItem>{label}</MenuItem>
@@ -161,7 +157,7 @@ export default function Header() {
     )
 
     const getMenuButtons = () => {
-        return headerMenuLinks.map(({ label, href, style }, i) => {
+        return headerMenuLinks.map(({ label, href }, i) => {
             return (
                 <Controls.Button
                     {...{
@@ -170,7 +166,6 @@ export default function Header() {
                         to: href,
                         component: RouterLink,
                         className: menuButton,
-                        style: style,
                     }}
                 >
                     {label}

@@ -12,24 +12,17 @@ const RADIUS = 4
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
-    overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
-    textAlign: 'left',
-    padding: theme.spacing(1),
-    // paddingLeft: ({ icon }) => (icon ? 0 : 1.5) * theme.spacing(1),
-    // paddingRight: ({ icon }) => (icon ? 0 : 1.5) * theme.spacing(1),
-    borderRadius: ({ radius }) => radius,
   },
   addressWrapper: {
-    overflow: 'hidden',
     maxWidth: theme.spacing(8) * 2,
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
     letterSpacing: 1,
-    marginBottom: theme.spacing(-0.7),
   },
   rightSection: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
     paddingLeft: theme.spacing(1),
   },
   connectionMessage: {
@@ -39,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const IdentityBadge = ({ entity, network }) => {
+const IdentityBadge = ({ address, network }) => {
   const {
     wrapper,
     rightSection,
@@ -49,16 +42,12 @@ const IdentityBadge = ({ entity, network }) => {
     icon: true,
     radius: RADIUS,
   })
-  // TODO: Check if entity is a valid address
-  const shortAddress = shortenAddress(entity)
+  // TODO: Check if address is a valid address
+  const shortAddress = shortenAddress(address)
   return (
     <div className={wrapper}>
-      <div
-        css={`
-          position: relative;
-        `}
-      >
-        <Identicon address={entity} scale={1.3} radius={RADIUS} />
+      <div>
+        <Identicon address={address} scale={1.3} radius={RADIUS} />
       </div>
       <div className={rightSection}>
         <div className={addressWrapper}>

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const PX_RATIO = typeof devicePixelRatio === 'undefined' ? 2 : devicePixelRatio
 const BLOCKIES_SQUARES = 8 // commonly used to represent Ethereum addresses
-const BASE_SCALE = 3
+const BASE_SCALE = 4
 
 const useStyles = makeStyles(theme => ({
   main: {
