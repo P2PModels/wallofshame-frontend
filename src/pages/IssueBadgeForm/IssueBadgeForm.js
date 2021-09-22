@@ -10,8 +10,7 @@ import * as issueBadgeOptions from '../../services/issueBadgeOptions'
 import { ethers } from 'ethers'
 import { useEthers } from '@usedapp/core'
 
-
-import Badge from '../../services/dbadge_backend/Badge.json'
+import Badge from '../../abis/Badge.json'
 
 const genderItems = [
     {
@@ -62,10 +61,7 @@ const recipient = '0x05eC46AeBA9Ed0bfC7318bA950977a22386A3fc2'
 export default function IssueBadgeForm() {
     const classes = useStyles()
 
-    const {
-        library: provider,
-        active,
-    } = useEthers()
+    const { library: provider, active } = useEthers()
 
     const { values, handleInputChange, submit } = useForm(initialFValues)
     // const [issueBadge, { data, loading, error }] = useMutation(ISSUE_BADGE)
@@ -73,22 +69,19 @@ export default function IssueBadgeForm() {
     const issueBadgeBlockchain = async () => {
         // This code should be a component or hook
         const signer = provider.getSigner()
-        // console.log('Signer: ')
-        // console.log(signer)
         const badgeIssuerInstance = new ethers.Contract(
             Badge.address,
             Badge.abi,
             signer
         )
-        // console.log('Connected to contract')
         try {
             const receipt = await badgeIssuerInstance.issue(
                 values.issuerName,
                 recipient,
                 values.recipientName
             )
-            // console.log('Transaciton sent')
-            // console.log(receipt)
+            console.log('Transaciton sent')
+            console.log(receipt)
             // issueBadge({ variables: { data: values } })
             // console.log('DB recorded')
         } catch (e) {
@@ -109,9 +102,7 @@ export default function IssueBadgeForm() {
 
     return (
         <div className={classes.root}>
-            <Form
-                onSubmit={submit(issueBadgeBlockchain)}
-            >
+            <Form onSubmit={submit(issueBadgeBlockchain)}>
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <Typography>

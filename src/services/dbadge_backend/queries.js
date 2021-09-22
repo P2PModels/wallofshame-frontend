@@ -14,7 +14,7 @@ export const ALL_BADGES = gql`
 
 export const FIRST_10_BADGES = gql`
     query {
-        badges(first: 10) {
+        badges(first: 15) {
             id
             issuerName
             recipientName

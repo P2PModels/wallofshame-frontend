@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css'
 import { ThemeProvider } from '@material-ui/core/styles'
 
+import { AppStateProvider } from './contexts/AppState'
+
 import Dashboard from './pages/Dashboard'
 import IssueBadge from './pages/IssueBadgeForm/IssueBadge'
 
@@ -34,24 +36,26 @@ const client = new ApolloClient({
 
 function App() {
     return (
-        <ApolloProvider client={client}>
-            <DAppProvider config={dAppConfig}>
-                <BrowserRouter>
-                    <ThemeProvider theme={theme}>
-                        <Header />
-                        <Switch>
-                            <Route exact path="/">
-                                <Dashboard></Dashboard>
-                            </Route>
-                            <Route exact path="/issue-badge">
-                                    <IssueBadge></IssueBadge>
-                            </Route>
-                        </Switch>
-                        <Footer />
-                    </ThemeProvider>
-                </BrowserRouter>
-            </DAppProvider>
-        </ApolloProvider>
+        <AppStateProvider>
+            <ApolloProvider client={client}>
+                <DAppProvider config={dAppConfig}>
+                    <BrowserRouter>
+                        <ThemeProvider theme={theme}>
+                            <Header />
+                            <Switch>
+                                <Route exact path="/">
+                                    <Dashboard></Dashboard>
+                                </Route>
+                                <Route exact path="/issue-badge">
+                                        <IssueBadge></IssueBadge>
+                                </Route>
+                            </Switch>
+                            <Footer />
+                        </ThemeProvider>
+                    </BrowserRouter>
+                </DAppProvider>
+            </ApolloProvider>
+        </AppStateProvider>
     )
 }
 

@@ -79,10 +79,41 @@ function useActions(onReportStatus) {
     [organization, app, web3, account, onReportStatus]
   )
 
+  const issueBadge = async (values) => {
+
+    // Issue Badge to the Blockchain
+    const signer = provider.getSigner()
+
+    const badgeIssuerInstance = new ethers.Contract(
+        Badge.address,
+        Badge.abi,
+        signer
+    )
+
+    try {
+        const receipt = await badgeIssuerInstance.issue(
+            values.issuerName,
+            recipient,
+            values.recipientName
+        )
+    } catch (e) {
+        console.log('The error is:')
+        console.error(e)
+    }
+
+    // Issue Badge to the back-end
+
+    // console.log('Transaciton sent')
+    // console.log(receipt)
+    // issueBadge({ variables: { data: values } })
+    // console.log('DB recorded')
+}
+
   return {
     reallocateTask,
     acceptTask,
     rejectTask,
+    issueBadge,
   }
 }
 

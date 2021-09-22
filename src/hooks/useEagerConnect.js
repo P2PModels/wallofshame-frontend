@@ -1,34 +1,37 @@
 import { useState, useEffect } from 'react'
-import { useWeb3React } from '@web3-react/core'
 import { injected } from '../wallet-providers'
+import { useEthers } from '@usedapp/core'
 
 function useEagerConnect() {
-  const { activate, active } = useWeb3React()
+    const { active, activate } = useEthers()
 
-  const [tried, setTried] = useState(false)
+    const [tried, setTried] = useState(false)
 
-  useEffect(() => {
-    // console.log('[useEagerConnect] Trying to connect')
-    injected.isAuthorized().then(isAuthorized => {
-      // console.log(isAuthorized)
-      if (isAuthorized) {
-        activate(injected, undefined, true).catch(() => {
-          setTried(true)
-        })
-      } else {
-        setTried(true)
-      }
-    })
-  }, [activate]) // intentionally only running on mount (make sure it's only mounted once :))
+    useEffect(() => {
+        if (!active) {
+            console.log('[useEagerConnect] Trying to connect')
 
-  // if the connection worked, wait until we get confirmation of that to flip the flag
-  useEffect(() => {
-    if (!tried && active) {
-      setTried(true)
-    }
-  }, [tried, active])
+            injected.isAuthorized().then(isAuthorized => {
+                // console.log(isAuthorized)
+                if (isAuthorized) {
+                    activate(injected, undefined, true).catch(() => {
+                        setTried(true)
+                    })
+                } else {
+                    setTried(true)
+                }
+            })
+        }
+    }, []) // Only runs on mount
 
-  return [tried]
+    // if the connection worked, wait until we get confirmation of that to flip the flag
+    useEffect(() => {
+        if (!tried && active) {
+            setTried(true)
+        }
+    }, [tried, active])
+
+    return [tried]
 }
 
 export default useEagerConnect
