@@ -94,7 +94,7 @@ export default function Header() {
                 <Toolbar className={toolbar} disableGutters>
                     {customLogo}
                     <div>{getMenuButtons()} </div>
-                    <AccountModule />
+                    {/* <AccountModule /> */}
                 </Toolbar>
             </Container>
         )

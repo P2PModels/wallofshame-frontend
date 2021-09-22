@@ -8,6 +8,9 @@ import {
     Typography,
     Grid,
 } from '@material-ui/core'
+import Chart from '../components/Chart'
+import Chart2 from '../components/Chart2'
+import MapChart from '../components/MapChart'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,7 +30,7 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
     },
     fixedHeight: {
-        height: 240,
+        height: 340,
     },
     fullHeight: {
         height: '100%',
@@ -46,10 +49,9 @@ export default function Report() {
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    <Grid container spacing={3} justify={'center'}>
-                        {/* Chart */}
-                        <Grid item xs={12} md={12} lg={8}>
-                            <Paper className={fixedHeightPaper}>
+                    <Paper className={fullHeightPaper}>
+                        <Grid container spacing={3} justify={'center'}>
+                            <Grid item xs={12} md={12} lg={12}>
                                 <Typography
                                     component="h1"
                                     variant="h1"
@@ -57,9 +59,36 @@ export default function Report() {
                                 >
                                     Informe Indaga
                                 </Typography>
-                            </Paper>
+                            </Grid>
+                            {/* Chart */}
+                            <Grid
+                                item
+                                xs={12}
+                                lg={6}
+                                className={fixedHeightPaper}
+                            >
+                                <Chart />
+                            </Grid>
+                            {/* Bar chart */}
+                            <Grid
+                                item
+                                xs={12}
+                                lg={6}
+                                className={fixedHeightPaper}
+                            >
+                                <Chart2 />
+                            </Grid>
+                            {/* Simple maps map */}
+                            <Grid
+                                item
+                                xs={12}
+                                lg={6}
+                                className={fixedHeightPaper}
+                            >
+                                <MapChart />
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </Paper>
                 </Container>
             </main>
         </div>
