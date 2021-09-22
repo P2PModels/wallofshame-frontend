@@ -1,9 +1,13 @@
 import React from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
-import { CssBaseline, Container, Paper, Grid } from '@material-ui/core'
-import Chart from '../components/Chart'
-import Feed from '../components/Feed'
+import {
+    CssBaseline,
+    Container,
+    Paper,
+    Typography,
+    Grid,
+} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function Dashboard() {
+export default function Report() {
     const classes = useStyles()
 
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
@@ -46,13 +50,13 @@ export default function Dashboard() {
                         {/* Chart */}
                         <Grid item xs={12} md={12} lg={8}>
                             <Paper className={fixedHeightPaper}>
-                                <Chart />
-                            </Paper>
-                        </Grid>
-                        {/* Feed */}
-                        <Grid item xs={12} md={12} lg={12}>
-                            <Paper className={fullHeightPaper}>
-                                <Feed />
+                                <Typography
+                                    component="h1"
+                                    variant="h1"
+                                    className={classes.title}
+                                >
+                                    Informe Indaga
+                                </Typography>
                             </Paper>
                         </Grid>
                     </Grid>

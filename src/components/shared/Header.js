@@ -19,13 +19,17 @@ const logoSrc = './assets/smart-logo.png'
 
 const headerMenuLinks = [
     {
-        label: 'Panel central',
+        label: 'Datos',
         href: '/',
     },
     {
-        label: 'Emitir sello',
-        href: '/issue-badge',
+        label: 'Sello Calidad ',
+        href: '/badges',
     },
+    // {
+    //     label: 'Emitir sello',
+    //     href: '/issue-badge',
+    // },
 ]
 
 const useStyles = makeStyles(theme => ({
@@ -88,7 +92,7 @@ export default function Header() {
         return (
             <Container>
                 <Toolbar className={toolbar} disableGutters>
-                    {customLogo} 
+                    {customLogo}
                     <div>{getMenuButtons()} </div>
                     <AccountModule />
                 </Toolbar>

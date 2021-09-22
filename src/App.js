@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 
 import { AppStateProvider } from './contexts/AppState'
 
+import Report from './pages/Report'
 import Dashboard from './pages/Dashboard'
 import IssueBadge from './pages/IssueBadgeForm/IssueBadge'
 
@@ -17,17 +18,15 @@ import theme from './themes/smart'
 
 import config from './config.json'
 
-
 import { ChainId, DAppProvider } from '@usedapp/core'
 
 const dAppConfig = {
-//   readOnlyChainId: ChainId.Rinkeby,
-//   readOnlyUrls: {
-//     [ChainId.Rinkeby]: '',
-//   },
-    supportedChains: [ ChainId.Rinkeby ],
+    //   readOnlyChainId: ChainId.Rinkeby,
+    //   readOnlyUrls: {
+    //     [ChainId.Rinkeby]: '',
+    //   },
+    supportedChains: [ChainId.Rinkeby],
 }
-      
 
 const client = new ApolloClient({
     uri: config.gql.theGraphDev,
@@ -44,10 +43,13 @@ function App() {
                             <Header />
                             <Switch>
                                 <Route exact path="/">
-                                    <Dashboard></Dashboard>
+                                    <Report />
+                                </Route>
+                                <Route exact path="/badges">
+                                    <Dashboard />
                                 </Route>
                                 <Route exact path="/issue-badge">
-                                        <IssueBadge></IssueBadge>
+                                    <IssueBadge />
                                 </Route>
                             </Switch>
                             <Footer />
