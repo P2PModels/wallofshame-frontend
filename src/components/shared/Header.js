@@ -13,18 +13,23 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import { Link as RouterLink } from 'react-router-dom'
 import Controls from './controls/Controls'
+import AccountModule from '../AccountModule/AccountModule'
 
 const logoSrc = './assets/smart-logo.png'
 
-const headersData = [
+const headerMenuLinks = [
     {
-        label: 'Add non-payment',
-        href: '/add-non-payment',
-    },
-    {
-        label: 'Dashboard',
+        label: 'Datos',
         href: '/',
     },
+    {
+        label: 'Sello Calidad ',
+        href: '/badges',
+    },
+    // {
+    //     label: 'Emitir sello',
+    //     href: '/issue-badge',
+    // },
 ]
 
 const useStyles = makeStyles(theme => ({
@@ -46,9 +51,6 @@ const useStyles = makeStyles(theme => ({
         },
     },
     menuButton: {
-        fontFamily: 'Open Sans, sans-serif',
-        fontWeight: 700,
-        size: '18px',
         marginLeft: '38px',
     },
     toolbar: {
@@ -91,7 +93,8 @@ export default function Header() {
             <Container>
                 <Toolbar className={toolbar} disableGutters>
                     {customLogo}
-                    <div>{getMenuButtons()}</div>
+                    <div>{getMenuButtons()} </div>
+                    {/* <AccountModule /> */}
                 </Toolbar>
             </Container>
         )
@@ -133,7 +136,7 @@ export default function Header() {
     }
 
     const getDrawerChoices = () => {
-        return headersData.map(({ label, href }, i) => {
+        return headerMenuLinks.map(({ label, href }) => {
             return (
                 <Link
                     {...{
@@ -142,8 +145,8 @@ export default function Header() {
                         color: 'inherit',
                         style: { textDecoration: 'none' },
                         key: label,
+                        className: menuButton,
                     }}
-                    key={i}
                 >
                     <MenuItem>{label}</MenuItem>
                 </Link>
@@ -158,16 +161,16 @@ export default function Header() {
     )
 
     const getMenuButtons = () => {
-        return headersData.map(({ label, href }, i) => {
+        return headerMenuLinks.map(({ label, href }, i) => {
             return (
                 <Controls.Button
                     {...{
+                        key: i,
                         text: label,
                         to: href,
                         component: RouterLink,
                         className: menuButton,
                     }}
-                    key={i}
                 >
                     {label}
                 </Controls.Button>
@@ -180,7 +183,7 @@ export default function Header() {
             className={header}
             color="transparent"
             variant="outlined"
-            position="static"
+            position="absolute"
         >
             {mobileView ? displayMobile() : displayDesktop()}
         </AppBar>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useQuery } from "@apollo/client";
 import { useTheme } from '@material-ui/core/styles'
 import {
     LineChart,
@@ -10,9 +11,11 @@ import {
 } from 'recharts'
 import Title from './Title'
 
+import { ALL_BADGES } from '../services/dbadge_backend/queries'
+
 // Generate Sales Data
-function createData(time, amount) {
-    return { time, amount }
+function createData(day, amount) {
+    return { day, amount }
 }
 
 const data = [
@@ -32,7 +35,7 @@ export default function Chart() {
 
     return (
         <React.Fragment>
-            <Title>Today</Title>
+            <Title>Sellos expedidos el último mes</Title>
             <ResponsiveContainer>
                 <LineChart
                     data={data}
@@ -43,7 +46,10 @@ export default function Chart() {
                         left: 24,
                     }}
                 >
-                    <XAxis dataKey="time" stroke={theme.palette.text.main} />
+                    <XAxis
+                        dataKey="time"
+                        stroke={theme.palette.text.main}
+                    />
                     <YAxis stroke={theme.palette.text.main}>
                         <Label
                             angle={270}

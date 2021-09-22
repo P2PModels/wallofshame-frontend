@@ -25,5 +25,5 @@ export const grey = {
 }
 
 export const greenBlue = {
-    500: '#018786',
+    500: '#018786'
 }
