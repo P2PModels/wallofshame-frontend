@@ -7,7 +7,7 @@ import {
     Typography,
     Grid,
 } from '@material-ui/core'
-import IssueBadgeForm from './IssueBadgeForm'
+import LoginForm from '../components/Login/LoginForm'
 // import MetamaskButton from '../../components/MetamaskButton'
 
 const useStyles = makeStyles(theme => ({
@@ -37,14 +37,13 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.text.dark,
         font: 'IBM Plex Mono Regular',
     },
+    main: {
+        height: '100vh',
+    },
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
-    },
-    flexItemEnd: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-start',
+        height: '100%',
     },
 }))
 
@@ -54,38 +53,13 @@ export default function IssueBadge() {
     return (
         <div>
             <CssBaseline />
-            <main>
+            <main className={classes.main}>
                 <div className={classes.appBarSpacer} />
-                <Box className={classes.titleContainer}>
-                    <Grid
-                        container
-                        className={classes.titleGrid}
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <Grid item>
-                            <Typography
-                                component="h1"
-                                variant="h3"
-                                className={classes.title}
-                            >
-                                Formulario de emisión de sellos
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </Box>
                 <Container maxWidth="lg" className={classes.container}>
-                    <Grid container justify="space-between">
+                    <Grid container justify="center">
                         <Grid item xs={8}>
-                            <Typography component="p" variant="h5" gutterBottom>
-                                Por favor, completa el siguiente formulario para
-                                emitir un sello
-                            </Typography>
-                            <IssueBadgeForm />
+                            <LoginForm />
                         </Grid>
-                        {/* <Grid item xs={3} className={classes.flexItemEnd}>
-                            <MetamaskButton />
-                        </Grid> */}
                     </Grid>
                 </Container>
             </main>

@@ -1,16 +1,16 @@
-import { React, useState } from 'react'
+import { React } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
 import { v4 as uuid } from 'uuid'
-import { useForm, Form } from '../../components/shared/useForm'
-import Controls from '../../components/shared/controls/Controls'
-import * as issueBadgeOptions from '../../services/issueBadgeOptions'
+import { useForm, Form } from './shared/useForm'
+import Controls from './shared/controls/Controls'
+import * as issueBadgeOptions from '../services/issueBadgeOptions'
 
 // import { ISSUE_BADGE } from '../../services/dbadge_backend/queries'
 import { ethers } from 'ethers'
 import { useEthers } from '@usedapp/core'
 
-import Badge from '../../abis/Badge.json'
+import Badge from '../abis/Badge.json'
 
 const genderItems = [
     {

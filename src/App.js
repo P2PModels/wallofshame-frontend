@@ -9,7 +9,7 @@ import { AppStateProvider } from './contexts/AppState'
 
 import Report from './pages/Report'
 import Dashboard from './pages/Dashboard'
-import IssueBadge from './pages/IssueBadgeForm/IssueBadge'
+import IssueBadge from './pages/IssueBadge'
 
 import Header from './components/shared/Header'
 import Footer from './components/shared/Footer'
@@ -19,6 +19,7 @@ import theme from './themes/smart'
 import config from './config.json'
 
 import { ChainId, DAppProvider } from '@usedapp/core'
+import Login from './pages/Login'
 
 const dAppConfig = {
     //   readOnlyChainId: ChainId.Rinkeby,
@@ -50,6 +51,9 @@ function App() {
                                 </Route>
                                 <Route exact path="/issue-badge">
                                     <IssueBadge />
+                                </Route>
+                                <Route exact path="/login">
+                                    <Login />
                                 </Route>
                             </Switch>
                             <Footer />
