@@ -4,7 +4,7 @@ import { Grid, Typography } from '@material-ui/core'
 import { v4 as uuid } from 'uuid'
 import { useForm, Form } from './shared/useForm'
 import Controls from './shared/controls/Controls'
-import * as issueBadgeOptions from '../services/issueBadgeOptions'
+import * as issueBadgeOptions from '../helpers/issueBadgeOptions'
 
 // import { ISSUE_BADGE } from '../../services/dbadge_backend/queries'
 import { ethers } from 'ethers'

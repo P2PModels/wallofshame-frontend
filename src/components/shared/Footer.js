@@ -4,7 +4,7 @@ import { Box, Typography } from '@material-ui/core'
 
 export default function Footer() {
     return (
-        <Box pt={4}>
+        <Box pt={2} pb={2}>
             <Copyleft />
         </Box>
     )

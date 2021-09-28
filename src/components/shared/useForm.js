@@ -6,7 +6,6 @@ export function useForm(initialFValues) {
 
     const handleInputChange = e => {
         const { name, value } = e.target
-
         setValues({
             ...values,
             [name]: value,
@@ -16,7 +15,11 @@ export function useForm(initialFValues) {
     const submit = (queryFcn, payload) => e => {
         e.preventDefault()
         // Triger mutation
-        queryFcn(payload)
+        try {
+            queryFcn(payload)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return {
@@ -27,20 +30,11 @@ export function useForm(initialFValues) {
     }
 }
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        '& .MuiFormControl-root': {
-            margin: `${theme.spacing(1)}px 0`,
-        },
-    },
-}))
-
 export function Form(props) {
-    const classes = useStyles()
-
+    const { onSubmit, children, ...other } = props
     return (
-        <form className={classes.root} onSubmit={props.onSubmit}>
-            {props.children}
+        <form onSubmit={onSubmit} {...other}>
+            {children}
         </form>
     )
 }

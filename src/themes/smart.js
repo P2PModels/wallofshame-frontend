@@ -17,6 +17,12 @@ const theme = createMuiTheme({
             main: grey[400],
             light: grey[100],
         },
+
+        error: {
+            dark: red[900],
+            main: red[500],
+            light: red[100],
+        },
     },
     typography: {
         fontsize: '16px',
@@ -49,8 +55,8 @@ const theme = createMuiTheme({
     mixins: {
         toolbar: {
             minHeight: '75px',
-        }
-    }
+        },
+    },
 })
 
 export default theme

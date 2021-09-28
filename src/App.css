@@ -36,3 +36,8 @@
         transform: rotate(360deg);
     }
 }
+
+main {
+    /* Make pages content at least as high as the viewport - footer */
+    min-height: calc(100vh - 85px);
+}
