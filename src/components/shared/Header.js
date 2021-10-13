@@ -13,7 +13,9 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import { Link as RouterLink } from 'react-router-dom'
 import Controls from './controls/Controls'
+import LogoutButton from '../Login/LogoutButton'
 import AccountModule from '../AccountModule/AccountModule'
+import useAuth from '../../providers/Auth/use'
 
 const logoSrc = './assets/smart-logo.png'
 
@@ -64,6 +66,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header() {
     const { header, logo, menuButton, toolbar, drawerContainer } = useStyles()
+
+    const { user } = useAuth()
 
     const [state, setState] = useState({
         mobileView: false,
@@ -161,7 +165,7 @@ export default function Header() {
     )
 
     const getMenuButtons = () => {
-        return headerMenuLinks.map(({ label, href }, i) => {
+        const mainMenu = headerMenuLinks.map(({ label, href }, i) => {
             return (
                 <Controls.Button
                     {...{
@@ -176,6 +180,19 @@ export default function Header() {
                 </Controls.Button>
             )
         })
+        // console.log('Header, user')
+        // console.log(user)
+        if (!!user) {
+            mainMenu.push(
+                <LogoutButton
+                    {...{
+                        key: 'logout',
+                        className: menuButton,
+                    }}
+                ></LogoutButton>
+            )
+        }
+        return mainMenu
     }
 
     return (

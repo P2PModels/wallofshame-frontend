@@ -1,24 +1,26 @@
 import React from 'react'
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import './App.css'
 import { ThemeProvider } from '@material-ui/core/styles'
 
-import { AppStateProvider } from './contexts/AppState'
+// import { AppStateProvider } from './contexts/AppState'
 
+import AuthProvider from './providers/Auth/provider'
+import ApolloProviderAuth from './components/ApolloProviderAuth'
+import PrivateRoute from './components/PrivateRoute'
 import Report from './pages/Report'
 import Dashboard from './pages/Dashboard'
-import IssueBadge from './pages/IssueBadgeForm/IssueBadge'
+import IssueBadge from './pages/IssueBadge'
+import Login from './pages/Login'
 
 import Header from './components/shared/Header'
 import Footer from './components/shared/Footer'
 
 import theme from './themes/smart'
 
-import config from './config.json'
-
 import { ChainId, DAppProvider } from '@usedapp/core'
+import Logout from './pages/Logout'
 
 const dAppConfig = {
     //   readOnlyChainId: ChainId.Rinkeby,
@@ -28,15 +30,11 @@ const dAppConfig = {
     supportedChains: [ChainId.Rinkeby],
 }
 
-const client = new ApolloClient({
-    uri: config.gql.theGraphDev,
-    cache: new InMemoryCache(),
-})
-
 function App() {
     return (
-        <AppStateProvider>
-            <ApolloProvider client={client}>
+        // <AppStateProvider>
+        <AuthProvider>
+            <ApolloProviderAuth>
                 <DAppProvider config={dAppConfig}>
                     <BrowserRouter>
                         <ThemeProvider theme={theme}>
@@ -48,16 +46,23 @@ function App() {
                                 <Route exact path="/badges">
                                     <Dashboard />
                                 </Route>
-                                <Route exact path="/issue-badge">
+                                <PrivateRoute exact path="/issue-badge">
                                     <IssueBadge />
+                                </PrivateRoute>
+                                <Route exact path="/login">
+                                    <Login />
+                                </Route>
+                                <Route exact path="/logout">
+                                    <Logout />
                                 </Route>
                             </Switch>
                             <Footer />
                         </ThemeProvider>
                     </BrowserRouter>
                 </DAppProvider>
-            </ApolloProvider>
-        </AppStateProvider>
+            </ApolloProviderAuth>
+        </AuthProvider>
+        // </AppStateProvider>
     )
 }
 

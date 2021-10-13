@@ -1,0 +1,63 @@
+site_name: Wall of Shame Prototype
+site_url: https://example.com/ # TODO: change url
+
+repo_url: https://github.com/P2PModels/wallofshame-frontend
+repo_name: Wall of Shame - Frontend
+
+nav:
+    - Home: index.md
+    - Frontend:
+          - Architecture: frontend/architecture.md
+          - Login: frontend/login.md
+    - Backend:
+          - Architecture: backend/architecture.md
+          - 'How to add changes?': backend/editing-guide.md
+    - Blockchain:
+          - Architecture: blockchain/architecture.md
+    - About: about.md
+    - MetaDocs: metadocs.md
+
+theme:
+    name: material
+    favicon: assets/images/favicon.ico
+    logo: assets/images/logo.png
+    palette:
+        - media: '(prefers-color-scheme: light)'
+          scheme: default
+          primary: deep purple
+          accent: pink
+          toggle:
+              icon: material/toggle-switch-off-outline
+              name: Switch to dark mode
+        - media: '(prefers-color-scheme: dark)'
+          scheme: slate
+          primary: purple
+          accent: light blue
+          toggle:
+              icon: material/toggle-switch
+              name: Switch to light mode
+
+features:
+    - header.autohide
+
+extra:
+    social:
+        - icon: fontawesome/solid/mouse-pointer
+          link: https://p2pmodels.eu
+          name: P2PModels website
+
+        - icon: fontawesome/brands/twitter
+          link: https://twitter.com/p2pmod
+          name: P2PModels on Twitter
+
+        - icon: fontawesome/brands/github
+          link: https://github.com/P2PModels
+          name: P2PModels on Github
+
+plugins:
+    - git-revision-date
+
+markdown_extensions:
+    - admonition
+    - toc:
+          permalink: true

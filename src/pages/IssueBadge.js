@@ -7,7 +7,7 @@ import {
     Typography,
     Grid,
 } from '@material-ui/core'
-import IssueBadgeForm from './IssueBadgeForm'
+import IssueBadgeForm from '../components/IssueBadgeForm'
 // import MetamaskButton from '../../components/MetamaskButton'
 
 const useStyles = makeStyles(theme => ({
