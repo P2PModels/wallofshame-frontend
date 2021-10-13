@@ -4,8 +4,8 @@
 
 The Wall of Shame prototype will combine data-activism with the Ethereum blockchain to provide a censorship-resistant dashboard of unpaid invoices from cultural workers.
 
-<img src="./assets/images/Form.png" width="51%" style="display: inline-block">
-<img src="./assets/images/Dashboard.png" width="44.3%" style="display: inline-block">
+<img src="./assets/images/Form.png" alt="Dashboard screenshot" width="51%" style="display: inline-block">
+<img src="./assets/images/Dashboard.png" alt="Form screenshot" width="44.3%" style="display: inline-block">
 
 Some screenshots from the current state of the prototype.
 
@@ -58,7 +58,7 @@ If you want to modify and deploy the a diferent smart contract or subgraph visit
 
 At the blockchain level we find the Invoice smart contract, which will serve as the application contract. The task of this contract is to abstract common characteristics of invoices and serve as a registry with permissions, events, status variables, etc.
 
-We will use a backend server to make use of a hybrid architecture in which we can implement three different models:
+At the backend level we use an Apollo server witha GraphQL API to make use of a hybrid architecture in which we can implement three different models:
 
 1. Transparent use of blockchain without the option to recover account: The only ethereum account (EOA) would be the one of P2PModels and it will cover the costs for all the blockchain interactions. As mentioned in [Task assignment in Amara. Prototyping Round Robin with blockchain (I)](https://p2pmodels.eu/task-assignment-in-amara-prototype-round-robin/):
 
@@ -67,9 +67,9 @@ We will use a backend server to make use of a hybrid architecture in which we ca
 2. Transparent use of blockchain with the possibility for the user of recovering the EOA and start using the web3 interface.
 3. Web3 interface by default: this means the user has to be familiar, or learn it, with the blockchain technology.
 
-In this prototype we are going to test the user experience for each scenario to provide some insights in the usability of web3 services for new users.
+In this prototype we are going to test the user experience for each scenario to provide some insights in the usability of web3 services for new users. ~~Therefore, the backend server will be used for handeling blockchain logic in scenarios 1 and 2.~~ ¿? We use Prisma as middleware software to add this resolvers that may interact with ethereum and also to automatize the database (PostgresQL) management and improve code quality.
 
-This server has a GraphQL end point thats provides access to the API, mainly users managment and invoice data. We use Prisma as middleware software to automatize the database (PostgresQL) management and improve code quality.
+At the frontend level we have a react app with an Apollo client that conects both with the backend API and the graph (GraphQL endpoints) and also to ethereum through
 
 We will also use a second server, corresponding to the Transaction Manager component, that will be in charge of reassigning the tasks once their allotted time period has lapsed. This will be done through cron jobs, which will be run by sending a transaction to the contract whenever a task’s allotted period of time is up, thereby reassigning the task to a new user. The server will listen to contract events that are issued when a new job is created in order to then prepare a cron job.
 

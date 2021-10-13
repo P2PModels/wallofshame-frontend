@@ -6,8 +6,16 @@ repo_name: Wall of Shame - Frontend
 
 nav:
     - Home: index.md
+    - Frontend:
+          - Architecture: frontend/architecture.md
+          - Login: frontend/login.md
+    - Backend:
+          - Architecture: backend/architecture.md
+          - 'How to add changes?': backend/editing-guide.md
+    - Blockchain:
+          - Architecture: blockchain/architecture.md
     - About: about.md
-    - 'MetaDocs': metadocs.md
+    - MetaDocs: metadocs.md
 
 theme:
     name: material
@@ -16,14 +24,14 @@ theme:
     palette:
         - media: '(prefers-color-scheme: light)'
           scheme: default
-          primary: pink
-          accent: purple
+          primary: deep purple
+          accent: pink
           toggle:
               icon: material/toggle-switch-off-outline
               name: Switch to dark mode
         - media: '(prefers-color-scheme: dark)'
           scheme: slate
-          primary: deep purple
+          primary: purple
           accent: light blue
           toggle:
               icon: material/toggle-switch
