@@ -3,14 +3,35 @@ import { authContext } from './context'
 
 const TOKEN_PREFIX = 'Commons '
 
-function useProvideAuth() {
-    const [user, setUser] = useState(null)
-    const [token, setToken] = useState(null)
+function useAuthProvider() {
+
+    function saveUser(user = undefined) {
+        user ? sessionStorage.setItem('user',  JSON.stringify(user)) : sessionStorage.removeItem('user')
+        setUser(getUser())
+    }
+
+    function getUser() {
+        const userString = sessionStorage.getItem('user')
+        const user = JSON.parse(userString)
+        return user ? user : null
+    }
+
+    function saveToken(token = undefined) {
+        token ? sessionStorage.setItem('token', TOKEN_PREFIX + token) : sessionStorage.removeItem('token')
+        setToken(getToken())
+    }
+
+    function getToken() {
+        const token = sessionStorage.getItem('token')
+        return token ? token : null
+    }
+
+    const [user, setUser] = useState(getUser())
+    const [token, setToken] = useState(getToken())
 
     const setAuth = a => {
-        setUser(a.user)
-        const tokenWithPrefix = TOKEN_PREFIX + a.token
-        setToken(tokenWithPrefix)
+        saveUser(a.user)
+        saveToken(a.token)
     }
 
     return {
@@ -20,7 +41,7 @@ function useProvideAuth() {
     }
 }
 
-export default function ProvideAuth({ children }) {
-    const auth = useProvideAuth()
+export default function AuthProvider({ children }) {
+    const auth = useAuthProvider()
     return <authContext.Provider value={auth}>{children}</authContext.Provider>
 }

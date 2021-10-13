@@ -4,12 +4,12 @@ import useAuth from '../providers/Auth/use'
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
 export default function PrivateRoute({ children, ...other }) {
-    let auth = useAuth()
+    const { user } = useAuth()
     return (
         <Route
             {...other}
             render={({ location }) =>
-                auth.user ? (
+                user ? (
                     children
                 ) : (
                     <Redirect

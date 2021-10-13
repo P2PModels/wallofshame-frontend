@@ -24,7 +24,15 @@ export const LOGIN = gql`
                 name
                 password
                 role
+                connected
             }
+        }
+    }
+`
+export const LOGOUT = gql`
+    mutation Logout {
+        logout {
+            connected
         }
     }
 `
@@ -36,6 +44,7 @@ export const ME = gql`
             name
             password
             role
+            connected
         }
     }
 `
