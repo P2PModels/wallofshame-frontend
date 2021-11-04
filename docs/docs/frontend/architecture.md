@@ -19,7 +19,3 @@ There are several ways to implement a react webapp, different architectures and 
 An other way to manage the app state is through the use of Context from the react library. A react context creates an inmutable object that can be updated through the createContext function. It also has a provider and a cosumer interface. The provider sets the state of the context, it can be placed in any part of the component tree but only the child components can make use of the consumer interface ([useContext hook](https://daveceddia.com/usecontext-hook/)) to get the context. A great review of this pattern can be found in the article [React Architecture: The React Provider Pattern by Morten Barklund](https://mortenbarklund.com/blog/react-architecture-provider-pattern/)
 
 ---
-
-
-
-

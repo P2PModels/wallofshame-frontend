@@ -9,6 +9,18 @@ The Wall of Shame prototype will combine data-activism with the Ethereum blockch
 
 Some screenshots from the current state of the prototype.
 
+## The case-study
+
+This prototype will try to tackle a progressive adoption of the web3 technologies. In order to succesfully achive this task three different scenarios have been designed:
+
+1. **Outsider**: in this scenario we encounter a user that wants to use our solution but lacks any knowledge regarding blockchain technology neither has she any intention of getting familiarized with it. She has never used a wallet or any cryptocurrency, she has never heard about a smart contract and she has no intention of learning about it, she just wants to use the website. Therefore the requirements for this scenario is: **Transparent use of web3 technologies through a platform account**. The only ethereum account (EOA) would be the one of P2PModels and it will cover the costs for all the blockchain interactions. As mentioned in [Task assignment in Amara. Prototyping Round Robin with blockchain (I)](https://p2pmodels.eu/task-assignment-in-amara-prototype-round-robin/):
+
+    > The idea behind this component is to cover the costs related to these transactions. We want to spare the users (linguists) this expense, as it could severely affect the user experience and usability of the prototype.
+
+2. **Adopter**: in this scenario we could find a completly nobel user of web3 technologies but interested in learning, or we could find a user with some basic notions about cryptocurrencies and wallets. In both cases, the user prefers a web2 interface but might be interested in some extra info regarding the signer account and recovering it and start using a web3 ui. Therefore the requirements for this scenario is: **Transparent use of web3 technologies with personal account (Ethereum EOA)**. Each user will have its own wallet, with fonds provided by the organization account/using metatransactions, managed by the platform until the user exports it.
+
+3. **Native**: in this scenario the user is completly familiarized with web3 technologies. The platform can be presented as a dApp, requesting user wallet connection, transaction signing, etc. Therefore the requirements are: **Opaque use of web3 technologies through personal account (Ethereum account)** the platform won't have any record about the user.
+
 ## Instalation and Setup
 
 ### Ubuntu 20.04 LTS
