@@ -63,7 +63,7 @@ export const ALL_BADGES = gql`
 
 export const FIRST_10_BADGES = gql`
     query {
-        badges(first: 15) {
+        feed(take: 10) {
             id
             issuerName
             recipientName
@@ -73,12 +73,16 @@ export const FIRST_10_BADGES = gql`
 
 export const ISSUE_BADGE = gql`
     mutation IssueBadge($data: BadgeCreateInput!) {
-        addBadge(data: $data) {
+        issueBadge(data: $data) {
             id
             issuerName
             recipientName
             area
             issueDate
+            txReceipt {
+                to
+                from
+            }
         }
     }
 `

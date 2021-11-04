@@ -46,11 +46,12 @@ export default function Feed() {
             </React.Fragment>
         )
     }
+
     return (
         <React.Fragment>
             <Title>Últimos certificados expedidos</Title>
             <Grid container justify={'flex-start'}>
-                {data.badges.map(badge => {
+                {data.feed.map(badge => {
                     return (
                         <Grid key={badge.id} item xs={12} md={6} lg={3}>
                             <Card className={classes.badge}>

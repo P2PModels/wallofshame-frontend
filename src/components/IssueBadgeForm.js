@@ -1,16 +1,18 @@
 import { React } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
+import { useMutation } from '@apollo/client'
 import { v4 as uuid } from 'uuid'
 import { useForm, Form } from './shared/useForm'
 import Controls from './shared/controls/Controls'
+import InfoDialog from './shared/InfoDialog'
 import * as issueBadgeOptions from '../helpers/issueBadgeOptions'
 
-// import { ISSUE_BADGE } from '../../services/dbadge_backend/queries'
-import { ethers } from 'ethers'
-import { useEthers } from '@usedapp/core'
+import { ISSUE_BADGE } from '../services/dbadge_backend/queries'
+// import { ethers } from 'ethers'
+// import { useEthers } from '@usedapp/core'
 
-import Badge from '../abis/Badge.json'
+// import Badge from '../abis/Badge.json'
 
 const genderItems = [
     {
@@ -49,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const initialFValues = {
-    id: uuid(),
+    // id: uuid(),
     issuerName: '',
     recipientName: '',
     area: '',
@@ -61,48 +63,51 @@ const recipient = '0x05eC46AeBA9Ed0bfC7318bA950977a22386A3fc2'
 export default function IssueBadgeForm() {
     const classes = useStyles()
 
-    const { library: provider, active } = useEthers()
+    // const { library: provider, active } = useEthers()
 
     const { values, handleInputChange, submit } = useForm(initialFValues)
-    // const [issueBadge, { data, loading, error }] = useMutation(ISSUE_BADGE)
+    const [issueBadge, { data, loading, error }] = useMutation(ISSUE_BADGE)
 
-    const issueBadgeBlockchain = async () => {
-        // This code should be a component or hook
-        const signer = provider.getSigner()
-        const badgeIssuerInstance = new ethers.Contract(
-            Badge.address,
-            Badge.abi,
-            signer
-        )
-        try {
-            const receipt = await badgeIssuerInstance.issue(
-                values.issuerName,
-                recipient,
-                values.recipientName
-            )
-            console.log('Transaciton sent')
-            console.log(receipt)
-            // issueBadge({ variables: { data: values } })
-            // console.log('DB recorded')
-        } catch (e) {
-            console.log('The error is:')
-            console.error(e)
-        }
-    }
-
-    // if (loading) return <Typography>Cargando...</Typography>
-    // if (error)
-    //     return (
-    //         <InfoDialog
-    //             title="Error"
-    //             contentText={error.message}
-    //             closeButtonText="Cerrar"
-    //         />
+    // const issueBadgeBlockchain = async () => {
+    //     // This code should be a component or hook
+    //     const signer = provider.getSigner()
+    //     const badgeIssuerInstance = new ethers.Contract(
+    //         Badge.address,
+    //         Badge.abi,
+    //         signer
     //     )
+    //     try {
+    //         const receipt = await badgeIssuerInstance.issue(
+    //             values.issuerName,
+    //             recipient,
+    //             values.recipientName
+    //         )
+    //         console.log('Transaciton sent')
+    //         console.log(receipt)
+    //         // issueBadge({ variables: { data: values } })
+    //         // console.log('DB recorded')
+    //     } catch (e) {
+    //         console.log('The error is:')
+    //         console.error(e)
+    //     }
+    // }
+
+    if (loading) return <Typography>Cargando...</Typography>
+    if (error)
+        return (
+            <InfoDialog
+                title="Error"
+                contentText={error.message}
+                closeButtonText="Cerrar"
+            />
+        )
 
     return (
         <div className={classes.root}>
-            <Form onSubmit={submit(issueBadgeBlockchain)}>
+            {/* <Form onSubmit={submit(issueBadgeBlockchain)}> */}
+            <Form
+                onSubmit={submit(issueBadge, { variables: { data: values } })}
+            >
                 <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <Typography>
@@ -145,7 +150,7 @@ export default function IssueBadgeForm() {
                         <Controls.Button
                             type="submit"
                             text="EMITIR SELLO"
-                            disabled={!active}
+                            // disabled={!active}
                         />
                     </Grid>
                 </Grid>
