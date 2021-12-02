@@ -6,6 +6,7 @@ repo_name: Wall of Shame - Frontend
 
 nav:
     - Home: index.md
+    - Roadmap: roadmap.md
     - Frontend:
           - Architecture: frontend/architecture.md
           - Login: frontend/login.md

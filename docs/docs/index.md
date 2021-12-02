@@ -11,7 +11,7 @@ Some screenshots from the current state of the prototype.
 
 ## The case-study
 
-This prototype will try to tackle a progressive adoption of the web3 technologies. In order to succesfully achive this task three different scenarios have been designed:
+This prototype will try to tackle a progressive adoption of the web3 technologies. In order to succesfully achive this task three different user profiles have been designed:
 
 1. **Outsider**: in this scenario we encounter a user that wants to use our solution but lacks any knowledge regarding blockchain technology neither has she any intention of getting familiarized with it. She has never used a wallet or any cryptocurrency, she has never heard about a smart contract and she has no intention of learning about it, she just wants to use the website. Therefore the requirements for this scenario is: **Transparent use of web3 technologies through a platform account**. The only ethereum account (EOA) would be the one of P2PModels and it will cover the costs for all the blockchain interactions. As mentioned in [Task assignment in Amara. Prototyping Round Robin with blockchain (I)](https://p2pmodels.eu/task-assignment-in-amara-prototype-round-robin/):
 
@@ -40,6 +40,8 @@ If you want to modify and deploy the a diferent smart contract or subgraph visit
 
 ## Technology stack
 
+The main frameworks and libraries used in this prototype are:
+
 ### Frontend
 
 -   React.js: this project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -51,18 +53,23 @@ If you want to modify and deploy the a diferent smart contract or subgraph visit
 
 ### Backend
 
--   Apollo server
--   Prisma
+-   [Apollo server](https://www.apollographql.com/docs/apollo-server/)
+-   [Prisma](https://www.prisma.io/): node.js ORM to manage your db.
+-   [Nexus](https://nexusjs.org/): Declarative, Code-First GraphQL Schemas for JavaScript/TypeScript
 -   [GraphQL](https://graphql.org/): as the data transfer layer replacing traditional API's.
--   PostgresQL: database.
+-   [PostgresQL](https://www.postgresql.org/): open-source relationtal database.
 
 ### Blockchain
 
--   Ethereum: blockchain 2.0 network.
--   Solidity: code language for developing smart contracts in Ethereum.
--   Hardhat: development tools to develope, test and deploy smart contracts.
--   Waffle: testing library for smart contracts.
--   The Graph: decentralized service for indexing complex events in the blockchain.
+-   [Ethereum](https://ethereum.org/en/): blockchain 2.0 network.
+-   [Solidity](https://soliditylang.org/): programming language for developing smart contracts in the Ethereum blockchain.
+-   [Hardhat](https://hardhat.org/): development tools to develope, test and deploy smart contracts.
+-   [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/): testing library for smart contracts.
+-   [The Graph](https://thegraph.com/en/): decentralized service for indexing complex events in the blockchain.
+
+### Deployment
+
+The backend of the project has been containerized using [Docker-compose](https://docs.docker.com/compose/).
 
 ## Architecrure
 
@@ -70,7 +77,7 @@ If you want to modify and deploy the a diferent smart contract or subgraph visit
 
 At the blockchain level we find the Invoice smart contract, which will serve as the application contract. The task of this contract is to abstract common characteristics of invoices and serve as a registry with permissions, events, status variables, etc.
 
-At the backend level we use an Apollo server witha GraphQL API to make use of a hybrid architecture in which we can implement three different models:
+At the backend level we use an Apollo server with a GraphQL API to make use of a hybrid architecture in which we can implement three different models:
 
 1. Transparent use of blockchain without the option to recover account: The only ethereum account (EOA) would be the one of P2PModels and it will cover the costs for all the blockchain interactions. As mentioned in [Task assignment in Amara. Prototyping Round Robin with blockchain (I)](https://p2pmodels.eu/task-assignment-in-amara-prototype-round-robin/):
 
@@ -79,11 +86,9 @@ At the backend level we use an Apollo server witha GraphQL API to make use of a 
 2. Transparent use of blockchain with the possibility for the user of recovering the EOA and start using the web3 interface.
 3. Web3 interface by default: this means the user has to be familiar, or learn it, with the blockchain technology.
 
-In this prototype we are going to test the user experience for each scenario to provide some insights in the usability of web3 services for new users. ~~Therefore, the backend server will be used for handeling blockchain logic in scenarios 1 and 2.~~ ¿? We use Prisma as middleware software to add this resolvers that may interact with ethereum and also to automatize the database (PostgresQL) management and improve code quality.
+In this prototype we are going to test the user experience for each scenario to provide some insights in the usability of web3 services for new users. ~~Therefore, the backend server will be used for handling blockchain logic in scenarios 1 and 2.~~ ¿? We use Prisma as middleware software to add this resolvers that may interact with ethereum and also to automate the database (PostgresQL) management and improve code quality.
 
-At the frontend level we have a react app with an Apollo client that conects both with the backend API and the graph (GraphQL endpoints) and also to ethereum through
-
-We will also use a second server, corresponding to the Transaction Manager component, that will be in charge of reassigning the tasks once their allotted time period has lapsed. This will be done through cron jobs, which will be run by sending a transaction to the contract whenever a task’s allotted period of time is up, thereby reassigning the task to a new user. The server will listen to contract events that are issued when a new job is created in order to then prepare a cron job.
+At the frontend level we have a react app with an Apollo client that connects both with the backend API and the graph (GraphQL endpoints) and also to ethereum through
 
 ## References
 

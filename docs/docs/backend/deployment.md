@@ -39,5 +39,5 @@ All services are connected through the <i>main</i> network and connect with each
 
 The only port exposed to the host is the API gateway endpoint located in port 4000.
 
-!!! warning "API Gateway dependency"
+!!! warning "API Gateway dependencies"
     The API Gateway has to wait until the microservices are ready. In order to do that the "wait-on" library has been used to listen to the microservice tcp ports and wait until all of them are ready. Trying to verify if the service is ready through an HTTP call from the <i>wait-on</i> library will result in an error since a GraphQL endpoint returns 400 error if no proper body is provided.

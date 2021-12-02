@@ -6,17 +6,20 @@
 
 ## Tech stack discussion
 
+### Hybrid architecture
+
+One of the main goals of this prototype is to provide a progressive adoption of the web 3.0 technologies by the end user, then why would our backend need a web2.0 architecture? Since we want to provide our users with web2.0 UI’s we need to handle things in the backend so they don’t have to worry about transactions, wallets, etc. But this doesn’t mean we need a hybrid architecture since we could be using only web 3.0 technologies in our backend. The main benefit of using a hybrid architecture is the flexibility given by the fact that we can offer the same service to the user whether it is web 2.0 or web 3.0. This means that if we want to use an authentication service developed by us with modern web2.0 stack we could provide it and later on add the same service using blockchain solutions.
+
+
 ### Monolithic API vs. Microservices through API gateway/proxy
 
-The question is: should we keep just one backend server with all the services or should we break it down to multiple ones applying separtion of concerns pattern?
+The question is: should we keep just one backend server with all the services or should we break it down to multiple ones applying the separation of concerns pattern?
 
-A monolithic approach its faster to develop and ca be clean if the resolvers get separated in different files.
+A monolithic approach its faster to develop and can be clean if the resolvers get separated in different files.On the other hand a microservices architecture ensures scalability and a cleaner way of integrating multiple third party services to the client.
 
-On the other hand a microservices architeture ensures scalability and a cleaner way of integrating multiple third party services to the client.
+This last point <i>"cleaner way of integrating multiple third party services to the client"</i> seems contrary to the web3 paradigm where clients tend to be "more independent" from a single backend provider. On the other hand, with this prototype we are questioning that approach to web3 adoption since a big issue with UX has been proved in the onboarding of new web3 adopters.  
 
-This last point <i>"cleaner way of integrating multiple third party services to the client"</i> seems contrary to the web3 paradigm where clients tend to be "more independent" from a single backend provider. On the other hand, with this prototype we are questioning that approach to web3 adoption since a big issue with UX has been proved.
-
-Therefore, the microservices architecture with a single entry point for the backend seems better for web3 adoption (simpler client).
+Moreover, the microservices architecture gives us the flexibility to migrate web2 services to web3 technologies progressively which is a great benefit when working with organizations. Therefore, the microservices architecture with a single entry point for the backend seems better for web3 adoption (simpler client).
 
 ### Federation services vs Schema stitching
 
@@ -26,7 +29,7 @@ When implementing microservices architecture through a API gateway we can find t
 
 **What is a federation service?**
 
-Other popular solution to Graphql gateway is [Apollo Federation](https://www.apollographql.com/docs/federation/). This solution, which might seem a great choice at first glance, but comes with a big dependence in the Apollo Studio service which provides a cloud platform for subgraph development in a collaborative way along a supergraph composition automation service.
+Another popular solution to Graphql gateway is [Apollo Federation](https://www.apollographql.com/docs/federation/). This solution, which might seem a great choice at first glance, comes with a big dependence on the Apollo Studio service which provides a cloud platform for subgraph development in a collaborative way along with a supergraph composition automation service.
 
 Quoting [Schema stitching Handbook](https://github.com/gmac/schema-stitching-handbook):
 
