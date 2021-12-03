@@ -4,9 +4,9 @@ import { useMutation } from '@apollo/client'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Paper, Typography, CircularProgress } from '@material-ui/core'
 
-import Controls from '../shared/controls/Controls'
+import Controls from '../Shared/controls/Controls'
 
-import { useForm, Form } from '../shared/useForm'
+import { useForm, Form } from '../Shared/useForm'
 import useAuth from '../../providers/Auth/use'
 
 import { LOGIN } from '../../services/dbadge_backend/queries'

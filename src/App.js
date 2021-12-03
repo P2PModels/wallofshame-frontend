@@ -11,11 +11,12 @@ import ApolloProviderAuth from './components/ApolloProviderAuth'
 import PrivateRoute from './components/PrivateRoute'
 import Report from './pages/Report'
 import Dashboard from './pages/Dashboard'
+import Landing from './pages/Landing'
 import IssueBadge from './pages/IssueBadge'
 import Login from './pages/Login'
 
-import Header from './components/shared/Header'
-import Footer from './components/shared/Footer'
+import Header from './components/Shared/Header'
+import Footer from './components/Shared/Footer'
 
 import theme from './themes/smart'
 
@@ -41,7 +42,7 @@ function App() {
                             <Header />
                             <Switch>
                                 <Route exact path="/">
-                                    <Report />
+                                    <Landing />
                                 </Route>
                                 <Route exact path="/badges">
                                     <Dashboard />

@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { getNetwork } from '../../networks'
 import { transformError } from '../../wallet-providers'
 
-import Controls from '../shared/controls/Controls'
+import Controls from '../Shared/controls/Controls'
 import ProvidersModal from '../Modals/ProvidersModal.js'
 import IdentityBadge from './IdentityBadge'
 import MessageModal from '../Modals/MessageModal'

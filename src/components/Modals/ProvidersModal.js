@@ -5,7 +5,7 @@ import {
   CircularProgress,
   Typography,
 } from '@material-ui/core'
-import ActionDialog from '../shared/ActionDialog'
+import ActionDialog from '../Shared/ActionDialog'
 
 import { connectorsByName } from '../../wallet-providers'
 
