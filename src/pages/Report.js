@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Paper, Typography, Grid } from '@material-ui/core'
 import Chart from '../components/Chart'
 import Chart2 from '../components/Chart2'
-import MapChart from '../components/MapChart'
+import Map from '../components/Map'
 import Page from '../components/Page'
 
 const useStyles = makeStyles(theme => ({
@@ -19,6 +19,10 @@ const useStyles = makeStyles(theme => ({
     },
     fullHeight: {
         height: '100%',
+    },
+    map: {
+        height: '500px',
+        width: '100%',
     },
 }))
 
@@ -49,9 +53,9 @@ export default function Report() {
                     <Grid item xs={12} lg={6} className={fixedHeightPaper}>
                         <Chart2 />
                     </Grid>
-                    {/* Simple maps map */}
-                    <Grid item xs={12} lg={6} className={fixedHeightPaper}>
-                        <MapChart />
+                    {/* Leaflet map */}
+                    <Grid item xs={12}>
+                        <Map className={classes.map} />
                     </Grid>
                 </Grid>
             </Paper>
