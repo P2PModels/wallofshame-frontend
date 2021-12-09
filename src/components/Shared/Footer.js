@@ -26,8 +26,13 @@ const useStyles = makeStyles(theme => ({
             position: 'relative',
             top: '-10%',
             height: '120%',
+            padding: '0',
+        },
+        '& #p2pmod': {
+            padding: '1.5rem',
         },
         '& img': {
+            padding: '1rem',
             height: '100%',
             width: 'auto',
             marginRight: '1rem',
@@ -45,22 +50,28 @@ const useStyles = makeStyles(theme => ({
             textDecoration: 'underline',
         },
     },
+    githubIcon: {
+        marginRight: '0.5rem',
+    }
 }))
 
 export default function Footer() {
-    const { flexRow, flexCol, footer, footerContent, logos, info } = useStyles()
+    const { flexRow, flexCol, footer, footerContent, logos, info, githubIcon } = useStyles()
 
     return (
         <div className={footer}>
             <Container maxWidth="xl" className={clsx(flexRow, footerContent)}>
                 <div className={clsx(flexRow, logos)}>
                     <img id="smart" src="./assets/smart-logo.png" />
-                    <img src="./assets/smart-logo.png" />
-                    <img src="./assets/smart-logo.png" />
-                    <img src="./assets/smart-logo.png" />
+                    <img id="p2pmod" src="./assets/p2p-logo.svg" />
+                    <img src="./assets/EU-logo.png" />
+                    <img src="./assets/ERC_logo.png" />
                 </div>
                 <Box className={clsx(flexRow, info)}>
                     <Box className={flexCol}>
+                        <i className={githubIcon}>
+                            <img src="./assets/ico-github.svg" />
+                        </i>
                         <span>
                             Follow us on{' '}
                             <Link

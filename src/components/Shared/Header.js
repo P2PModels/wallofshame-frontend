@@ -15,7 +15,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import Controls from './controls/Controls'
 import Title from '../Title'
 
-const logoSrc = './assets/smart-logo.png'
+const logoSrc = './assets/ico-logo.svg'
 
 const headerMenuLinks = [
     {
@@ -42,8 +42,12 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'row',
     },
     logo: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
         width: '150px',
         height: theme.mixins.toolbar.minHeight,
+        padding: '1rem',
         '& img': {
             height: '100%',
         },
