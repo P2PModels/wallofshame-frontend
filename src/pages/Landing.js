@@ -1,38 +1,30 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Paper, Grid } from '@material-ui/core'
+import { Container } from '@material-ui/core'
+import Dashboard from '../components/Dashboard'
 import Map from '../components/Map'
 import Page from '../components/Page'
-import Title from '../components/Title'
 
 const useStyles = makeStyles(theme => ({
     map: {
-        height: '500px',
-        width: '100%',
+        height: '80vh',
+        width: '100vw',
+        marginBottom: theme.spacing(2),
     },
 }))
 
 export default function Landing() {
     const classes = useStyles()
 
-
     return (
-        <Page>
-            <Grid container spacing={3} justify={'center'}>
-                {/* Map */}
-                <Grid item xs={12}>
-                    <Paper>
-                        <Map className={classes.map} />
-
-                    </Paper>
-                </Grid>
-                {/* Dashboard */}
-                <Grid item xs={12}>
-                    <Paper>
-                        <Title>Dashboard</Title>  
-                    </Paper>
-                </Grid>
-            </Grid>
+        <Page container={false}>
+            {/* Map */}
+            <Map className={classes.map} />
+    
+            {/* Dashboard */}
+            <Container maxWidth='xl'>
+                <Dashboard />  
+            </Container>
         </Page>
     )
 }

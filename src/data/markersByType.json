@@ -1,19 +1,19 @@
 {
     "maltrato": {
         "iconUrl": "./assets/smart-logo.png",
-        "iconSize": [38, 95],
+        "iconSize": [40, 40],
         "iconAnchor": [22, 94],
         "popupAnchor": [-3, -76]
     },
     "retraso": {
         "iconUrl": "./assets/smart-logo.png",
-        "iconSize": [38, 95],
+        "iconSize": [40, 40],
         "iconAnchor": [22, 94],
         "popupAnchor": [-3, -76]
     }, 
     "impago": {
         "iconUrl": "./assets/smart-logo.png",
-        "iconSize": [38, 95],
+        "iconSize": [40, 40],
         "iconAnchor": [22, 94],
         "popupAnchor": [-3, -76]
     }

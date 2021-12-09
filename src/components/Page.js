@@ -8,15 +8,27 @@ const useStyles = makeStyles(theme => ({
 
 export default function Page(props) {
     const classes = useStyles()
-    const { children, className } = props
-    return (
+    const { children, className, container=true, maxWidth } = props
+    
+    return container ? 
+        (
+            <div>
+                <CssBaseline />
+                <main>
+                    <div className={classes.appBarSpacer} />
+                    <Container maxWidth={maxWidth || "lg"} className={className}>
+                        {children}
+                    </Container>
+                </main>
+            </div>
+        )
+    :
+    (
         <div>
             <CssBaseline />
             <main>
                 <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={className}>
-                    {children}
-                </Container>
+                {children}
             </main>
         </div>
     )

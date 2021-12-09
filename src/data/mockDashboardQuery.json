@@ -1,0 +1,30 @@
+{
+    "regionName": "Madrid",
+    "reportsByRegion": 33,
+    "reportsByType": {
+        "maltrato": 11,
+        "retraso": 15,
+        "impago": 7
+    },
+    "reportsByProfession": {
+        "artesEscenicas": 2,
+        "disenioArquitectura": 9,
+        "fotografia": 7,
+        "artesPlasticas": 4,
+        "traduccion": 11,
+        "gestionCultural": 0
+    },
+    "reportsByGender": {
+        "female": 16,
+        "nonbinary": 9,
+        "male": 8 
+    },
+    "reportsByAgeRange": {
+        "18-20": 2,
+        "21-29": 9,
+        "20-39": 7,
+        "40-49": 4,
+        "50-59": 11,
+        "60orMore": 0
+    }
+}
