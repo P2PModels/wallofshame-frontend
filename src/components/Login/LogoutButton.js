@@ -2,7 +2,7 @@ import { React, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { useMutation } from '@apollo/client'
 
-import Controls from '../shared/controls/Controls'
+import Controls from '../Shared/controls/Controls'
 
 import useAuth from '../../providers/Auth/use'
 
