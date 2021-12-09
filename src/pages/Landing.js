@@ -1,9 +1,20 @@
 import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import { Paper, Grid } from '@material-ui/core'
+import Map from '../components/Map'
 import Page from '../components/Page'
 import Title from '../components/Title'
 
+const useStyles = makeStyles(theme => ({
+    map: {
+        height: '500px',
+        width: '100%',
+    },
+}))
+
 export default function Landing() {
+    const classes = useStyles()
+
 
     return (
         <Page>
@@ -11,7 +22,8 @@ export default function Landing() {
                 {/* Map */}
                 <Grid item xs={12}>
                     <Paper>
-                        <Title>Map</Title>
+                        <Map className={classes.map} />
+
                     </Paper>
                 </Grid>
                 {/* Dashboard */}
