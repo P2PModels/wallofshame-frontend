@@ -10,6 +10,7 @@ nav:
     - Frontend:
           - Architecture: frontend/architecture.md
           - Login: frontend/login.md
+          - Map: frontend/map.md
     - Backend:
           - Architecture: backend/architecture.md
           - API:

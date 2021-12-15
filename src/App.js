@@ -9,7 +9,6 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import AuthProvider from './providers/Auth/provider'
 import ApolloProviderAuth from './components/ApolloProviderAuth'
 import PrivateRoute from './components/PrivateRoute'
-import Dashboard from './pages/Dashboard'
 import Landing from './pages/Landing'
 import IssueBadge from './pages/IssueBadge'
 import Login from './pages/Login'
@@ -42,9 +41,6 @@ function App() {
                             <Switch>
                                 <Route exact path="/">
                                     <Landing />
-                                </Route>
-                                <Route exact path="/badges">
-                                    <Dashboard />
                                 </Route>
                                 <PrivateRoute exact path="/issue-badge">
                                     <IssueBadge />
