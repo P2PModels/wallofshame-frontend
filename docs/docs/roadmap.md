@@ -50,7 +50,7 @@ The current state of the project covers the following features:
 
 !!! important "As a user I want to see the summary of each case represented by a marker so I can understand in depth the situation and empathize."
     -   A list of cards shows up when a marker is clicked.
-    -   Each card has the following fields: random nickname, type of case, proffesion, company name & description in a dropdown
+    -   Each card has the following fields: random nickname, type of case, proffesion, company name (only if a min number of cases have been reported) & description in a dropdown
     -   The list disapears when the close button is clicked.
     -   The data is loaded from the blockchain.
 
@@ -217,7 +217,7 @@ Confirmation shows the emails of authorized users
 
 !!! danger "As a user I want to be informed of helpful organizations so that I can contact them."
     -   In the confirmation page there is a section with organizations and contact info that can help the user.
-    -   This information is loaded from the backend.
+    -   This information is loaded from the backend. 
 
 ---
 

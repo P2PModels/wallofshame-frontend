@@ -8,7 +8,7 @@ import Page from '../components/Page'
 const useStyles = makeStyles(theme => ({
     map: {
         height: '80vh',
-        width: '100vw',
+        maxWidth: '100vw',
         marginBottom: theme.spacing(2),
     },
 }))
@@ -20,7 +20,6 @@ export default function Landing() {
         <Page container={false}>
             {/* Map */}
             <Map className={classes.map} />
-    
             {/* Dashboard */}
             <Container maxWidth='xl'>
                 <Dashboard />  
