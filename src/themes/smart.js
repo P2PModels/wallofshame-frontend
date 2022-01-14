@@ -13,8 +13,9 @@ const theme = createMuiTheme({
         },
         text: {
             dark: grey[900],
-            main: grey[400],
-            secondary: white[0],
+            main: grey[500],
+            light: white[0],
+            secondary: grey[400],
         },
         error: {
             dark: red[900],
@@ -52,7 +53,7 @@ const theme = createMuiTheme({
     spacing: 16,
     mixins: {
         toolbar: {
-            minHeight: '110px',
+            minHeight: '116px',
         },
     },
 })

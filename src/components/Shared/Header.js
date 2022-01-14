@@ -33,9 +33,12 @@ const useStyles = makeStyles(theme => ({
     header: {
         border: 'none',
         borderTop: `8px solid ${theme.palette.primary.main}`,
+        borderBottom: `1px solid ${theme.palette.text.secondary}`,
         '@media (max-width: 900px)': {
             paddingLeft: 0,
         },
+        padding: '1rem',
+        maxHeight: theme.mixins.toolbar.minHeight,
     },
     logoAndTitleContainer: {
         display: 'flex',
@@ -46,8 +49,7 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
         justifyContent: 'center',
         width: '150px',
-        height: theme.mixins.toolbar.minHeight,
-        padding: '1rem',
+        height: '75px',
         '& img': {
             height: '100%',
         },
@@ -82,7 +84,7 @@ const useStyles = makeStyles(theme => ({
         marginLeft: '2rem',
         marginRight: '0.5rem', // To align, due to ::after element
         background: theme.palette.primary.main,
-        color: theme.palette.text.secondary,
+        color: theme.palette.text.light,
         borderRadius: 0,
         position: 'relative',
         top: 0,
@@ -94,7 +96,6 @@ const useStyles = makeStyles(theme => ({
             top: '0.5rem',
             left: '0.5rem',
             background: theme.palette.primary.main,
-            color: theme.palette.text.secondary,
             boxShadow: 'none',
         },
         '&::after': {
@@ -117,6 +118,7 @@ const useStyles = makeStyles(theme => ({
     toolbar: {
         display: 'flex',
         justifyContent: 'space-between',
+        minHeight: 'auto',
     },
     drawerContainer: {
         padding: '20px 30px',
