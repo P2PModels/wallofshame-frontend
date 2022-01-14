@@ -7,6 +7,8 @@ export const red = {
 }
 
 export const grey = {
+    300: '#d8d8d8',
+    400: '#ACB0B3',
     500: '#545454',
     900: '#474955',
 }

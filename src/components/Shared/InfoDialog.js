@@ -1,19 +1,27 @@
 import { React, useState } from 'react'
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@material-ui/core'
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Button,
+} from '@material-ui/core'
 
 function InfoDialog(props) {
+    const { open, title, contentText, closeButtonText, onClose } = props
+    // const [open, setOpen] = useState(true)
 
-    const { title, contentText, closeButtonText} = props
-    const [open, setOpen] = useState(true)
-  
-    const handleClose = () => {
-      setOpen(false);
+    const handleClose = cb => {
+        cb()
+        // setOpen(false)
     }
 
     return (
         <Dialog
             open={open}
-            onClose={handleClose}
+            onClose={onClose}
+            // onClose={handleClose(onClose)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
@@ -24,7 +32,8 @@ function InfoDialog(props) {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} color="primary" autoFocus>
+                <Button onClick={onClose} color="primary" autoFocus>
+                    {/* <Button onClick={handleClose} color="primary" autoFocus> */}
                     {closeButtonText}
                 </Button>
             </DialogActions>

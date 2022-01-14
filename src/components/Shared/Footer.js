@@ -40,23 +40,31 @@ const useStyles = makeStyles(theme => ({
     },
     info: {
         justifyContent: 'flex-end',
-        color: theme.palette.text.secondary,
+        color: theme.palette.text.light,
         textAlign: 'right',
         '& div': {
             padding: '1rem 0.5rem',
         },
         '& a': {
-            color: theme.palette.text.secondary,
+            color: theme.palette.text.light,
             textDecoration: 'underline',
         },
     },
     githubIcon: {
         marginRight: '0.5rem',
-    }
+    },
 }))
 
 export default function Footer() {
-    const { flexRow, flexCol, footer, footerContent, logos, info, githubIcon } = useStyles()
+    const {
+        flexRow,
+        flexCol,
+        footer,
+        footerContent,
+        logos,
+        info,
+        githubIcon,
+    } = useStyles()
 
     return (
         <div className={footer}>

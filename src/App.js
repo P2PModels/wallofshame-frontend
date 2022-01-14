@@ -8,10 +8,8 @@ import { ThemeProvider } from '@material-ui/core/styles'
 
 import AuthProvider from './providers/Auth/provider'
 import ApolloProviderAuth from './components/ApolloProviderAuth'
-import PrivateRoute from './components/PrivateRoute'
 import Landing from './pages/Landing'
-import IssueBadge from './pages/IssueBadge'
-import Login from './pages/Login'
+import Report from './pages/Report'
 
 import Header from './components/Shared/Header'
 import Footer from './components/Shared/Footer'
@@ -19,7 +17,6 @@ import Footer from './components/Shared/Footer'
 import theme from './themes/smart'
 
 import { ChainId, DAppProvider } from '@usedapp/core'
-import Logout from './pages/Logout'
 
 const dAppConfig = {
     //   readOnlyChainId: ChainId.Rinkeby,
@@ -42,14 +39,8 @@ function App() {
                                 <Route exact path="/">
                                     <Landing />
                                 </Route>
-                                <PrivateRoute exact path="/issue-badge">
-                                    <IssueBadge />
-                                </PrivateRoute>
-                                <Route exact path="/login">
-                                    <Login />
-                                </Route>
-                                <Route exact path="/logout">
-                                    <Logout />
+                                <Route exact path="/report">
+                                    <Report />
                                 </Route>
                             </Switch>
                             <Footer />
