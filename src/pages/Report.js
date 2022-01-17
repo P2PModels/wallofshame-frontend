@@ -30,7 +30,7 @@ export default function IssueBadge() {
         <Page container={false}>
             <Container maxWidth="xl">
                 <Grid container>
-                    <Grid item lg={9}>
+                    <Grid item lg={6}>
                         <Typography variant="h2" className={classes.title}>
                             Informa sobre tu caso
                         </Typography>
