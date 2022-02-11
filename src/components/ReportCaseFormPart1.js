@@ -3,21 +3,8 @@ import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
 import Controls from './Shared/controls/Controls'
-
-const caseTypeItems = [
-    {
-        value: 'impago',
-        label: 'Impago',
-    },
-    {
-        value: 'retraso',
-        label: 'Retraso en el pago',
-    },
-    {
-        value: 'maltrato',
-        label: 'Maltrato',
-    },
-]
+import { categories, typeToTypeRenderName } from '../data/config.json'
+import { createOptionsObjectFromArrays } from '../helpers/general-helpers'
 
 const useStyles = makeStyles(theme => ({
     title: {
@@ -80,7 +67,7 @@ export default function ReportCaseFormPart1({ values, handleInputChange }) {
                 <Controls.RadioGroup
                     name="caseType"
                     label="Tipo de caso"
-                    items={caseTypeItems}
+                    items={createOptionsObjectFromArrays(categories.types, typeToTypeRenderName)}
                     value={values.caseType}
                     onChange={handleInputChange}
                     className={classes.field}

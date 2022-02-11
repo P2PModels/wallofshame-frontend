@@ -6,12 +6,14 @@ import useCases from '../providers/CasesProvider/use'
 // import mockReports from '../data/reports.json'
 import { regionToLatLng, markersByType } from '../data/config.json'
 import { Typography } from '@material-ui/core'
+import { useAppState } from '../providers/AppStateProvider/use'
+import { findChildObject } from '../helpers/general-helpers'
 
 // TODO: redraw on zoom change
 const Map = props => {
     const { ...other } = props
-
     const casesContext = useCases()
+    const {setRegion} = useAppState()
 
     if (casesContext.loading) {
         return <Typography>Loading map...</Typography>
@@ -53,7 +55,13 @@ const Map = props => {
                 />
                 {/* Enable map controls on focus, disable on blur */}
                 <MapScrollZoomOnFocus>
-                    <MarkerClusterGroup>
+                    <MarkerClusterGroup
+                        onClick={cluster => {
+                            const r = findChildObject(cluster.latlng, regionToLatLng)
+                            r ? setRegion(r) : console.log("<Map> No matching region found")
+                            console.warn('Cluster clicked!', cluster)
+                        }}
+                    >
                         {cases.map(c => {
                             // {mockReports.map(marker => {
                             const bounds = regionToLatLng[c.region]

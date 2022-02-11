@@ -20,6 +20,7 @@
         }
     },
     "categories": { 
+        "regions": ["madrid", "barcelona", "sevilla"],
         "types": ["maltrato", "retraso", "impago"],
         "professions": ["artes_escenicas", "diseño_arquitectura", "fotografia", "artes_plasticas", "traduccion", "gestion_cultural"],
         "genders": ["femenino", "masculino", "no_binario"],
@@ -34,7 +35,7 @@
     },
     "typeToTypeRenderName": {
         "maltrato": "Maltrato",
-        "retraso": "Retrato",
+        "retraso": "Retraso",
         "impago": "Impago"
     },
     "professionToProfessionRenderName": {

@@ -64,7 +64,7 @@ export default function Dashboard() {
     const theme = useTheme()
     const classes = useStyles()
     const { region } = useAppState()
-    const chipColors = ["#FF8820","#1693BE","#FF132C"]
+    const chipColors = ['#FF8820', '#1693BE', '#FF132C']
 
     const { data, loading, error } = useQuery(GET_STAT, {
         variables: {
@@ -76,8 +76,6 @@ export default function Dashboard() {
     if (error) return <Typography>{error.message}</Typography>
 
     const stat = data ? data.stat : {}
-    console.log('<Dashboard> Categories')
-    console.log(categories.ageRanges)
     return (
         <Grid
             container
@@ -107,7 +105,7 @@ export default function Dashboard() {
                 >
                     TIPO DE ABUSO
                 </Title>
-                {categories.types.map((key,i) => {
+                {categories.types.map((key, i) => {
                     return (
                         <Chip
                             label={
@@ -117,7 +115,10 @@ export default function Dashboard() {
                                 stat.casesByType[categories.types.indexOf(key)]
                             }
                             className={classes.chip}
-                            style={{ backgroundColor: chipColors[i], color: theme.palette.text.light}}
+                            style={{
+                                backgroundColor: chipColors[i],
+                                color: theme.palette.text.light,
+                            }}
                             key={key + 'chip'}
                         />
                     )
