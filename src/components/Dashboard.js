@@ -1,12 +1,24 @@
 import React from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
-import { Box, Chip, Grid, Typography } from '@material-ui/core'
+import { Box, Chip, Grid, Typography, useTheme } from '@material-ui/core'
 import Title from './Title'
 import mockDashboardQuery from '../data/mockDashboardQuery.json'
 import VerticalBarChart from './VerticalBarChart'
 import PieChart from './PieChart'
-
+import { useAppState } from '../providers/AppStateProvider/use'
+import {
+    categories,
+    regionToId,
+    regionToRegionRenderName,
+    typeToTypeRenderName,
+    professionToProfessionRenderName,
+    genderToGenderRenderName,
+    ageRangeToAgeRangeRenderName,
+} from '../data/config.json'
+import { useQuery } from '@apollo/client'
+import { GET_STAT } from '../services/cases/queries'
+import { toPercentages } from '../helpers/general-helpers'
 
 const useStyles = makeStyles(theme => ({
     dashboardContainer: {
@@ -18,79 +30,169 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 'bold',
     },
     totlaNumberOfReports: {
-        fontSize: '1.75rem'
+        fontSize: '1.75rem',
     },
     typeOfReport: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     dInlineBlock: {
-        display: 'inline-block'
+        display: 'inline-block',
     },
     chip: {
         margin: '0 0 0 2rem',
         fontSize: '1rem',
-        borderRadius: '5px'
+        borderRadius: '5px',
     },
     fixedHeightItem: {
-        height: '25rem'
+        height: '25rem',
     },
     chartTitle: {
         fontSize: '2.25rem',
         fontWeight: '300',
-        lineHeight: '3rem'
+        lineHeight: '3rem',
     },
     chartContainer: {
         height: '100%',
-        backgroundColor: "rgba(238,238,238,0.4)",
-        border: "1px solid #DFDFDF",
+        backgroundColor: 'rgba(238,238,238,0.4)',
+        border: '1px solid #DFDFDF',
         padding: '1rem',
     },
 }))
 
 export default function Dashboard() {
+    const theme = useTheme()
     const classes = useStyles()
+    const { region } = useAppState()
+    const chipColors = ["#FF8820","#1693BE","#FF132C"]
 
+    const { data, loading, error } = useQuery(GET_STAT, {
+        variables: {
+            regionId: regionToId[region],
+        },
+    })
+
+    if (loading) return <Typography>Loading dashboard...</Typography>
+    if (error) return <Typography>{error.message}</Typography>
+
+    const stat = data ? data.stat : {}
+    console.log('<Dashboard> Categories')
+    console.log(categories.ageRanges)
     return (
-        <Grid container className={classes.dashboardContainer} spacing={4} justify='flex-start' alignItems='center'>
+        <Grid
+            container
+            className={classes.dashboardContainer}
+            spacing={4}
+            justify="flex-start"
+            alignItems="center"
+        >
             <Grid item xs={12}>
-                <Title component="h2" variant="h1" className={classes.regionTitle}>{mockDashboardQuery.regionName}</Title>
-                <Typography className={classes.totlaNumberOfReports}>{mockDashboardQuery.reportsByRegion} casos han denunciado abusos de empresas o entidades públicas en la zona.</Typography>
+                <Title
+                    component="h2"
+                    variant="h1"
+                    className={classes.regionTitle}
+                >
+                    {regionToRegionRenderName[region]}
+                </Title>
+                <Typography className={classes.totlaNumberOfReports}>
+                    {stat.casesByRegion} casos han denunciado abusos de empresas
+                    o entidades públicas en la zona.
+                </Typography>
             </Grid>
             <Grid item xs={12} className={classes.typeOfReport}>
-                <Title component="h2" variant="h2" className={clsx(classes.dInlineBlock,classes.chartTitle)}>TIPO DE ABUSO</Title>
-                {
-                    Object.keys(mockDashboardQuery.reportsByType).map((key)=>{
-                        return (
-                            <Chip 
-                                label={key + ' '+ mockDashboardQuery.reportsByType[key]}
-                                className={classes.chip}
-                                color='primary'
-                                key={'casos-' + key}
-                            />
-                        )
-                    })
-                }
+                <Title
+                    component="h2"
+                    variant="h2"
+                    className={clsx(classes.dInlineBlock, classes.chartTitle)}
+                >
+                    TIPO DE ABUSO
+                </Title>
+                {categories.types.map((key,i) => {
+                    return (
+                        <Chip
+                            label={
+                                typeToTypeRenderName[key] +
+                                ' ' +
+                                // Get the stats based in the position in the array
+                                stat.casesByType[categories.types.indexOf(key)]
+                            }
+                            className={classes.chip}
+                            style={{ backgroundColor: chipColors[i], color: theme.palette.text.light}}
+                            key={key + 'chip'}
+                        />
+                    )
+                })}
             </Grid>
             {/* Profession chart */}
-            <Grid item xs={12} md={10} lg={8} xl={6} className={classes.fixedHeightItem}>
-                <Title component="h2" variant="h2" className={classes.chartTitle}>PROFESIÓN</Title>
+            <Grid
+                item
+                xs={12}
+                md={10}
+                lg={8}
+                xl={6}
+                className={classes.fixedHeightItem}
+            >
+                <Title
+                    component="h2"
+                    variant="h2"
+                    className={classes.chartTitle}
+                >
+                    PROFESIÓN
+                </Title>
                 <Box className={classes.chartContainer}>
-                    <VerticalBarChart />
+                    <VerticalBarChart
+                        keys={categories.professions}
+                        values={toPercentages(stat.casesByProfession)}
+                        labels={professionToProfessionRenderName}
+                    />
                 </Box>
             </Grid>
             {/* Gender chart */}
-            <Grid item xs={12} md={6} lg={4} xl={3} className={classes.fixedHeightItem}>
-                <Title component="h2" variant="h2" className={classes.chartTitle}>GÉNERO</Title>
+            <Grid
+                item
+                xs={12}
+                md={6}
+                lg={4}
+                xl={3}
+                className={classes.fixedHeightItem}
+            >
+                <Title
+                    component="h2"
+                    variant="h2"
+                    className={classes.chartTitle}
+                >
+                    GÉNERO
+                </Title>
                 <Box className={classes.chartContainer}>
-                    <PieChart/>
+                    <PieChart
+                        keys={categories.genders}
+                        values={toPercentages(stat.casesByGender)}
+                        labels={genderToGenderRenderName}
+                    />
                 </Box>
             </Grid>
             {/* Age range chart */}
-            <Grid item xs={12} md={6} lg={4} xl={3} className={classes.fixedHeightItem}>
-                <Title component="h2" variant="h2" className={classes.chartTitle}>EDAD</Title>
+            <Grid
+                item
+                xs={12}
+                md={6}
+                lg={4}
+                xl={3}
+                className={classes.fixedHeightItem}
+            >
+                <Title
+                    component="h2"
+                    variant="h2"
+                    className={classes.chartTitle}
+                >
+                    EDAD
+                </Title>
                 <Box className={classes.chartContainer}>
-                    <PieChart/>
+                    <PieChart
+                        keys={categories.ageRanges}
+                        values={toPercentages(stat.casesByAgeRange)}
+                        labels={ageRangeToAgeRangeRenderName}
+                    />
                 </Box>
             </Grid>
         </Grid>

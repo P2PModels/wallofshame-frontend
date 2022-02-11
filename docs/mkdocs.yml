@@ -20,6 +20,7 @@ nav:
           - 'How to add changes?': backend/editing-guide.md
     - Blockchain:
           - Architecture: blockchain/architecture.md
+          - 'How to add changes?': blockchain/editing-guide.md
     - About: about.md
     - MetaDocs: metadocs.md
 

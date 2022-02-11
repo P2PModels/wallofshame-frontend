@@ -4,10 +4,11 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css'
 import { ThemeProvider } from '@material-ui/core/styles'
 
-// import { AppStateProvider } from './contexts/AppState'
+import { AppStateProvider } from './providers/AppStateProvider/provider'
 
 import AuthProvider from './providers/Auth/provider'
-import ApolloProviderAuth from './components/ApolloProviderAuth'
+// import ApolloProviderAuth from './components/ApolloProviderAuth'
+import BackendProvider from './components/BackendProvider'
 import Landing from './pages/Landing'
 import Report from './pages/Report'
 
@@ -28,28 +29,30 @@ const dAppConfig = {
 
 function App() {
     return (
-        // <AppStateProvider>
-        <AuthProvider>
-            <ApolloProviderAuth>
-                <DAppProvider config={dAppConfig}>
-                    <BrowserRouter>
-                        <ThemeProvider theme={theme}>
-                            <Header />
-                            <Switch>
-                                <Route exact path="/">
-                                    <Landing />
-                                </Route>
-                                <Route exact path="/report">
-                                    <Report />
-                                </Route>
-                            </Switch>
-                            <Footer />
-                        </ThemeProvider>
-                    </BrowserRouter>
-                </DAppProvider>
-            </ApolloProviderAuth>
-        </AuthProvider>
-        // </AppStateProvider>
+        <AppStateProvider>
+            <AuthProvider>
+                <BackendProvider>
+                    {/* <ApolloProviderAuth> */}
+                    <DAppProvider config={dAppConfig}>
+                        <BrowserRouter>
+                            <ThemeProvider theme={theme}>
+                                <Header />
+                                <Switch>
+                                    <Route exact path="/">
+                                        <Landing />
+                                    </Route>
+                                    <Route exact path="/report">
+                                        <Report />
+                                    </Route>
+                                </Switch>
+                                <Footer />
+                            </ThemeProvider>
+                        </BrowserRouter>
+                    </DAppProvider>
+                </BackendProvider>
+                {/* </ApolloProviderAuth> */}
+            </AuthProvider>
+        </AppStateProvider>
     )
 }
 
