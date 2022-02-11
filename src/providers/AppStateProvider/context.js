@@ -1,13 +1,7 @@
 import { createContext } from 'react'
 
-const appInitialContext = {
-    state: {
-        loggedIn: false,
-    },
-    actions: {
-        signup: () => {},
-        login: () => {},
-    },
-}
-
-const AppContext = createContext(appInitialContext)
+/** For more details on
+ * `appStateContext`, `ProvideAppState`, `useAppState` and `useProvideAppState`
+ * refer to: https://usehooks.com/useAuth/
+ */
+export const appStateContext = createContext()

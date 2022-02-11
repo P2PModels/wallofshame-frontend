@@ -21,16 +21,28 @@ const regionOptions = [
 
 const professionOptions = [
     {
-        value: 'arquitectx',
-        label: 'Arquitectx',
+        value: 'artes_escenicas',
+        label: 'Artes escénicas',
     },
     {
-        value: 'artistx',
-        label: 'Artistx',
+        value: 'diseño_arquitectura',
+        label: 'Diseño y Arquitectura',
     },
     {
-        value: 'diseñadorx',
-        label: 'Diseñadorx',
+        value: 'fotografia',
+        label: 'Fotografía',
+    },
+    {
+        value: 'artes_plasticas',
+        label: 'Artes plásticas',
+    },
+    {
+        value: 'traduccion',
+        label: 'Traducción',
+    },
+    {
+        value: 'gestion_cultural',
+        label: 'Gestión cultural',
     },
 ]
 
@@ -44,27 +56,35 @@ const genderItems = [
         label: 'Masculino',
     },
     {
-        value: 'nobinario',
+        value: 'no_binario',
         label: 'No binario',
-    },
-    {
-        value: 'otro',
-        label: 'Otro',
     },
 ]
 
 const ageRangeOptions = [
     {
-        value: '18-25',
-        label: '18-25',
+        value: 'r18_20',
+        label: '18-20',
     },
     {
-        value: '25-35',
-        label: '25-35',
+        value: 'r21_29',
+        label: '21-29',
     },
     {
-        value: '35-45',
-        label: '35-45',
+        value: 'r30_39',
+        label: '31-39',
+    },
+    {
+        value: 'r40_49',
+        label: '40-49',
+    },
+    {
+        value: 'r50_59',
+        label: '50-59',
+    },
+    {
+        value: 'r60_plus',
+        label: '60 o más',
     },
 ]
 

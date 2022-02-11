@@ -90,7 +90,7 @@ The current state of the project covers the following features:
     -   If the transaction fails an error text shows up next to the submit button and the user is asked to retry.
 
 
-!!! important "As a user I want to be able to report a case so I can share my experience"
+!!! danger "As a user I want to be able to report a case so I can share my experience"
     -   A Call to Action is accesible by the user and redirects to the login/form page.
     -   Once logged in the user is redirected to a form page.
     -   The user can fill the form and send it to the backend.
@@ -99,53 +99,13 @@ The current state of the project covers the following features:
     -   When the transaction is confirmed a notification will announce the success of the transaction.
     -   If the transaction fails a notification will show up with an error text and a button to retry.
 
-#### Epic: Login
-
-!!! warning "As a user I want to authenticate myself so that I can report my case"
-    -   A page to log in is accesible by the user through a CtA "Report your case".
-    -   If the user provide incorrect credentials an error message will pop up.
-    -   If the user provide correct credentials a session is started and the client receives a unique token for authorizarion.
-    -   Once logged in the user will be redirected to the report form.
-
-    **Specifications**:
-
-    Login form fields
-
-    -   Username (Required)
-    -   Password (Required)
-    -   Sumbit button
-
-    Authentication errors
-
-    -   Username doesn't exist
-    -   Incorrect password
-
-!!! warning "As a user I want to be able to register a profile so that I can report my case from a individual EOA without web3 knowledge"
-    -   In the login page there is a "Register" link that redirects the user to a register page.
-    -   The user is asked to fill the e-mail and password through a form.
-    -   Once submited the user is redirected to the log in page and can now log in.
-
-!!! danger "As a user I want to be able to confirm my e-mail so that I nobody can register with my e-mail adress"
-    -   From the register page, once the form is filled and submited, a prompt message asks the user to check they inbox.
-    -   A e-mail template is filled with the user data and sent through an e-mail server.
-    -   The user receives an e-mail with a link to confirm e-mail.
-    -   When the user clicks the link a request is sent to the backend with a secret, onced validated the e-mail state changes to confirmed.
-
-!!! danger "As a user I want to be able to recover my password so that I can forget it and not loose all data"  
-    -   In the login page there is a "Forgot password" link that redirects to a recovery page.
-    -   The user is asked to fill the e-mail address through a form.
-    -   An e-mail template is filled with user recovery password and sent trough an e-mail server.
-    -   The user receives an e-mail and can log in with the temporary password.
-    -   Once logged in the user is redirected to a change password view.
-    -   The password of the user is updated and the user is redirected to the private area.
-
-!!! danger "As an organization we want to be able to register so that we can be notified if a user is asking for support"
-
 #### Epic: Case form
 
 !!! important "As a user I want to be able to provide the details of my case, including the company I work for and my context so I can give visibility to the specific problems of my proffesion and the social groups I belong to. "
     - There is an accesible form for the user.
     - The form has two parts: one for the information regarding the company and other for the information regarding the anonimyzed individual.
+    - The form fields are validated and the user is notified if there is an invalid or empty field.
+    - The form state is controlled.
 
     **Specifications**:
     
@@ -201,6 +161,64 @@ Confirmation shows the emails of authorized users
     **Specifications**:
     Part 3
     - Checkbox, list of relevant organizations I want to contact.
+
+#### Epic: Case Registry
+
+!!! important "As a user I want to be able to register a case in the blockchain without previous knowledge so I can take advantage of the web3 ecosystem properties."   
+    - The submission of the case report form triggers a resolver in the backend to manage the sc interaction.
+    - A tx with the data is sent from the backend server with the P2PModels EOA.
+    - The information is stored in the smart contract.
+
+!!! important "As a user I want to be able to check the reported cases in an Ethereum explorer so I can assure that they can't be deleted."
+    - Once the case report form is filled and submited the information is stored in a smart contract.
+
+!!! important "As an organization I want to be able to get access to all the relevant data through a decentralized provider so we can assure that the data can't be compromised."
+    - The data from reported cases is accessible through a decentralized provider (The Graph).
+
+!!! important "As a user I want to be able to get access to the cases data through a centralized provider so that I can use complementary web2 services."
+    - The data from reported cases is accessible through a centralized provider (GraphQL Gateway).
+
+#### Epic: Login
+
+!!! warning "As a user I want to authenticate myself so that I can report my case"
+    -   A page to log in is accesible by the user through a CtA "Report your case".
+    -   If the user provide incorrect credentials an error message will pop up.
+    -   If the user provide correct credentials a session is started and the client receives a unique token for authorizarion.
+    -   Once logged in the user will be redirected to the report form.
+
+    **Specifications**:
+
+    Login form fields
+
+    -   Username (Required)
+    -   Password (Required)
+    -   Sumbit button
+
+    Authentication errors
+
+    -   Username doesn't exist
+    -   Incorrect password
+
+!!! warning "As a user I want to be able to register a profile so that I can report my case from a individual EOA without web3 knowledge"
+    -   In the login page there is a "Register" link that redirects the user to a register page.
+    -   The user is asked to fill the e-mail and password through a form.
+    -   Once submited the user is redirected to the log in page and can now log in.
+
+!!! danger "As a user I want to be able to confirm my e-mail so that I nobody can register with my e-mail adress"
+    -   From the register page, once the form is filled and submited, a prompt message asks the user to check they inbox.
+    -   A e-mail template is filled with the user data and sent through an e-mail server.
+    -   The user receives an e-mail with a link to confirm e-mail.
+    -   When the user clicks the link a request is sent to the backend with a secret, onced validated the e-mail state changes to confirmed.
+
+!!! danger "As a user I want to be able to recover my password so that I can forget it and not loose all data"  
+    -   In the login page there is a "Forgot password" link that redirects to a recovery page.
+    -   The user is asked to fill the e-mail address through a form.
+    -   An e-mail template is filled with user recovery password and sent trough an e-mail server.
+    -   The user receives an e-mail and can log in with the temporary password.
+    -   Once logged in the user is redirected to a change password view.
+    -   The password of the user is updated and the user is redirected to the private area.
+
+!!! danger "As an organization we want to be able to register so that we can be notified if a user is asking for support"
 
 ---
 

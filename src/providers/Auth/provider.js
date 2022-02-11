@@ -4,9 +4,10 @@ import { authContext } from './context'
 const TOKEN_PREFIX = 'Commons '
 
 function useAuthProvider() {
-
     function saveUser(user = undefined) {
-        user ? sessionStorage.setItem('user',  JSON.stringify(user)) : sessionStorage.removeItem('user')
+        user
+            ? sessionStorage.setItem('user', JSON.stringify(user))
+            : sessionStorage.removeItem('user')
         setUser(getUser())
     }
 
@@ -17,7 +18,9 @@ function useAuthProvider() {
     }
 
     function saveToken(token = undefined) {
-        token ? sessionStorage.setItem('token', TOKEN_PREFIX + token) : sessionStorage.removeItem('token')
+        token
+            ? sessionStorage.setItem('token', TOKEN_PREFIX + token)
+            : sessionStorage.removeItem('token')
         setToken(getToken())
     }
 
