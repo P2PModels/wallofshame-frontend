@@ -1,12 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, Typography } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 import Dashboard from '../components/Dashboard'
 import Map from '../components/Map'
 import Page from '../components/Page'
 import { CasesProvider } from '../providers/CasesProvider/provider'
-// import { useQuery } from '@apollo/client'
-// import { GET_CASES } from '../services/cases/queries'
 
 const useStyles = makeStyles(theme => ({
     map: {
@@ -18,8 +16,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Landing() {
     const classes = useStyles()
-
-    // const { data, loading, error } = useQuery(GET_CASES)
 
     return (
         <Page container={false}>
