@@ -3,105 +3,15 @@ import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
 import Controls from './Shared/controls/Controls'
-
-const regionOptions = [
-    {
-        value: 'madrid',
-        label: 'Madrid',
-    },
-    {
-        value: 'barcelona',
-        label: 'Barcelona',
-    },
-    {
-        value: 'sevilla',
-        label: 'Sevilla',
-    },
-]
-
-const professionOptions = [
-    {
-        value: 'artes_escenicas',
-        label: 'Artes escénicas',
-    },
-    {
-        value: 'diseño_arquitectura',
-        label: 'Diseño y Arquitectura',
-    },
-    {
-        value: 'fotografia',
-        label: 'Fotografía',
-    },
-    {
-        value: 'artes_plasticas',
-        label: 'Artes plásticas',
-    },
-    {
-        value: 'traduccion',
-        label: 'Traducción',
-    },
-    {
-        value: 'gestion_cultural',
-        label: 'Gestión cultural',
-    },
-]
-
-const genderItems = [
-    {
-        value: 'femenino',
-        label: 'Femenino',
-    },
-    {
-        value: 'masculino',
-        label: 'Masculino',
-    },
-    {
-        value: 'no_binario',
-        label: 'No binario',
-    },
-]
-
-const ageRangeOptions = [
-    {
-        value: 'r18_20',
-        label: '18-20',
-    },
-    {
-        value: 'r21_29',
-        label: '21-29',
-    },
-    {
-        value: 'r30_39',
-        label: '31-39',
-    },
-    {
-        value: 'r40_49',
-        label: '40-49',
-    },
-    {
-        value: 'r50_59',
-        label: '50-59',
-    },
-    {
-        value: 'r60_plus',
-        label: '60 o más',
-    },
-]
-
-const experienceOptions = [
-    {
-        value: 'ninguna',
-        label: 'Ninguna',
-    },
-    {
-        value: '1-3años',
-        label: '1-3 años',
-    },
-    {
-        value: '3-5años',
-        label: '3-5 años',
-    },
-]
+import {
+    categories,
+    regionToRegionRenderName,
+    professionToProfessionRenderName,
+    genderToGenderRenderName,
+    ageRangeToAgeRangeRenderName,
+    experienceToExperienceRenderName,
+} from '../data/config.json'
+import { createOptionsObjectFromArrays } from '../helpers/general-helpers'
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -148,7 +58,7 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.Select
                     name="region"
                     label="Provincia"
-                    options={regionOptions}
+                    options={createOptionsObjectFromArrays(categories.regions, regionToRegionRenderName)}
                     value={values.region}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.smallField)}
@@ -159,7 +69,7 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.Select
                     name="profession"
                     label="Profesión"
-                    options={professionOptions}
+                    options={createOptionsObjectFromArrays(categories.professions, professionToProfessionRenderName)}
                     value={values.profession}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.smallField)}
@@ -170,7 +80,7 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.RadioGroup
                     name="gender"
                     label="Género"
-                    items={genderItems}
+                    items={createOptionsObjectFromArrays(categories.genders, genderToGenderRenderName)}
                     value={values.gender}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.w100)}
@@ -182,7 +92,7 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.Select
                     name="ageRange"
                     label="Rango de edad"
-                    options={ageRangeOptions}
+                    options={createOptionsObjectFromArrays(categories.ageRanges, ageRangeToAgeRangeRenderName)}
                     value={values.ageRange}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.smallField)}
@@ -192,7 +102,7 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.Select
                     name="experience"
                     label="Experiencia"
-                    options={experienceOptions}
+                    options={createOptionsObjectFromArrays(categories.experiences, experienceToExperienceRenderName)}
                     value={values.experience}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.smallField)}
@@ -200,7 +110,7 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                     required
                 />
             </Grid>
-            <Grid item xs={8} className={classes.row}>
+            {/* <Grid item xs={8} className={classes.row}>
                 <Controls.Checkbox
                     name="authContact"
                     checked={values.authContact}
@@ -219,7 +129,7 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                     labelTitle
                 />
                 <div className={classes.spacer} />
-            </Grid>
+            </Grid> */}
         </Grid>
     )
 }

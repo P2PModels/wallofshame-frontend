@@ -6,9 +6,8 @@ import { v4 as uuid } from 'uuid'
 import { useForm, Form } from './Shared/useForm'
 import Controls from './Shared/controls/Controls'
 import InfoDialog from './Shared/InfoDialog'
-import * as issueBadgeOptions from '../helpers/issueBadgeOptions'
 
-import { ISSUE_BADGE } from '../services/dbadge_backend/queries'
+import { REPORT } from '../services/report/queries'
 import HorizontalStepper from './Shared/HorizontalStepper'
 import ReportCaseFormPart1 from './ReportCaseFormPart1'
 import ReportCaseFormPart2 from './ReportCaseFormPart2'
@@ -40,8 +39,8 @@ const initialFValues = {
     gender: '',
     ageRange: '',
     experience: '',
-    authContact: false,
-    email: '',
+    // authContact: false,
+    // email: '',
 }
 
 export default function ReportCaseForm() {
@@ -49,11 +48,11 @@ export default function ReportCaseForm() {
 
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
-    const [issueBadge, { data, loading, error }] = useMutation(ISSUE_BADGE)
+    const [sendReport, { response, loading, error }] = useMutation(REPORT)
     const [showInfoDialog, setShowInfoDialog] = useState(false)
     const [infoDialogMsg, setInfoDialogMsg] = useState('')
 
-    const submitCheat = () => console.log('The dark side wants to submit...')
+    // const submitCheat = () => console.log('The dark side wants to submit...')
     const validatePart1 = e => {
         e.preventDefault()
         if (values.companyName == '') {
@@ -97,14 +96,16 @@ export default function ReportCaseForm() {
             setInfoDialogMsg(
                 'Has autorizado que contactemos contigo pero no has especificado una dirección de correo.'
             )
-        } else if (
-            values.authContact &&
-            !values.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-        ) {
-            setShowInfoDialog(true)
-            setInfoDialogMsg('E-mail inválido.')
+            // } else if (
+            //     values.authContact &&
+            //     !values.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+            // ) {
+            //     setShowInfoDialog(true)
+            //     setInfoDialogMsg('E-mail inválido.')
         } else {
-            submitCheat()
+            // submitCheat()
+            console.warn('Submiting after validation', values)
+            sendReport({ variables: { data: values } })
             setActiveStep(0)
         }
     }
@@ -174,7 +175,7 @@ export default function ReportCaseForm() {
         }
     }
 
-    if (loading) return <Typography>Cargando...</Typography>
+    if (loading) return <Typography>Reportando tu caso...</Typography>
     if (error)
         return (
             <InfoDialog
@@ -183,6 +184,10 @@ export default function ReportCaseForm() {
                 closeButtonText="Cerrar"
             />
         )
+    if (response) {
+        console.warn('Caso reportado', response)
+        return <Typography>Caso reportado cn éxito!</Typography>
+    }
 
     return (
         <Box className={classes.root}>
@@ -191,8 +196,8 @@ export default function ReportCaseForm() {
                 className={classes.stepper}
             />
             <Form
-                // onSubmit={submit(issueBadge, { variables: { data: values } })}
-                onSubmit={submitCheat}
+                onSubmit={submit(sendReport, { variables: { data: values } })}
+                // onSubmit={submitCheat}
                 id="report-case-form"
             >
                 {renderActiveStep(activeStep)}
