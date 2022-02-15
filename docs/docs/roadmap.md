@@ -62,7 +62,7 @@ The current state of the project covers the following features:
 
 #### Epic: Responsive dashboard
 
-!!! important "As a user I want to see the metrics used by the tool so I can have a cuantitative reference of the problem."
+!!! important "As a user I want to see the metrics used by the tool so I can have a quantitative reference of the problem."
     -   User can see a dashboard with plots of the current data stored in the blockchain.
 
     **Specifications**, the user can see:
@@ -75,7 +75,7 @@ The current state of the project covers the following features:
     -   Percentage of reported cases by age range.
 
 !!! important "As a user I want to be able to see the metrics by region by selecting markers in the map so I can have a more precise cuantitative reference of the problem depending on location."
-    -   When the user clicks a marker the dashboard is refreshed with the data of that list of cases.
+    -   When the user clicks a cluster of markers the dashboard is refreshed with the data of that list of cases.
 
 ---
 
