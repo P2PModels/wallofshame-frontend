@@ -11,6 +11,7 @@ import AuthProvider from './providers/Auth/provider'
 import BackendProvider from './components/BackendProvider'
 import Landing from './pages/Landing'
 import Info from './pages/Info'
+import Confirmation from './pages/Confirmation'
 import Report from './pages/Report'
 
 import Header from './components/Shared/Header'
@@ -47,6 +48,9 @@ function App() {
                                     </Route>
                                     <Route exact path="/report">
                                         <Report />
+                                    </Route>
+                                    <Route exact path="/confirmation">
+                                        <Confirmation />
                                     </Route>
                                 </Switch>
                                 <Footer />
