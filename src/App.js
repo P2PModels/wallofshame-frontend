@@ -10,6 +10,7 @@ import AuthProvider from './providers/Auth/provider'
 // import ApolloProviderAuth from './components/ApolloProviderAuth'
 import BackendProvider from './components/BackendProvider'
 import Landing from './pages/Landing'
+import Info from './pages/Info'
 import Report from './pages/Report'
 
 import Header from './components/Shared/Header'
@@ -40,6 +41,9 @@ function App() {
                                 <Switch>
                                     <Route exact path="/">
                                         <Landing />
+                                    </Route>
+                                    <Route exact path="/info">
+                                        <Info />
                                     </Route>
                                     <Route exact path="/report">
                                         <Report />
