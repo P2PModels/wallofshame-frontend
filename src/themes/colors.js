@@ -13,6 +13,10 @@ export const grey = {
     900: '#474955',
 }
 
+export const green = {
+    500: '#32B056',
+}
+
 export const white = {
     0: '#fff',
 }

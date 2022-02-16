@@ -49,9 +49,13 @@ function App() {
                                     <Route exact path="/report">
                                         <Report />
                                     </Route>
-                                    <Route exact path="/confirmation">
-                                        <Confirmation />
-                                    </Route>
+                                    <Route
+                                        exact
+                                        path="/confirmation"
+                                        render={props => (
+                                            <Confirmation {...props} />
+                                        )}
+                                    />
                                 </Switch>
                                 <Footer />
                             </ThemeProvider>
