@@ -3,6 +3,7 @@ import {
     AppBar,
     Toolbar,
     Box,
+    Button,
     makeStyles,
     IconButton,
     Drawer,
@@ -53,6 +54,11 @@ const useStyles = makeStyles(theme => ({
         '& img': {
             height: '100%',
         },
+    },
+    logoButton: {
+        '&:hover': {
+            backgroundColor: 'transparent',
+        }
     },
     titleAndDescription: {
         display: 'flex',
@@ -130,6 +136,7 @@ export default function Header() {
         header,
         logoAndTitleContainer,
         logo,
+        logoButton,
         titleAndDescription,
         menuButton,
         callToAction,
@@ -229,9 +236,17 @@ export default function Header() {
     }
 
     const customLogo = (
-        <Box className={logo}>
-            <img src={logoSrc} />
-        </Box>
+        <Button
+            className={logoButton}
+            {...{
+                to: '/',
+                component: RouterLink,
+            }}
+        >   
+            <Box className={logo}>
+                <img src={logoSrc} />
+            </Box>
+        </Button>
     )
 
     const TitleAndDescription = (

@@ -13,7 +13,7 @@ import { findChildObject } from '../helpers/general-helpers'
 const Map = props => {
     const { ...other } = props
     const casesContext = useCases()
-    const {setRegion} = useAppState()
+    const { setRegion } = useAppState()
 
     if (casesContext.loading) {
         return <Typography>Loading map...</Typography>
@@ -57,9 +57,14 @@ const Map = props => {
                 <MapScrollZoomOnFocus>
                     <MarkerClusterGroup
                         onClick={cluster => {
-                            const r = findChildObject(cluster.latlng, regionToLatLng)
-                            r ? setRegion(r) : console.log("<Map> No matching region found")
-                            console.warn('Cluster clicked!', cluster)
+                            const r = findChildObject(
+                                cluster.latlng,
+                                regionToLatLng
+                            )
+                            r
+                                ? setRegion(r)
+                                : console.log('<Map> No matching region found')
+                            // console.warn('Cluster clicked!', cluster)
                         }}
                     >
                         {cases.map(c => {

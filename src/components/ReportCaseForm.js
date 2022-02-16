@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Box, Grid, Typography } from '@material-ui/core'
 import { useMutation } from '@apollo/client'
 import { v4 as uuid } from 'uuid'
+import { Redirect } from 'react-router-dom'
 import { useForm, Form } from './Shared/useForm'
 import Controls from './Shared/controls/Controls'
 import InfoDialog from './Shared/InfoDialog'
@@ -48,7 +49,7 @@ export default function ReportCaseForm() {
 
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
-    const [sendReport, { response, loading, error }] = useMutation(REPORT)
+    const [sendReport, { data: response, loading, error }] = useMutation(REPORT)
     const [showInfoDialog, setShowInfoDialog] = useState(false)
     const [infoDialogMsg, setInfoDialogMsg] = useState('')
 
@@ -184,12 +185,15 @@ export default function ReportCaseForm() {
                 closeButtonText="Cerrar"
             />
         )
-    if (response) {
-        console.warn('Caso reportado', response)
-        return <Typography>Caso reportado cn éxito!</Typography>
-    }
 
-    return (
+    return response ? (
+        <Redirect
+            to={{
+                pathname: '/confirmation',
+                state: { report: response.report },
+            }}
+        />
+    ) : (
         <Box className={classes.root}>
             <HorizontalStepper
                 activeStep={activeStep}
