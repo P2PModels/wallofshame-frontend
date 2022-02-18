@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
         height: '80vh',
         maxWidth: '100vw',
         marginBottom: theme.spacing(2),
+        position: 'relative',
     },
 }))
 

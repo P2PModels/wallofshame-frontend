@@ -58,7 +58,10 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.Select
                     name="region"
                     label="Provincia"
-                    options={createOptionsObjectFromArrays(categories.regions, regionToRegionRenderName)}
+                    options={createOptionsObjectFromArrays(
+                        categories.regions,
+                        regionToRegionRenderName
+                    )}
                     value={values.region}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.smallField)}
@@ -69,7 +72,10 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.Select
                     name="profession"
                     label="Profesión"
-                    options={createOptionsObjectFromArrays(categories.professions, professionToProfessionRenderName)}
+                    options={createOptionsObjectFromArrays(
+                        categories.professions,
+                        professionToProfessionRenderName
+                    )}
                     value={values.profession}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.smallField)}
@@ -80,7 +86,10 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.RadioGroup
                     name="gender"
                     label="Género"
-                    items={createOptionsObjectFromArrays(categories.genders, genderToGenderRenderName)}
+                    items={createOptionsObjectFromArrays(
+                        categories.genders,
+                        genderToGenderRenderName
+                    )}
                     value={values.gender}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.w100)}
@@ -92,7 +101,10 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.Select
                     name="ageRange"
                     label="Rango de edad"
-                    options={createOptionsObjectFromArrays(categories.ageRanges, ageRangeToAgeRangeRenderName)}
+                    options={createOptionsObjectFromArrays(
+                        categories.ageRanges,
+                        ageRangeToAgeRangeRenderName
+                    )}
                     value={values.ageRange}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.smallField)}
@@ -102,7 +114,10 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                 <Controls.Select
                     name="experience"
                     label="Experiencia"
-                    options={createOptionsObjectFromArrays(categories.experiences, experienceToExperienceRenderName)}
+                    options={createOptionsObjectFromArrays(
+                        categories.experiences,
+                        experienceToExperienceRenderName
+                    )}
                     value={values.experience}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.smallField)}

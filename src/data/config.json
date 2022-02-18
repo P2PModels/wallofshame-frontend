@@ -85,6 +85,11 @@
             "iconAnchor": [22, 94],
             "popupAnchor": [-3, -76]
         }
+    },
+    "chipColors": {
+        "maltrato": "#FF8820",
+        "retraso": "#1693BE",
+        "impago": "#FF132C"
     }
 
 }
