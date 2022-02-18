@@ -1,19 +1,46 @@
-import React from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import React, { useState } from 'react'
+import {
+    MapContainer,
+    TileLayer,
+    Marker,
+    Popup,
+    ZoomControl,
+} from 'react-leaflet'
 import MapScrollZoomOnFocus from './MapScrollZoomOnFocus'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import useCases from '../providers/CasesProvider/use'
-// import mockReports from '../data/reports.json'
 import { regionToLatLng, markersByType } from '../data/config.json'
 import { Typography } from '@material-ui/core'
 import { useAppState } from '../providers/AppStateProvider/use'
-import { findChildObject } from '../helpers/general-helpers'
+import {
+    findChildObject,
+    filterCasesByRegion,
+} from '../helpers/general-helpers'
+import CaseCardList from './CaseCardList'
+import { regionToRegionRenderName } from '../data/config.json'
 
 // TODO: redraw on zoom change
 const Map = props => {
     const { ...other } = props
     const casesContext = useCases()
-    const { setRegion } = useAppState()
+    const { region, setRegion } = useAppState()
+    const [listState, setListState] = useState(false)
+    const clusterClicked = cluster => {
+        // Assure type and decimals
+        cluster.latlng.lat = Number(cluster.latlng.lat.toFixed(2))
+        cluster.latlng.lng = Number(cluster.latlng.lng.toFixed(2))
+
+        // Find region match by lat adn lng
+        const r = findChildObject(cluster.latlng, regionToLatLng)
+
+        // Update global state and open list of case cards
+        if (r) {
+            setRegion(r)
+            setListState(true)
+        } else {
+            console.log('<Map> No matching region found')
+        }
+    }
 
     if (casesContext.loading) {
         return <Typography>Loading map...</Typography>
@@ -29,13 +56,6 @@ const Map = props => {
             mapBounds.push([bounds.lat, bounds.lng])
         })
 
-        // Mock data
-        // Set map boundaries to inlcude all markers
-        // let mapBounds = []
-        // mockReports.map(marker => {
-        //     mapBounds.push([marker.lat, marker.lng])
-        // })
-
         // Set marker icons by type
         let icons = {}
         for (let type in markersByType) {
@@ -47,6 +67,7 @@ const Map = props => {
                 bounds={mapBounds}
                 zoom={13}
                 scrollWheelZoom={false}
+                zoomControl={false}
                 {...other}
             >
                 <TileLayer
@@ -55,20 +76,8 @@ const Map = props => {
                 />
                 {/* Enable map controls on focus, disable on blur */}
                 <MapScrollZoomOnFocus>
-                    <MarkerClusterGroup
-                        onClick={cluster => {
-                            const r = findChildObject(
-                                cluster.latlng,
-                                regionToLatLng
-                            )
-                            r
-                                ? setRegion(r)
-                                : console.log('<Map> No matching region found')
-                            // console.warn('Cluster clicked!', cluster)
-                        }}
-                    >
+                    <MarkerClusterGroup onClick={clusterClicked}>
                         {cases.map(c => {
-                            // {mockReports.map(marker => {
                             const bounds = regionToLatLng[c.region]
                             return (
                                 <Marker
@@ -87,7 +96,16 @@ const Map = props => {
                             )
                         })}
                     </MarkerClusterGroup>
+                    <ZoomControl position="bottomright" />
                 </MapScrollZoomOnFocus>
+                <CaseCardList
+                    title={`Casos reportados en ${regionToRegionRenderName[region]}`}
+                    cases={filterCasesByRegion(cases, region)}
+                    open={listState}
+                    onClose={() => {
+                        setListState(false)
+                    }}
+                />
             </MapContainer>
         )
     }

@@ -3,7 +3,6 @@ import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import { Box, Chip, Grid, Typography, useTheme } from '@material-ui/core'
 import Title from './Title'
-import mockDashboardQuery from '../data/mockDashboardQuery.json'
 import VerticalBarChart from './VerticalBarChart'
 import PieChart from './PieChart'
 import { useAppState } from '../providers/AppStateProvider/use'
@@ -15,6 +14,7 @@ import {
     professionToProfessionRenderName,
     genderToGenderRenderName,
     ageRangeToAgeRangeRenderName,
+    chipColors,
 } from '../data/config.json'
 import { useQuery } from '@apollo/client'
 import { GET_STAT } from '../services/cases/queries'
@@ -64,7 +64,6 @@ export default function Dashboard() {
     const theme = useTheme()
     const classes = useStyles()
     const { region } = useAppState()
-    const chipColors = ['#FF8820', '#1693BE', '#FF132C']
 
     const { data, loading, error } = useQuery(GET_STAT, {
         variables: {
@@ -116,7 +115,7 @@ export default function Dashboard() {
                             }
                             className={classes.chip}
                             style={{
-                                backgroundColor: chipColors[i],
+                                backgroundColor: chipColors[key],
                                 color: theme.palette.text.light,
                             }}
                             key={key + 'chip'}
