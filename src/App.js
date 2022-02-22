@@ -19,15 +19,15 @@ import Footer from './components/Shared/Footer'
 
 import theme from './themes/smart'
 
-import { ChainId, DAppProvider } from '@usedapp/core'
+// import { ChainId, DAppProvider } from '@usedapp/core'
 
-const dAppConfig = {
-    //   readOnlyChainId: ChainId.Rinkeby,
-    //   readOnlyUrls: {
-    //     [ChainId.Rinkeby]: '',
-    //   },
-    supportedChains: [ChainId.Rinkeby],
-}
+// const dAppConfig = {
+//   readOnlyChainId: ChainId.Rinkeby,
+//   readOnlyUrls: {
+//     [ChainId.Rinkeby]: '',
+//   },
+//     supportedChains: [ChainId.Rinkeby],
+// }
 
 function App() {
     return (
@@ -35,32 +35,32 @@ function App() {
             <AuthProvider>
                 <BackendProvider>
                     {/* <ApolloProviderAuth> */}
-                    <DAppProvider config={dAppConfig}>
-                        <BrowserRouter>
-                            <ThemeProvider theme={theme}>
-                                <Header />
-                                <Switch>
-                                    <Route exact path="/">
-                                        <Landing />
-                                    </Route>
-                                    <Route exact path="/info">
-                                        <Info />
-                                    </Route>
-                                    <Route exact path="/report">
-                                        <Report />
-                                    </Route>
-                                    <Route
-                                        exact
-                                        path="/confirmation"
-                                        render={props => (
-                                            <Confirmation {...props} />
-                                        )}
-                                    />
-                                </Switch>
-                                <Footer />
-                            </ThemeProvider>
-                        </BrowserRouter>
-                    </DAppProvider>
+                    {/* <DAppProvider config={dAppConfig}> */}
+                    <BrowserRouter>
+                        <ThemeProvider theme={theme}>
+                            <Header />
+                            <Switch>
+                                <Route exact path="/">
+                                    <Landing />
+                                </Route>
+                                <Route exact path="/info">
+                                    <Info />
+                                </Route>
+                                <Route exact path="/report">
+                                    <Report />
+                                </Route>
+                                <Route
+                                    exact
+                                    path="/confirmation"
+                                    render={props => (
+                                        <Confirmation {...props} />
+                                    )}
+                                />
+                            </Switch>
+                            <Footer />
+                        </ThemeProvider>
+                    </BrowserRouter>
+                    {/* </DAppProvider> */}
                 </BackendProvider>
                 {/* </ApolloProviderAuth> */}
             </AuthProvider>
