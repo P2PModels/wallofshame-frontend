@@ -14,8 +14,8 @@ nav:
     - Backend:
           - Architecture: backend/architecture.md
           - API:
-                - User: backend/api/user.md
-                - Badge: backend/api/badge.md
+                - Cases: backend/api/cases.md
+                - Users: backend/api/users.md
           - Deployment: backend/deployment.md
           - 'How to add changes?': backend/editing-guide.md
     - Blockchain:

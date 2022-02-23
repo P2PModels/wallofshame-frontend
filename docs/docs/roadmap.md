@@ -65,7 +65,7 @@ The current state of the project covers the following features:
     -   Name of the current region of the data (e.g. Spain, Andalucía, Sevilla).
     -   Number of reported cases.
     -   Number of reported cases by type of case.
-    -   Percentage of reported cases by proffesion.
+    -   Percentage of reported cases by profession.
     -   Percentage of reported cases by gender.
     -   Percentage of reported cases by age range.
 
