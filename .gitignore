@@ -4,3 +4,4 @@ artifacts/
 private/
 *.env
 src/secrets.json
+.DS_Store
