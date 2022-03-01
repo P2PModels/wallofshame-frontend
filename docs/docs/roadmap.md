@@ -1,6 +1,6 @@
 # Roadmap
 
-In this document we want to write down the features we are considering for development. We will use the INVEST principles for that, based in ["How to write user stories" by Stormotion](https://stormotion.io/blog/how-to-write-a-good-user-story-with-examples-templates/)
+In this document we want to write down the features we are considering for development. We use the INVEST principles for that, based in ["How to write user stories" by Stormotion](https://stormotion.io/blog/how-to-write-a-good-user-story-with-examples-templates/)
 
 Note: we should define which features we _need to develope_ to test our idea and whitch features we _could simulate_. As an example we could simulate the register page and provide previously created users to testers. We will mark rank features depending in the degree of importance like this:
 
@@ -13,9 +13,21 @@ Note: we should define which features we _need to develope_ to test our idea and
 !!! error "A feature that would improve the prototype but also requires a great effort"
     Cool but heavy feature.
 
+## Development scope
+
+This prototype will tries to tackle a progressive adoption of web3 technologies. In order to succesfully achive this task three different user profiles along with three interfaces have been designed:
+
+1. **Outsider**: in this scenario we encounter a user that wants to use our solution but lacks any knowledge regarding blockchain technology neither has she any intention of getting familiarized with it. She has never used a wallet or any cryptocurrency, she has never heard about a smart contract and she has no intention of learning about it, she just wants to use the website. Therefore the requirements for this scenario is: **Transparent use of web3 technologies through a platform account**. The only ethereum account (EOA) would be the one of P2PModels and it will cover the costs for all the blockchain interactions. As mentioned in [Task assignment in Amara. Prototyping Round Robin with blockchain (I)](https://p2pmodels.eu/task-assignment-in-amara-prototype-round-robin/):
+
+    > The idea behind this component is to cover the costs related to these transactions. We want to spare the users (linguists) this expense, as it could severely affect the user experience and usability of the prototype.
+
+2. **Adopter**: in this scenario we could find a completly nobel user of web3 technologies but interested in learning, or we could find a user with some basic notions about cryptocurrencies and wallets. In both cases, the user prefers a web2 interface but might be interested in some extra info regarding the signer account and recovering it and start using a web3 ui. Therefore the requirements for this scenario is: **Transparent use of web3 technologies with personal account (Ethereum EOA)**. Each user will have its own wallet, with fonds provided by the organization account/using metatransactions, managed by the platform until the user exports it.
+
+3. **Native**: in this scenario the user is completly familiarized with web3 technologies. The platform can be presented as a dApp, requesting user wallet connection, transaction signing, etc. Therefore the requirements are: **Opaque use of web3 technologies through personal account (Ethereum account)** the platform won't have any record about the user.
+
 ---
 
-## **WoS - v0.1**
+## **WoS - v0.1**: outsiders scenario
 
 The current state of the project covers the following features:
 

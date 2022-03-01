@@ -5,13 +5,15 @@ repo_url: https://github.com/P2PModels/wallofshame-frontend
 repo_name: Wall of Shame - Frontend
 
 nav:
-    - Home: index.md
+    - Home: home.md
     - Roadmap: roadmap.md
     - Frontend:
+          - Introduction: frontend/intro.md
           - Architecture: frontend/architecture.md
           - Login: frontend/login.md
           - Map: frontend/map.md
     - Backend:
+          - Introduction: backend/intro.md
           - Architecture: backend/architecture.md
           - API:
                 - Cases: backend/api/cases.md
