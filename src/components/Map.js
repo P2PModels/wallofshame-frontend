@@ -76,12 +76,7 @@ const Map = props => {
                 />
                 {/* Enable map controls on focus, disable on blur */}
                 <MapScrollZoomOnFocus>
-                    <MarkerClusterGroup 
-                        onClick={clusterClicked}
-                        spiderfyOnMaxZoom={false}
-                        disableClusteringAtZoom={10}
-                        zoomToBoundsOnClick={true}
-                    >
+                    <MarkerClusterGroup onClick={clusterClicked}>
                         {cases.map(c => {
                             const bounds = regionToLatLng[c.region]
                             return (
