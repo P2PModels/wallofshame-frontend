@@ -21,7 +21,7 @@ Some screenshots from the current state of the prototype.
 
 ### Ubuntu 20.04 LTS
 
-In order to setup the whole prototype you need to  the front-end open your command-line and run the following commands:
+In order to setup the whole prototype you need to install the [Wall of Shame backend repo](https://github.com/P2PModels/wallofshame-backend) and the [Wall of Shame backend repo](https://github.com/P2PModels/wallofshame-backend)  the front-end open your command-line and run the following commands:
 
 ```
 $ git clone https://github.com/p2pmodels/wallofshame-frontend
