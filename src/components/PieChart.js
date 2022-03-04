@@ -34,7 +34,8 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
         {`${(percent * 100).toFixed(0)}%`}
       </text>
     );
-  };    
+}; 
+
 export default function PieChart(props) {
     const { keys, values, labels, ...other } = props
     const data = createDataObjectFromArrays(keys, values, labels)

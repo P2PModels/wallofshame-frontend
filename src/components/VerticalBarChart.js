@@ -65,11 +65,6 @@ const renderCustomizedLabel = (props, percent) => {
                             barSize={20}
                             fill={theme.palette.primary.main}
                             background={{ fill: '#E4E4E4' }}
-                            /* label={{
-                                fill: theme.palette.primary.main,
-                                fontSize: 16,
-                                position: 'right',
-                            }} */
                            
                         >
                             <LabelList dataKey="value" content={renderCustomizedLabel} />
