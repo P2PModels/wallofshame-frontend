@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom'
 import { useForm, Form } from './Shared/useForm'
 import Controls from './Shared/controls/Controls'
 import InfoDialog from './Shared/InfoDialog'
-
+import CircularProgress from '@mui/material/CircularProgress';
 import { REPORT } from '../services/report/queries'
 import HorizontalStepper from './Shared/HorizontalStepper'
 import ReportCaseFormPart1 from './ReportCaseFormPart1'
@@ -27,6 +27,33 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'flex-end',
         marginBottom: '4rem',
+    },
+    loadingSpinner: {
+        color: theme.palette.primary.light,
+        margin: '3rem 0 3rem',
+        //padding: '4rem 0 2rem', // por lo que se mueve
+    },
+    loadingText1: {
+        color: theme.palette.primary.light,
+        fontSize: '2rem',
+        fontWeight: '400',
+        padding: '2rem 0 2rem',
+        position: "relative",
+        margin: '2rem 0 2rem',
+    },
+    loadingText2: {
+        color: theme.palette.primary.light,
+        fontSize: '1rem',
+        fontWeight: '400',
+        padding: '2rem 0 2rem',
+        position: "relative",
+        margin: '2rem 0 2rem',
+    },
+    loadingContainer: {
+        height: '40%',
+        textAlign: 'center',
+        //padding: '1rem',
+        position: 'relative',
     },
 }))
 
@@ -49,7 +76,8 @@ export default function ReportCaseForm() {
 
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
-    const [sendReport, { data: response, loading, error }] = useMutation(REPORT)
+    let [sendReport, { data: response, loading, error }] = useMutation(REPORT)
+    loading = true
     const [showInfoDialog, setShowInfoDialog] = useState(false)
     const [infoDialogMsg, setInfoDialogMsg] = useState('')
 
@@ -176,7 +204,44 @@ export default function ReportCaseForm() {
         }
     }
 
-    if (loading) return <Typography>Reportando tu caso...</Typography>
+    if (loading) return (
+          //<Box position="relative" display="inline-flex">
+           <>
+
+            <Box  className = {classes.loadingContainer}
+                top={0}
+                left={0}
+                bottom={0}
+                right={0}
+                position="relative"
+                alignItems="center"
+                justifyContent="center"
+            >
+                <Grid container spacing={0}  className = {classes.loadingContainer}>
+                    <Grid item  >
+                        <Typography textAlign='center' className={classes.loadingText1}>
+                            Estamos registrando tu denuncia.                                    
+                        </Typography>
+                        
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={0}  className = {classes.loadingContainer}>
+                    <Grid item item xs={6}>
+                    <Typography textAlign='center' className={classes.loadingText2}>
+                            Este proceso puede tardar unos segundos...                                    
+                        </Typography>                    </Grid>
+                    <Grid item item xs={2}>
+                        <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
+                    </Grid>
+                </Grid>
+                
+            </Box>
+
+            
+            </>
+      );
+    //return <Typography>Reportando tu caso...</Typography>
     if (error)
         return (
             <InfoDialog
