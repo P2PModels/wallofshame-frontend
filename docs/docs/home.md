@@ -1,31 +1,27 @@
-# Welcome to the Wall of Shame prototype
-
+# 🎨✊📊 __Observatory of Spanish Artistic Precarity__ 📊✊🎨
 ## Introduction
 
-The Wall of Shame prototype will combine data-activism with the Ethereum blockchain to provide a censorship-resistant dashboard of unpaid invoices from cultural workers.
+The Observatory of Spanish Artistic Precarity prototype is a dynamic platform that visualizes metric data regarding current worker conditions and provides more visibility to the problem of precarity for cultural workers. At the same time, it allows users to create networks with each other and reach out to help entities after posting their public denouncement. Thanks to blockchain technology, the platform will be transparent and harder to censor (contrary to other projects based on mainstream platforms, e.g.@TrabajosRuineros). By relying on a set of quantitative data provided by users, we should also be able to visualize and address salary gaps depending on gender, location and type of (artistic) profession, which can help further analysis and policy-making around precarity. 
 
-<img src="./assets/images/Form.png" alt="Dashboard screenshot" width="51%" style="display: inline-block">
-<img src="./assets/images/Dashboard.png" alt="Form screenshot" width="44.3%" style="display: inline-block">
+The prototype has three main goals:
+
+- __Monitorization__: provide data to organizations and collectives in order to develop strategies for solving this issue through social means.
+
+- __Visibilization__: raise awareness of job insecurity in Spain to the public.
+
+- __Collectivization__: ease the process of contacting organizations, collectives and individuals with similar issues with the intention of increasing social participation outside the digital sphere.
+
+<img src="./assets/images/Map.png" alt="Map screenshot" width="48.5%" style="display: inline-block">
+<img src="./assets/images/Dashboard.png" alt="Dashboard screenshot" width="50.5%" style="display: inline-block">
+<img src="./assets/images/Form.png" alt="Form screenshot" style="display: inline-block">
 
 Some screenshots from the current state of the prototype.
-
-## The case-study
-
-This prototype will try to tackle a progressive adoption of the web3 technologies. In order to succesfully achive this task three different user profiles have been designed:
-
-1. **Outsider**: in this scenario we encounter a user that wants to use our solution but lacks any knowledge regarding blockchain technology neither has she any intention of getting familiarized with it. She has never used a wallet or any cryptocurrency, she has never heard about a smart contract and she has no intention of learning about it, she just wants to use the website. Therefore the requirements for this scenario is: **Transparent use of web3 technologies through a platform account**. The only ethereum account (EOA) would be the one of P2PModels and it will cover the costs for all the blockchain interactions. As mentioned in [Task assignment in Amara. Prototyping Round Robin with blockchain (I)](https://p2pmodels.eu/task-assignment-in-amara-prototype-round-robin/):
-
-    > The idea behind this component is to cover the costs related to these transactions. We want to spare the users (linguists) this expense, as it could severely affect the user experience and usability of the prototype.
-
-2. **Adopter**: in this scenario we could find a completly nobel user of web3 technologies but interested in learning, or we could find a user with some basic notions about cryptocurrencies and wallets. In both cases, the user prefers a web2 interface but might be interested in some extra info regarding the signer account and recovering it and start using a web3 ui. Therefore the requirements for this scenario is: **Transparent use of web3 technologies with personal account (Ethereum EOA)**. Each user will have its own wallet, with fonds provided by the organization account/using metatransactions, managed by the platform until the user exports it.
-
-3. **Native**: in this scenario the user is completly familiarized with web3 technologies. The platform can be presented as a dApp, requesting user wallet connection, transaction signing, etc. Therefore the requirements are: **Opaque use of web3 technologies through personal account (Ethereum account)** the platform won't have any record about the user.
 
 ## Instalation and Setup
 
 ### Ubuntu 20.04 LTS
 
-In order to setup and run the front-end open your command-line and run the following commands:
+In order to setup the whole prototype you need to  the front-end open your command-line and run the following commands:
 
 ```
 $ git clone https://github.com/p2pmodels/wallofshame-frontend
