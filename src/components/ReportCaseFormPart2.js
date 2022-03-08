@@ -125,9 +125,9 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                     required
                 />
             </Grid>
-            {/* <Grid item xs={8} className={classes.row}>
+            <Grid item xs={8} className={classes.row}>
                 <Controls.Checkbox
-                    name="authContact"
+                    name="terms"
                     checked={values.authContact}
                     msg="Autorizo a que la plataforma me ponga en contacto con personas en mi misma situación"
                     onChange={handleInputChange}
@@ -144,7 +144,7 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                     labelTitle
                 />
                 <div className={classes.spacer} />
-            </Grid> */}
+            </Grid>
         </Grid>
     )
 }

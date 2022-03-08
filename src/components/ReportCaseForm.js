@@ -2,16 +2,17 @@ import { React, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Box, Grid, Typography } from '@material-ui/core'
 import { useMutation } from '@apollo/client'
-import { v4 as uuid } from 'uuid'
 import { Redirect } from 'react-router-dom'
 import { useForm, Form } from './Shared/useForm'
 import Controls from './Shared/controls/Controls'
 import InfoDialog from './Shared/InfoDialog'
 
-import { REPORT } from '../services/report/queries'
+import { REPORT } from '../services/cases_backend/queries'
+import { ADD_USER } from '../services/users/queries'
 import HorizontalStepper from './Shared/HorizontalStepper'
 import ReportCaseFormPart1 from './ReportCaseFormPart1'
 import ReportCaseFormPart2 from './ReportCaseFormPart2'
+import { Check } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
     stepper: {
@@ -31,7 +32,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const initialFValues = {
-    // id: uuid(),
     companyName: '',
     caseType: '',
     description: '',
@@ -40,8 +40,8 @@ const initialFValues = {
     gender: '',
     ageRange: '',
     experience: '',
-    // authContact: false,
-    // email: '',
+    terms: false,
+    email: '',
 }
 
 export default function ReportCaseForm() {
@@ -50,6 +50,7 @@ export default function ReportCaseForm() {
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
     const [sendReport, { data: response, loading, error }] = useMutation(REPORT)
+    const [addUser, { data: addedUser, loading: loadingUser, error: errorUser }] = useMutation(ADD_USER)
     const [showInfoDialog, setShowInfoDialog] = useState(false)
     const [infoDialogMsg, setInfoDialogMsg] = useState('')
 
@@ -92,21 +93,38 @@ export default function ReportCaseForm() {
         } else if (values.experience == '') {
             setShowInfoDialog(true)
             setInfoDialogMsg('Debes seleccionar tu nivel de experiencia.')
-        } else if (values.authContact && values.email == '') {
+        } else if (values.terms && values.email == '') {
             setShowInfoDialog(true)
             setInfoDialogMsg(
                 'Has autorizado que contactemos contigo pero no has especificado una dirección de correo.'
             )
-            // } else if (
-            //     values.authContact &&
-            //     !values.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-            // ) {
-            //     setShowInfoDialog(true)
-            //     setInfoDialogMsg('E-mail inválido.')
+        } else if (
+            values.terms &&
+            !values.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+        ) {
+            setShowInfoDialog(true)
+            setInfoDialogMsg('E-mail inválido.')
         } else {
-            // submitCheat()
-            console.warn('Submiting after validation', values)
-            sendReport({ variables: { data: values } })
+            // console.warn('Submiting after validation', values)
+            let user = {
+                email: values.email,
+                terms: values.terms,
+                region: values.region,
+                profession: values.profession,
+                gender: values.gender,
+            }
+            let reportCase = {
+                companyName: values.companyName,
+                caseType: values.caseType,
+                description: values.description,
+                region: values.region,
+                profession: values.profession,
+                gender: values.gender,
+                ageRange: values.ageRange,
+                experience: values.experience,
+            }
+            addUser({ variables: { data: user } })
+            sendReport({ variables: { data: reportCase } })
             setActiveStep(0)
         }
     }
@@ -176,7 +194,25 @@ export default function ReportCaseForm() {
         }
     }
 
-    if (loading) return <Typography>Reportando tu caso...</Typography>
+    if (loading){
+        return loadingUser ? (
+            <Typography>Reportando tu caso y guardando datos de contacto...</Typography>
+        ) : (
+            <>
+                <Check /> <Typography>Contacto guardado: {addedUser.add.email}</Typography>
+                <Typography>Reportando tu caso...</Typography> 
+            </>
+        )
+    }
+
+    if (errorUser) 
+        return (
+            <InfoDialog
+                title="Error"
+                contentText={errorUser.message}
+                closeButtonText="Cerrar"
+            />
+        )
     if (error)
         return (
             <InfoDialog
