@@ -15,5 +15,3 @@ A new tab in your default browser should open automatically.
 
 The back-end of this repo is in [Wall of Shame backend](https://github.com/P2PModels/wallofshame-backend)
 
-
-
