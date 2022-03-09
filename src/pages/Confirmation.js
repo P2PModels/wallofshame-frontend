@@ -8,7 +8,8 @@ import DisplayValue from '../components/Shared/DisplayValue'
 import EmailContact from '../components/Shared/EmailContact'
 import EntityContact from '../components/Shared/EntityContact'
 import { useQuery } from '@apollo/client'
-import { GET_FILTERED_CASES } from '../services/cases/queries'
+import { GET_FILTERED_CASES } from '../services/cases_subgraph/queries'
+import { USERS } from '../services/users/queries'
 import {
     professionToProfessionRenderName,
     regionToRegionRenderName,
@@ -66,12 +67,12 @@ const useStyles = makeStyles(theme => ({
 export default function Confirmation(props) {
     const classes = useStyles()
     const { report } = props.location.state
-    const mockEmails = [
-        'mail1@test.es',
-        'mail2@test.es',
-        'mail3@test.es',
-        'mail4@test.es',
-    ]
+    // const mockEmails = [
+    //     'mail1@test.es',
+    //     'mail2@test.es',
+    //     'mail3@test.es',
+    //     'mail4@test.es',
+    // ]
     const mockEntities = [
         {
             src: './assets/smart-logo.png',
@@ -100,6 +101,16 @@ export default function Confirmation(props) {
     const professionQueryFilter = {
         profession: report.profession,
     }
+    const usersQueryFilter = {
+        OR: [
+                {
+                    region: report.region
+                },
+                {
+                    profession: report.profession
+                }
+            ]
+    }
 
     const {
         data: casesByRegion,
@@ -121,16 +132,28 @@ export default function Confirmation(props) {
         },
     })
 
-    if (loadingCasesByRegion || loadingCasesByProfession)
+    const {
+        data: dataUsers,
+        loading: loadingUsers,
+        error: errorUsers,
+    } = useQuery(USERS, {
+        variables: {
+            filter: JSON.stringify(usersQueryFilter),
+        },
+    })
+
+    if (loadingCasesByRegion || loadingCasesByProfession || loadingUsers)
         return <Typography>Cargando datos de tu interés...</Typography>
-    if (errorCasesByRegion || errorCasesByProfession)
+    if (errorCasesByRegion || errorCasesByProfession || errorUsers)
         return (
             <InfoDialog
                 title="Error"
                 contentText={
-                    errorCasesByRegion.message
+                    errorCasesByRegion
                         ? errorCasesByRegion.message
-                        : errorCasesByProfession.message
+                        : ( errorCasesByProfession 
+                            ? errorCasesByProfession.message:
+                            errorUsers.message )
                 }
                 closeButtonText="Cerrar"
             />
@@ -178,7 +201,7 @@ export default function Confirmation(props) {
                             />
                         </Box>
                         <Typography variant="h3" className={classes.heading2}>
-                            Personas que también han sufrido impagos
+                            Personas de contacto en tu ciudad o tu profesión
                         </Typography>
                         <Typography
                             variant="body1"
@@ -190,11 +213,12 @@ export default function Confirmation(props) {
                             Ha autorizado a dar su email así que ¡no te cortes!
                         </Typography>
                         <ul className={classes.contactList}>
-                            {mockEmails.map((email, i) => (
+                            {dataUsers.users.map((u, i) => (
                                 <li>
                                     <EmailContact
                                         label={`Persona ${i + 1}`}
-                                        email={email}
+                                        email={u.email}
+                                        key={`contacto-${i + 1}`}
                                     />
                                 </li>
                             ))}
