@@ -1,6 +1,6 @@
 import CasesContext from './context'
 import { useQuery } from '@apollo/client'
-import { GET_CASES } from '../../services/cases/queries'
+import { GET_CASES } from '../../services/cases_subgraph/queries'
 
 export function CasesProvider({ children }) {
     const { data, loading, error } = useQuery(GET_CASES)
