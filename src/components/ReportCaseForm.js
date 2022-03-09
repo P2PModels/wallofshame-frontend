@@ -82,8 +82,7 @@ export default function ReportCaseForm() {
 
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
-    let [sendReport, { data: response, loading, error }] = useMutation(REPORT)
-    loading = true
+    const [sendReport, { data: response, loading, error }] = useMutation(REPORT)
     const [showInfoDialog, setShowInfoDialog] = useState(false)
     const [infoDialogMsg, setInfoDialogMsg] = useState('')
 
