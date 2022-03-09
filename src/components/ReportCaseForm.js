@@ -29,32 +29,38 @@ const useStyles = makeStyles(theme => ({
         marginBottom: '4rem',
     },
     loadingSpinner: {
-        color: theme.palette.primary.light,
-        margin: '3rem 0 3rem',
+        color: theme.palette.primary.main,
         //padding: '4rem 0 2rem', // por lo que se mueve
+        display: 'grid',
+        gridAutoFlow: 'column',
+        alignItems: 'center',
+        justifyItems: 'center',
+        margin: '7rem auto 0rem',
+
     },
     loadingText1: {
-        color: theme.palette.primary.light,
+        color: theme.palette.primary.main,
         fontSize: '2rem',
         fontWeight: '400',
-        padding: '2rem 0 2rem',
-        position: "relative",
-        margin: '2rem 0 2rem',
+        padding: '2rem 0 0rem',
+        margin: '2rem 0 0rem',
+        textAlign:'center',
+       
     },
     loadingText2: {
-        color: theme.palette.primary.light,
+        color: theme.palette.primary.main,
         fontSize: '1rem',
         fontWeight: '400',
-        padding: '2rem 0 2rem',
-        position: "relative",
-        margin: '2rem 0 2rem',
+        padding: '0rem 0 2rem',
+        margin: '1rem 0 2rem',
+        textAlign:'center',
     },
-    loadingContainer: {
-        height: '40%',
-        textAlign: 'center',
-        //padding: '1rem',
-        position: 'relative',
-    },
+    flexColumn:{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    }
+
 }))
 
 const initialFValues = {
@@ -206,41 +212,22 @@ export default function ReportCaseForm() {
 
     if (loading) return (
           //<Box position="relative" display="inline-flex">
-           <>
+        <Grid item  lg={12} className = {classes.flexColumn}>
+            <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
 
-            <Box  className = {classes.loadingContainer}
-                top={0}
-                left={0}
-                bottom={0}
-                right={0}
-                position="relative"
-                alignItems="center"
-                justifyContent="center"
-            >
-                <Grid container spacing={0}  className = {classes.loadingContainer}>
-                    <Grid item  >
-                        <Typography textAlign='center' className={classes.loadingText1}>
-                            Estamos registrando tu denuncia.                                    
-                        </Typography>
-                        
-                    </Grid>
-                </Grid>
+            <Typography textAlign='center' className={classes.loadingText1}>
+                Estamos registrando tu denuncia.                                    
+            </Typography>
 
-                <Grid container spacing={0}  className = {classes.loadingContainer}>
-                    <Grid item item xs={6}>
-                    <Typography textAlign='center' className={classes.loadingText2}>
-                            Este proceso puede tardar unos segundos...                                    
-                        </Typography>                    </Grid>
-                    <Grid item item xs={2}>
-                        <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
-                    </Grid>
-                </Grid>
+
+            <Typography textAlign='center' className={classes.loadingText2}>
+                Este proceso puede tardar unos segundos...                                    
+            </Typography>    
+
+                          
+        </Grid>
                 
-            </Box>
-
-            
-            </>
-      );
+    );
     //return <Typography>Reportando tu caso...</Typography>
     if (error)
         return (
@@ -259,18 +246,33 @@ export default function ReportCaseForm() {
             }}
         />
     ) : (
-        <Box className={classes.root}>
-            <HorizontalStepper
-                activeStep={activeStep}
-                className={classes.stepper}
-            />
-            <Form
-                onSubmit={submit(sendReport, { variables: { data: values } })}
-                // onSubmit={submitCheat}
-                id="report-case-form"
-            >
-                {renderActiveStep(activeStep)}
-            </Form>
-        </Box>
+        <Grid item lg={6}>
+            <Typography variant="h2" className={classes.title}>
+                Informa sobre tu caso
+            </Typography>
+            <Typography variant="body1" className={classes.caption}>
+                La información es poder. Si has sufrido algún tipo
+                de abuso por parte de pagadores privados,
+                administración o algún otro tipo de entidad pública
+                o privada, déjanos un testimonio anónimo para ayudar
+                a otros/as compañeros/as de profesión.
+            </Typography>
+                        
+        
+            <Box className={classes.root}>
+                <HorizontalStepper
+                    activeStep={activeStep}
+                    className={classes.stepper}
+                />
+                <Form
+                    onSubmit={submit(sendReport, { variables: { data: values } })}
+                    // onSubmit={submitCheat}
+                    id="report-case-form"
+                >
+                    {renderActiveStep(activeStep)}
+                </Form>
+                
+            </Box>
+        </Grid>
     )
 }

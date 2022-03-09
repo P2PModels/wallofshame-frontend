@@ -21,28 +21,20 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
     },
+
+  
 }))
 
 export default function IssueBadge() {
     const classes = useStyles()
 
+
     return (
         <Page container={false}>
             <Container maxWidth="xl">
                 <Grid container>
-                    <Grid item lg={6}>
-                        <Typography variant="h2" className={classes.title}>
-                            Informa sobre tu caso
-                        </Typography>
-                        <Typography variant="body1" className={classes.caption}>
-                            La información es poder. Si has sufrido algún tipo
-                            de abuso por parte de pagadores privados,
-                            administración o algún otro tipo de entidad pública
-                            o privada, déjanos un testimonio anónimo para ayudar
-                            a otros/as compañeros/as de profesión.
-                        </Typography>
+                        
                         <ReportCaseForm />
-                    </Grid>
                 </Grid>
             </Container>
         </Page>
