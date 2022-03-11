@@ -4,7 +4,7 @@ export const steps= [
         <div>
           <h4>Bienvenida/o al</h4>
           <h2>Observatorio de la Precariedad en el Sector Cultural</h2>
-          <p>Aquí podrás encotrar denuncias anónimas a irregularidades respecto a pgos de empresas españolas a trabajadoras/es del sector cultural agrupadas por Comunidades Autónomas.</p>
+          <p>Aquí podrás encotrar denuncias anónimas a irregularidades respecto a pagos de empresas españolas a trabajadoras/es del sector cultural agrupadas por Comunidades Autónomas.</p>
           <p>Esta iniciativa pretende mostrar cuál es la realidad del sector cultural en España y convertirse en un espacio de autodefensa y apoyo mutuo para profesionales autónomos</p>
           <p>✊🏻 ✊🏾 ✊🏿</p>
         </div>
@@ -21,7 +21,7 @@ export const steps= [
       target: 'body',
     },
     {
-      content: <p>Haciendo click en los puntos del mapa podrás ver el número de denuncias que profesionales como tú han emitido comtra empresas que han incurrido en irregularidades en sus contratos o pagos.</p>,
+      content: <p>Haciendo click en los puntos del mapa podrás ver el número de denuncias que profesionales como tú han emitido contra empresas que han incurrido en irregularidades en sus contratos o pagos.</p>,
       floaterProps: {
         disableAnimation: true,
       },
@@ -31,9 +31,9 @@ export const steps= [
           backgroundColor: '#202020 ',
           textColor: '#FFFFFF',
         },
-      },
+      },  
       spotlightPadding: 20,
-      target: '.demo__projects h2',
+      target: '.map div',
       title: 'Mapa interactivo',
 
     },
@@ -42,7 +42,9 @@ export const steps= [
       content: (
         <p>Aquí podrás ver los datos que estamos recogiendo de las denuncias realizadas por tipo de abuso, profesión, género o edad.</p>
       ),
-      placement: 'top',
+      placement: 'bottom',
+      //spotlightPadding: 20,
+      scrollOffset: 50,
       styles: {
         options: {
           arrowColor: '#202020',
@@ -51,9 +53,7 @@ export const steps= [
           textColor: '#FFFFFF',          
         },
       },
-      target: '.demo__how-it-works h2',
-      title: 'Gráficas',
-
+      target: '.dashboard div',
     },
     {
       content: (
@@ -70,7 +70,7 @@ export const steps= [
           textColor: '#FFFFFF',
         },
       },
-      target: '.demo__about h2',
+      target: '.report div',
       title: 'Cuéntanos tu caso',
     },
   ];

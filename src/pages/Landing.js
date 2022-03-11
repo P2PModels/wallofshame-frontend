@@ -5,6 +5,8 @@ import Dashboard from '../components/Dashboard'
 import Map from '../components/Map'
 import Page from '../components/Page'
 import { CasesProvider } from '../providers/CasesProvider/provider'
+import { steps } from "../components/Steps";
+import Joyride from "react-joyride";
 
 const useStyles = makeStyles(theme => ({
     map: {
@@ -21,13 +23,17 @@ export default function Landing() {
     return (
         <Page container={false}>
             <CasesProvider>
+                <div className="map">
                 {/* <CasesProvider cases={data.cases}> */}
                 {/* Map */}
-                <Map className={classes.map} />
+                    <Map className={classes.map}/> 
+                </div>
                 {/* Dashboard */}
-                <Container maxWidth="xl">
-                    <Dashboard />
-                </Container>
+                <div className="dashboard">
+                    <Container  maxWidth="xl">
+                        <Dashboard />
+                    </Container>
+                </div>
             </CasesProvider>
         </Page>
     )

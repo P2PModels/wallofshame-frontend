@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { steps } from "../Steps";
+import Joyride from "react-joyride";
+
 import {
     AppBar,
     Toolbar,
@@ -175,7 +178,9 @@ export default function Header() {
                         {customLogo}
                         {TitleAndDescription}
                     </div>
+                    <div className="report">
                     <div>{getMenuButtons()} </div>
+                    </div>
                 </Toolbar>
             </Container>
         )
@@ -208,7 +213,7 @@ export default function Header() {
                         onClose: handleDrawerClose,
                     }}
                 >
-                    <div className={drawerContainer}>{getDrawerChoices()}</div>
+                    <div className= {drawerContainer} >{getDrawerChoices()}</div>
                 </Drawer>
 
                 <div>{customLogo}</div>

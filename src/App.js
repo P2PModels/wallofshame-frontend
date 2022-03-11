@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import Joyride from "react-joyride";
+import { steps } from "./components/Steps";
 
 import './App.css'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -29,8 +31,11 @@ import theme from './themes/smart'
 //     supportedChains: [ChainId.Rinkeby],
 // }
 
+
 function App() {
-    return (
+    
+      return (
+        
         <AppStateProvider>
             <AuthProvider>
                 <BackendProvider>
@@ -41,7 +46,22 @@ function App() {
                             <Header />
                             <Switch>
                                 <Route exact path="/">
+                                  <div className="demo-wrapper">
+                                    <Joyride
+                                      continuous={true}
+                                      scrollToFirstStep={true}
+                                      showProgress={true}
+                                      showSkipButton={true}
+                                      steps={steps}
+                                      styles={{
+                                        options: {
+                                          zIndex: 10000,
+                                        },
+                                      }}
+                                   />
                                     <Landing />
+                                  </div>
+
                                 </Route>
                                 <Route exact path="/info">
                                     <Info />
@@ -69,3 +89,4 @@ function App() {
 }
 
 export default App
+
