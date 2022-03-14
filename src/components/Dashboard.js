@@ -9,6 +9,9 @@ import Skeleton from '@mui/material/Skeleton';
 import LoadingText from './Shared/LoadingText';
 import LoadingRectangle from './Shared/LoadingRectangle';
 import { Pie } from 'recharts';
+import { steps } from "../components/Steps";
+import Joyride from "react-joyride";
+
 import { useAppState } from '../providers/AppStateProvider/use'
 import {
     categories,
@@ -163,6 +166,7 @@ export default function Dashboard() {
 
 
         ) : (
+           
             <Grid
                 container
                 className={classes.dashboardContainer}
@@ -170,51 +174,51 @@ export default function Dashboard() {
                 justify="flex-start"
                 alignItems="center"
             >
-        
-                <Grid item xs={12}>
-                    <Title
-                        component="h2"
-                        variant="h1"
-                        className={classes.regionTitle}
-                    >
-                        {regionToRegionRenderName[region]}
-                    </Title>
-                    <Typography className={classes.totlaNumberOfReports}>
-                        {stat.casesByRegion} casos han denunciado abusos de empresas
-                        o entidades públicas en la zona.
-                    </Typography>
-                </Grid>
+                <div className = 'dashboard'>
+                    <Grid item xs={12}>
+                        <Title
+                            component="h2"
+                            variant="h1"
+                            className={classes.regionTitle}
+                        >
+                            {regionToRegionRenderName[region]}
+                        </Title>
+                        <Typography className={classes.totlaNumberOfReports}>
+                            {stat.casesByRegion} casos han denunciado abusos de empresas
+                            o entidades públicas en la zona.
+                        </Typography>
+                    </Grid>
+                    
+                </div>    
+                    
+                    <Grid item xs={12} className={classes.typeOfReport}>
+                        <Title
+                            component="h2"
+                            variant="h2"
+                            className={clsx(classes.dInlineBlock, classes.chartTitle)}
+                        >
+                            TIPO DE ABUSO
+                        </Title>
+                        {categories.types.map((key, i) => {
+                            return (
+                                <Chip
+                                    label={
+                                        typeToTypeRenderName[key] +
+                                        ' ' +
+                                        // Get the stats based in the position in the array
+                                        stat.casesByType[categories.types.indexOf(key)]
+                                    }
+                                    className={classes.chip}
+                                    style={{
+                                        backgroundColor: chipColors[key],
+                                        color: theme.palette.text.light,
+                                    }}
+                                    key={key + 'chip'}
+                                />
+                            )
+                        })}
+                    </Grid>
                 
-                
-                
-                <Grid item xs={12} className={classes.typeOfReport}>
-                    <Title
-                        component="h2"
-                        variant="h2"
-                        className={clsx(classes.dInlineBlock, classes.chartTitle)}
-                    >
-                        TIPO DE ABUSO
-                    </Title>
-                    {categories.types.map((key, i) => {
-                        return (
-                            <Chip
-                                label={
-                                    typeToTypeRenderName[key] +
-                                    ' ' +
-                                    // Get the stats based in the position in the array
-                                    stat.casesByType[categories.types.indexOf(key)]
-                                }
-                                className={classes.chip}
-                                style={{
-                                    backgroundColor: chipColors[key],
-                                    color: theme.palette.text.light,
-                                }}
-                                key={key + 'chip'}
-                            />
-                        )
-                    })}
-                </Grid>
-
 
                 {/* Profession chart */}
                 <Grid

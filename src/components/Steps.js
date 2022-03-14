@@ -1,7 +1,10 @@
+const logoSrc = './assets/ico-logo.svg'
+
 export const steps= [
     {
       content:(
         <div>
+          <img src={logoSrc} />
           <h4>Bienvenida/o al</h4>
           <h2>Observatorio de la Precariedad en el Sector Cultural</h2>
           <p>Aquí podrás encotrar denuncias anónimas a irregularidades respecto a pagos de empresas españolas a trabajadoras/es del sector cultural agrupadas por Comunidades Autónomas.</p>
@@ -15,6 +18,7 @@ export const steps= [
           arrowColor: '#202020',
           backgroundColor: '#202020 ',
           textColor: '#FFFFFF',
+          width: 450,
         },
       },
       placement: 'center',
@@ -32,17 +36,17 @@ export const steps= [
           textColor: '#FFFFFF',
         },
       },  
-      spotlightPadding: 20,
+      spotlightPadding: 200,
       target: '.map div',
       title: 'Mapa interactivo',
-
+      scrollOffset: 0,
     },
   
     {
       content: (
         <p>Aquí podrás ver los datos que estamos recogiendo de las denuncias realizadas por tipo de abuso, profesión, género o edad.</p>
       ),
-      placement: 'bottom',
+      placement: 'top',
       //spotlightPadding: 20,
       scrollOffset: 50,
       styles: {
@@ -58,11 +62,11 @@ export const steps= [
     {
       content: (
         <div>
-          <p>Desde este enlace podrás reportar tu caso mediante un formulario para incorporarlo a nuestra base de datos. Al finalizar el proceso, tendrás acceso a otras personas anónimas que se han encontrado en la misma situación que tú para contactarls y que te aconsejen.</p>
+          <p>Desde estos enlaces podrás obtener información o reportar tu caso mediante un formulario para incorporarlo a nuestra base de datos. Al finalizar el proceso, tendrás acceso a otras personas anónimas que se han encontrado en la misma situación que tú para contactarls y que te aconsejen.</p>
           <p>También encontrarás algunas entidades que pueden ayudarte</p>
         </div>
         ),
-      placement: 'left',
+      placement: 'bottom',
       styles: {
         options: {
           arrowColor: '#202020',

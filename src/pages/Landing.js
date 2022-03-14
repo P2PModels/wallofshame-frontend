@@ -29,11 +29,9 @@ export default function Landing() {
                     <Map className={classes.map}/> 
                 </div>
                 {/* Dashboard */}
-                <div className="dashboard">
-                    <Container  maxWidth="xl">
-                        <Dashboard />
-                    </Container>
-                </div>
+                <Container  maxWidth="xl">
+                    <Dashboard />
+                </Container>
             </CasesProvider>
         </Page>
     )
