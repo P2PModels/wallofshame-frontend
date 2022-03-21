@@ -187,8 +187,7 @@ export default function Dashboard() {
                             {stat.casesByRegion} casos han denunciado abusos de empresas
                             o entidades públicas en la zona.
                         </Typography>
-                    </Grid>
-                    
+                    </Grid>                    
                 </div>    
                     
                     <Grid item xs={12} className={classes.typeOfReport}>

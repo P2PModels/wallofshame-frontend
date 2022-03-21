@@ -22,6 +22,7 @@ export const steps= [
         },
       },
       placement: 'center',
+      disableBeacon: true,
       target: 'body',
     },
     {

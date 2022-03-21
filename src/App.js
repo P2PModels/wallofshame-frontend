@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Joyride from "react-joyride";
+import Joyride, {  STATUS } from 'react-joyride';
+
 import { steps } from "./components/Steps";
 
 import './App.css'
@@ -32,60 +33,92 @@ import theme from './themes/smart'
 // }
 
 
-function App() {
-    
-      return (
-        
-        <AppStateProvider>
-            <AuthProvider>
-                <BackendProvider>
-                    {/* <ApolloProviderAuth> */}
-                    {/* <DAppProvider config={dAppConfig}> */}
-                    <BrowserRouter>
-                        <ThemeProvider theme={theme}>
-                            <Header />
-                            <Switch>
-                                <Route exact path="/">
-                                  <div className="demo-wrapper">
-                                    <Joyride
-                                      continuous={true}
-                                      scrollToFirstStep={true}
-                                      showProgress={true}
-                                      showSkipButton={true}
-                                      steps={steps}
-                                      styles={{
-                                        options: {
-                                          zIndex: 10000,
-                                        },
-                                      }}
-                                   />
-                                    <Landing />
-                                  </div>
 
-                                </Route>
-                                <Route exact path="/info">
-                                    <Info />
-                                </Route>
-                                <Route exact path="/report">
-                                    <Report />
-                                </Route>
-                                <Route
-                                    exact
-                                    path="/confirmation"
-                                    render={props => (
-                                        <Confirmation {...props} />
-                                    )}
-                                />
-                            </Switch>
-                            <Footer />
-                        </ThemeProvider>
-                    </BrowserRouter>
-                    {/* </DAppProvider> */}
-                </BackendProvider>
-                {/* </ApolloProviderAuth> */}
-            </AuthProvider>
-        </AppStateProvider>
-    )
+
+
+function App() {
+    const [done, setDone] = useState(true)
+    localStorage.setItem('done', 'true')
+    //window.localStorage.setItem('tdone', true)
+    if(localStorage.getItem('done') == 'false'){
+        setDone(false);
+    }
+        return (
+        
+            <AppStateProvider>
+                <AuthProvider>
+                    <BackendProvider>
+                        {/* <ApolloProviderAuth> */}
+                        {/* <DAppProvider config={dAppConfig}> */}
+                        <BrowserRouter>
+                            <ThemeProvider theme={theme}>
+                                <Header />
+                                <Switch>
+                                    <Route exact path="/">
+                                      <div className="demo-wrapper">
+                                        {console.log(done)}
+                                        
+                                            <Joyride
+                                                continuous={true}  
+                                                //disableOverlay        
+                                                
+                                                 callback={(data) => {
+                                                    const { status } = data;
+
+                                                    if ([STATUS.FINISHED].includes(status)) {
+                                                        localStorage.setItem('done', 'false');
+                                                        setDone(false);
+                                                      }
+                                                    if ([STATUS.SKIPPED].includes(status)) {
+                                                        window.localStorage.setItem('done', 'false');
+                                                        setDone(false);
+                                                      }
+                                                    
+                                                }} 
+                                                scrollToFirstStep={true} //el botoncito
+                                                showProgress={true}
+                                                showSkipButton={true}
+                                                run = {done}
+                                                //run = {window.localStorage.getItem('tdone')}
+                                                steps={steps}
+                                                styles={{
+                                                    options: {
+                                                    zIndex: 10000,
+                                                    },
+                                                    buttonClose: {
+                                                        display: 'none',
+                                                    },
+                                                }}
+                                            />
+                                           
+                                        <Landing />
+                                      </div>
+    
+                                    </Route>
+                                    <Route exact path="/info">
+                                        <Info />
+                                    </Route>
+                                    <Route exact path="/report">
+                                        <Report />
+                                    </Route>
+                                    <Route
+                                        exact
+                                        path="/confirmation"
+                                        render={props => (
+                                            <Confirmation {...props} />
+                                        )}
+                                    />
+                                </Switch>
+                                <Footer />
+                            </ThemeProvider>
+                        </BrowserRouter>
+                        {/* </DAppProvider> */}
+                    </BackendProvider>
+                    {/* </ApolloProviderAuth> */}
+                </AuthProvider>
+            </AppStateProvider>
+        )
+    
 }
 
 export default App

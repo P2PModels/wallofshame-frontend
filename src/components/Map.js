@@ -14,13 +14,14 @@ import { Typography } from '@material-ui/core'
 import { useAppState } from '../providers/AppStateProvider/use'
 import Skeleton from '@mui/material/Skeleton';
 import LoadingRectangle from './Shared/LoadingRectangle'
-
 import {
     findChildObject,
     filterCasesByRegion,
 } from '../helpers/general-helpers'
 import CaseCardList from './CaseCardList'
 import { regionToRegionRenderName } from '../data/config.json'
+
+
 
 // TODO: redraw on zoom change
 const Map = props => {
@@ -74,7 +75,7 @@ const Map = props => {
 return (
     <MapContainer
         bounds={mapBounds}
-        zoom={13}
+        zoom={103}
         scrollWheelZoom={false}
         zoomControl={false}
         {...other}
@@ -85,22 +86,34 @@ return (
         />
         {/* Enable map controls on focus, disable on blur */}
         <MapScrollZoomOnFocus>
-            <MarkerClusterGroup onClick={clusterClicked}>
+            <MarkerClusterGroup 
+                onClick={clusterClicked}
+                spiderfyOnMaxZoom={false}
+                disableClusteringAtZoom={10}
+                zoomToBoundsOnClick={true}
+            >
                 {cases.map(c => {
                     const bounds = regionToLatLng[c.region]
                     return (
                         <Marker
                             position={[bounds.lat, bounds.lng]}
+                            /* icon = {L.divIcon({
+                                className: 'marker',
+                                iconAnchor: [20, 20],
+                                iconSize: [40, 40]
+                            })}  */
+                            
                             icon={icons[c.caseType]}
-                            key={c.id + '-report'}
+                            
+                             key={c.id + '-report'}
                         >
-                            <Popup>
+                            {/* <Popup>
                                 <h3>{`Case #${c.id}`}</h3>
                                 <h4>
                                     {c.companyName + ' ' + c.caseType}
                                 </h4>
                                 <p>{c.description}</p>
-                            </Popup>
+                            </Popup> */} 
                         </Marker>
                     )
                 })}

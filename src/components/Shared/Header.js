@@ -178,9 +178,7 @@ export default function Header() {
                         {customLogo}
                         {TitleAndDescription}
                     </div>
-                    <div className="report">
                     <div>{getMenuButtons()} </div>
-                    </div>
                 </Toolbar>
             </Container>
         )

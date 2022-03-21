@@ -68,19 +68,19 @@
     },
     "markersByType": {
         "maltrato": {
-            "iconUrl": "./assets/smart-logo.png",
+            "iconUrl": "./assets/punteroMapa.png",
             "iconSize": [40, 40],
             "iconAnchor": [22, 94],
             "popupAnchor": [-3, -76]
         },
         "retraso": {
-            "iconUrl": "./assets/smart-logo.png",
+            "iconUrl": "./assets/punteroMapa.png",
             "iconSize": [40, 40],
             "iconAnchor": [22, 94],
             "popupAnchor": [-3, -76]
         }, 
         "impago": {
-            "iconUrl": "./assets/smart-logo.png",
+            "iconUrl": "./assets/punteroMapa.png",
             "iconSize": [40, 40],
             "iconAnchor": [22, 94],
             "popupAnchor": [-3, -76]
