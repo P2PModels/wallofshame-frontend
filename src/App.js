@@ -37,88 +37,84 @@ import theme from './themes/smart'
 
 
 function App() {
-    const [done, setDone] = useState(true)
-    localStorage.setItem('done', 'true')
-    //window.localStorage.setItem('tdone', true)
-    if(localStorage.getItem('done') == 'false'){
-        setDone(false);
+    const [notDone, setnotDone] = useState(true)
+    
+    //window.localStorage.setItem('notDone', true)
+    if(localStorage.getItem('notDone') == 'false'){
+        localStorage.setItem('notDone','false');
     }
-        return (
-        
-            <AppStateProvider>
-                <AuthProvider>
-                    <BackendProvider>
-                        {/* <ApolloProviderAuth> */}
-                        {/* <DAppProvider config={dAppConfig}> */}
-                        <BrowserRouter>
-                            <ThemeProvider theme={theme}>
-                                <Header />
-                                <Switch>
-                                    <Route exact path="/">
-                                      <div className="demo-wrapper">
-                                        {console.log(done)}
-                                        
-                                            <Joyride
-                                                continuous={true}  
-                                                //disableOverlay        
-                                                
-                                                 callback={(data) => {
-                                                    const { status } = data;
+    else {localStorage.setItem('notDone', 'true')}
 
-                                                    if ([STATUS.FINISHED].includes(status)) {
-                                                        localStorage.setItem('done', 'false');
-                                                        setDone(false);
-                                                      }
-                                                    if ([STATUS.SKIPPED].includes(status)) {
-                                                        window.localStorage.setItem('done', 'false');
-                                                        setDone(false);
-                                                      }
-                                                    
-                                                }} 
-                                                scrollToFirstStep={true} //el botoncito
-                                                showProgress={true}
-                                                showSkipButton={true}
-                                                run = {done}
-                                                //run = {window.localStorage.getItem('tdone')}
-                                                steps={steps}
-                                                styles={{
-                                                    options: {
-                                                    zIndex: 10000,
-                                                    },
-                                                    buttonClose: {
-                                                        display: 'none',
-                                                    },
-                                                }}
-                                            />
-                                           
-                                        <Landing />
-                                      </div>
+    return (
     
-                                    </Route>
-                                    <Route exact path="/info">
-                                        <Info />
-                                    </Route>
-                                    <Route exact path="/report">
-                                        <Report />
-                                    </Route>
-                                    <Route
-                                        exact
-                                        path="/confirmation"
-                                        render={props => (
-                                            <Confirmation {...props} />
-                                        )}
-                                    />
-                                </Switch>
-                                <Footer />
-                            </ThemeProvider>
-                        </BrowserRouter>
-                        {/* </DAppProvider> */}
-                    </BackendProvider>
-                    {/* </ApolloProviderAuth> */}
-                </AuthProvider>
-            </AppStateProvider>
-        )
-    
+        <AppStateProvider>
+            <AuthProvider>
+                <BackendProvider>
+                    {/* <ApolloProviderAuth> */}
+                    {/* <DAppProvider config={dAppConfig}> */}
+                    <BrowserRouter>
+                        <ThemeProvider theme={theme}>
+                            <Header />
+                            <Switch>
+                                <Route exact path="/">
+                                <div className="demo-wrapper">
+                                    
+                                        <Joyride
+                                            continuous={true}  
+                                            //disableOverlay        
+                                            
+                                            callback={(data) => {
+                                                const { status } = data;
+
+                                                if ([STATUS.FINISHED].includes(status) || [STATUS.SKIPPED].includes(status)) {
+                                                    localStorage.setItem('notDone', 'false');
+                                                    setnotDone(false);
+                                                } 
+                                                
+                                            }} 
+                                            scrollToFirstStep={true} //el botoncito
+                                            showProgress={true}
+                                            showSkipButton={true}
+                                            run = {localStorage.getItem('notDone') == 'true' ? (true):(false)}
+                                            steps={steps}
+                                            styles={{
+                                                options: {
+                                                zIndex: 10000,
+                                                },
+                                                buttonClose: {
+                                                    display: 'none',
+                                                },
+                                            }}
+                                        />
+                                    
+                                    <Landing />
+                                </div>
+
+                                </Route>
+                                <Route exact path="/info">
+                                    <Info />
+                                </Route>
+                                <Route exact path="/report">
+                                    <Report />
+                                </Route>
+                                <Route
+                                    exact
+                                    path="/confirmation"
+                                    render={props => (
+                                        <Confirmation {...props} />
+                                    )}
+                                />
+                            </Switch>
+                            <Footer />
+                        </ThemeProvider>
+                    </BrowserRouter>
+                    {/* </DAppProvider> */}
+                </BackendProvider>
+                {/* </ApolloProviderAuth> */}
+            </AuthProvider>
+        </AppStateProvider>
+    )
+
 }
 
 export default App

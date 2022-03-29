@@ -26,6 +26,23 @@ Already done:
 2. 4 step only appears in the report button
 3. The tour only renders the first time. However, if you refresh the page, it will appear again.
 
-DAY : 21 March
 
 Map: in order to change the icon, we place a new icon called punteroMapa in the file config.json instead of the smart-logo.
+
+[] Onboarding: names are changed to spanish
+
+Retry button: 
+we use error to see if an error occurred in sendReport
+we create a new retry button and show it when when an error occurs, not showing the end one
+we do both with a hook called retry which is set to true when we 
+
+
+falta el error decir oye reintenta pero me dice too many re renders
+
+usamos un infodialog que solo se mostrará una vez por cada retry, esto lo hacemos mediante open={showInfoDialogRetry && error}
+de esta manera, cada vez que pulsamos el botón de reintentar, showInfoDialogRetry se pondrá a cierto por si vuelve a haber error.
+[quité el setend]
+setActiveStep(0) lo he quitado porque una vez sales al volver se pone solo a 0, y si lo ponía hacía rerender infinito
+
+[] Retry button 
+[] done of onboarding changed to notDone

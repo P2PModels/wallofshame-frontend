@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import React, {useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Box, Grid, Typography } from '@material-ui/core'
 import { useMutation } from '@apollo/client'
@@ -78,17 +78,20 @@ const initialFValues = {
 }
 
 export default function ReportCaseForm() {
+    const anda = true
     const classes = useStyles()
-
+    
+    const [end, setEnd] = useState(false)
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
     const [sendReport, { data: response, loading, error }] = useMutation(REPORT)
     const [showInfoDialog, setShowInfoDialog] = useState(false)
-    const [infoDialogMsg, setInfoDialogMsg] = useState('')
+    const [showInfoDialogRetry, setShowInfoDialogRetry] = useState(true)
 
+    const [infoDialogMsg, setInfoDialogMsg] = useState('')
     // const submitCheat = () => console.log('The dark side wants to submit...')
-    const validatePart1 = e => {
-        e.preventDefault()
+    const validatePart1 = event => {
+        event.preventDefault()
         if (values.companyName == '') {
             setShowInfoDialog(true)
             setInfoDialogMsg('Debes introducir un nombre de empresa.')
@@ -105,11 +108,19 @@ export default function ReportCaseForm() {
             )
         } else {
             setActiveStep(1)
-        }
+        } 
     }
 
-    const validatePart2 = e => {
-        e.preventDefault()
+    const reintentar = event => {
+        setShowInfoDialog(true)
+            setInfoDialogMsg(
+                ''
+            )
+        validatePart2() 
+    }
+    const validatePart2 = event => {
+        setShowInfoDialogRetry(true) 
+        event.preventDefault()
         if (values.region == '') {
             setShowInfoDialog(true)
             setInfoDialogMsg('Debes seleccionar tu provicia.')
@@ -140,7 +151,7 @@ export default function ReportCaseForm() {
             // submitCheat()
             console.warn('Submiting after validation', values)
             sendReport({ variables: { data: values } })
-            setActiveStep(0)
+            
         }
     }
 
@@ -161,7 +172,7 @@ export default function ReportCaseForm() {
                                     onClick={validatePart1}
                                     className={classes.formButton}
                                 />
-                                <InfoDialog
+                                <InfoDialog 
                                     open={showInfoDialog}
                                     title="Error en el formulario"
                                     contentText={infoDialogMsg}
@@ -185,6 +196,11 @@ export default function ReportCaseForm() {
                         />
                         <Grid container spacing={1}>
                             <Grid item xs={8} className={classes.buttonRow}>
+                            
+                                { 
+                                
+                                !error  ? (
+                                     
                                 <Controls.Button
                                     type="submit"
                                     text="FINALIZAR"
@@ -192,6 +208,32 @@ export default function ReportCaseForm() {
                                     className={classes.formButton}
                                     // disabled={!active}
                                 />
+                                )
+                                :
+                                (
+                                <> 
+                                    <Controls.Button
+                                        type="submit"
+                                        text="REINTENTAR"
+                                        onClick={validatePart2}
+                                        className={classes.formButton}
+                                    />
+
+                                    <InfoDialog
+                                        open={showInfoDialogRetry && error}
+                                        title="Error en el formulario"
+                                        contentText='Error al enviar el formulario. Inténtelo de nuevo'
+                                        closeButtonText="Cerrar"
+                                        onClose={() => {
+                                            // Add js focus on field
+                                            setShowInfoDialogRetry(false)
+                                        }}
+                                    />
+                                </>
+                                )
+                            
+                            }
+                                
                                 <InfoDialog
                                     open={showInfoDialog}
                                     title="Error en el formulario"
@@ -202,6 +244,7 @@ export default function ReportCaseForm() {
                                         setShowInfoDialog(false)
                                     }}
                                 />
+                                
                             </Grid>
                         </Grid>
                     </>
@@ -227,51 +270,51 @@ export default function ReportCaseForm() {
         </Grid>
                 
     );
-    //return <Typography>Reportando tu caso...</Typography>
-    if (error)
-        return (
-            <InfoDialog
-                title="Error"
-                contentText={error.message}
-                closeButtonText="Cerrar"
+
+    
+
+    //return response && error ? (
+    if(response && ! error){
+        //setActiveStep(0) //no error
+        console.log("<ReportForm> Success!")
+        return(
+            <Redirect
+                to={{
+                    pathname: '/confirmation',
+                    state: { report: response.report },
+                }}
             />
         )
+    } else {
 
-    return response ? (
-        <Redirect
-            to={{
-                pathname: '/confirmation',
-                state: { report: response.report },
-            }}
-        />
-    ) : (
-        <Grid item lg={6}>
-            <Typography variant="h2" className={classes.title}>
-                Informa sobre tu caso
-            </Typography>
-            <Typography variant="body1" className={classes.caption}>
-                La información es poder. Si has sufrido algún tipo
-                de abuso por parte de pagadores privados,
-                administración o algún otro tipo de entidad pública
-                o privada, déjanos un testimonio anónimo para ayudar
-                a otros/as compañeros/as de profesión.
-            </Typography>
+        return(
+            <Grid item lg={6}>
+                <Typography variant="h2" className={classes.title}>
+                    Informa sobre tu caso
+                </Typography>
+                <Typography variant="body1" className={classes.caption}>
+                    La información es poder. Si has sufrido algún tipo
+                    de abuso por parte de pagadores privados,
+                    administración o algún otro tipo de entidad pública
+                    o privada, déjanos un testimonio anónimo para ayudar
+                    a otros/as compañeros/as de profesión.
+                </Typography>
                         
-        
-            <Box className={classes.root}>
-                <HorizontalStepper
-                    activeStep={activeStep}
-                    className={classes.stepper}
-                />
-                <Form
-                    onSubmit={submit(sendReport, { variables: { data: values } })}
-                    // onSubmit={submitCheat}
-                    id="report-case-form"
-                >
-                    {renderActiveStep(activeStep)}
-                </Form>
-                
-            </Box>
-        </Grid>
-    )
+                <Box className={classes.root}>
+                    <HorizontalStepper
+                        activeStep={activeStep}
+                        className={classes.stepper}
+                        />
+                    <Form
+                        onSubmit={submit(sendReport, { variables: { data: values } })}
+                        // onSubmit={submitCheat}
+                        id="report-case-form"
+                        >
+                        {renderActiveStep(activeStep)}
+                    </Form>
+                </Box>
+            </Grid>
+        )
+    }    
+
 }

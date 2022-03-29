@@ -60,8 +60,10 @@ const Map = props => {
         // Set map boundaries to inlcude all marker(cases)
         let mapBounds = []
         cases.map(c => {
-            const bounds = regionToLatLng[c.region]
-            mapBounds.push([bounds.lat, bounds.lng])
+            if(c.region != ""){
+                const bounds = regionToLatLng[c.region]
+                mapBounds.push([bounds.lat, bounds.lng])
+        }
         })
 
         // Set marker icons by type
@@ -93,29 +95,31 @@ return (
                 zoomToBoundsOnClick={true}
             >
                 {cases.map(c => {
-                    const bounds = regionToLatLng[c.region]
-                    return (
-                        <Marker
-                            position={[bounds.lat, bounds.lng]}
-                            /* icon = {L.divIcon({
-                                className: 'marker',
-                                iconAnchor: [20, 20],
-                                iconSize: [40, 40]
-                            })}  */
-                            
-                            icon={icons[c.caseType]}
-                            
-                             key={c.id + '-report'}
-                        >
-                            {/* <Popup>
-                                <h3>{`Case #${c.id}`}</h3>
-                                <h4>
-                                    {c.companyName + ' ' + c.caseType}
-                                </h4>
-                                <p>{c.description}</p>
-                            </Popup> */} 
-                        </Marker>
-                    )
+                    if(c.region != ""){
+                        const bounds = regionToLatLng[c.region]
+                        return (
+                            <Marker
+                                position={[bounds.lat, bounds.lng]}
+                                /* icon = {L.divIcon({
+                                    className: 'marker',
+                                    iconAnchor: [20, 20],
+                                    iconSize: [40, 40]
+                                })}  */
+                                
+                                icon={icons[c.caseType]}
+                                
+                                key={c.id + '-report'}
+                            >
+                                {/* <Popup>
+                                    <h3>{`Case #${c.id}`}</h3>
+                                    <h4>
+                                        {c.companyName + ' ' + c.caseType}
+                                    </h4>
+                                    <p>{c.description}</p>
+                                </Popup> */} 
+                            </Marker>
+                        )
+                    }
                 })}
             </MarkerClusterGroup>
             <ZoomControl position="bottomright" />

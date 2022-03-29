@@ -12,7 +12,7 @@ export const steps= [
           <p>✊🏻 ✊🏾 ✊🏿</p>
         </div>
       ) ,
-      locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+      locale: { skip: <strong aria-label="skip">Cerrar</strong>, next: 'Siguiente', back: 'Atrás' , last: 'Fin' },
       styles: {
         options: {
           arrowColor: '#202020',
@@ -37,6 +37,8 @@ export const steps= [
           textColor: '#FFFFFF',
         },
       },  
+      locale: { skip: <strong aria-label="skip">Cerrar</strong>, next: 'Siguiente', back: 'Atrás'  },
+
       spotlightPadding: 200,
       target: '.map div',
       title: 'Mapa interactivo',
@@ -57,7 +59,9 @@ export const steps= [
           backgroundColor: '#202020 ',
           textColor: '#FFFFFF',          
         },
+
       },
+      locale: { skip: <strong aria-label="skip">Cerrar</strong>, next: 'Siguiente', back: 'Atrás'  },
       target: '.dashboard div',
     },
     {
@@ -68,6 +72,8 @@ export const steps= [
         </div>
         ),
       placement: 'bottom',
+      locale: { skip: <strong aria-label="skip">Cerrar</strong>, next: 'Siguiente', back: 'Atrás' , last: 'Fin'},
+
       styles: {
         options: {
           arrowColor: '#202020',
