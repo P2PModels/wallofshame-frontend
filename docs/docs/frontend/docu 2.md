@@ -18,7 +18,7 @@ To only show the tour he first time, we use the prop run and a callback function
 When I usea disableBeacon on every step, we have no beacon but it obligues us to follow every step ¿?
 Thus, the solution was to not render the close button of the onboarding, as we have the skip button which does the same. When you clicked the close button, a beacon appeared and I was not able to take it away.
 
-[ok]Localstorage: problema = dar valor inicial solo una vez
+Loclstorage: problema = dar valor inicial solo una vez
 
 
 Already done:
@@ -29,7 +29,7 @@ Already done:
 
 Map: in order to change the icon, we place a new icon called punteroMapa in the file config.json instead of the smart-logo.
 
-[ok] Onboarding: names are changed to spanish
+Onboarding: names are changed to spanish
 
 Retry button: 
 we use error to see if an error occurred in sendReport
@@ -41,16 +41,3 @@ falta el error decir oye reintenta pero me dice too many re renders
 
 usamos un infodialog que solo se mostrará una vez por cada retry, esto lo hacemos mediante open={showInfoDialogRetry && error}
 de esta manera, cada vez que pulsamos el botón de reintentar, showInfoDialogRetry se pondrá a cierto por si vuelve a haber error.
-[quité el setend]
-setActiveStep(0) lo he quitado porque una vez sales al volver se pone solo a 0, y si lo ponía hacía rerender infinito
-
-[ok] Retry button 
-[ok] done of onboarding changed to notDone
-
-[]Sticky in CardList:
-
-modaltitle change css to be sticky and top 0
-
-
-[]Cambiar coordenadas de Barcelona
-[ok] daba error en casos reportados porque si la descripción estaba vacía y la región no petaba

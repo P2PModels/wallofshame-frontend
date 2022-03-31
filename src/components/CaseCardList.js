@@ -30,8 +30,10 @@ export default function CaseCardList(props) {
         <Card className={classes.container}>
             <ModalTitle onClose={onClose}>{title}</ModalTitle>
             {cases.map(c => {
-                return <CaseCard caseDetails={c} key={`casecard-${c.id}`} />
-            })}
+                
+                if(c.region != "" && c.description != ""){                
+                    return <CaseCard caseDetails={c} key={`casecard-${c.id}`} />
+            }})}
         </Card>
     )
 }

@@ -56,11 +56,13 @@ const Map = props => {
         return <Typography>{casesContext.error.message}</Typography>
     } else {
         const cases = casesContext.cases
+        console.log(cases)
+        
 
         // Set map boundaries to inlcude all marker(cases)
         let mapBounds = []
         cases.map(c => {
-            if(c.region != ""){
+            if(c.region != "" && c.description != ""){
                 const bounds = regionToLatLng[c.region]
                 mapBounds.push([bounds.lat, bounds.lng])
         }
@@ -95,7 +97,7 @@ return (
                 zoomToBoundsOnClick={true}
             >
                 {cases.map(c => {
-                    if(c.region != ""){
+                    if(c.region != "" && c.description != ""){
                         const bounds = regionToLatLng[c.region]
                         return (
                             <Marker

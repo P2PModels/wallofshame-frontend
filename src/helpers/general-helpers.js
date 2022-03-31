@@ -70,7 +70,7 @@ export function findChildObject(child, parent) {
 export function filterCasesByRegion(cases, region) {
     let filteredCases = []
     cases.map(c => {
-        if (c.region === region) {
+        if (c.region != '' && c.region === region) {
             filteredCases.push(c)
         }
     })
