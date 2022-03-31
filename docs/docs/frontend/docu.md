@@ -54,3 +54,4 @@ modaltitle change css to be sticky and top 0
 
 []Cambiar coordenadas de Barcelona
 [ok] daba error en casos reportados porque si la descripción estaba vacía y la región no petaba
+
