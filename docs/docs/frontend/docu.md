@@ -52,6 +52,7 @@ setActiveStep(0) lo he quitado porque una vez sales al volver se pone solo a 0, 
 modaltitle change css to be sticky and top 0
 
 
-[]Cambiar coordenadas de Barcelona
+[ok] Cambiar coordenadas de Barcelona
 [ok] daba error en casos reportados porque si la descripción estaba vacía y la región no petaba
+[ok] hacer sticky título y cross: he metido el título en un grid con className para que tenga fondo blanco. Para solucionar lo de que pasaban por arriba cambié el padding del container
 
