@@ -1,4 +1,4 @@
-# Wonder how this documentation has being created?
+# Do you wonder how was this documentation created?
 
 In this section you can find the technologies used to generate the documentation of the project. And a quickstart to run the local server in your machine.
 

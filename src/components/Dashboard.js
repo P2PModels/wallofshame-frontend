@@ -24,7 +24,7 @@ import {
     chipColors,
 } from '../data/config.json'
 import { useQuery } from '@apollo/client'
-import { GET_STAT } from '../services/cases/queries'
+import { GET_STAT } from '../services/cases_subgraph/queries'
 import { toPercentages } from '../helpers/general-helpers'
 
 const useStyles = makeStyles(theme => ({

@@ -1,9 +1,5 @@
 # Backend architecture
 
-## Architecture
-
----
-
 ## Tech stack discussion
 
 ### Hybrid architecture
@@ -35,17 +31,23 @@ Quoting [Schema stitching Handbook](https://github.com/gmac/schema-stitching-han
 
 > As you get the hang of schema stitching, you may find that Federation services are fairly complex for what they do. The buildFederatedSchema method from the @apollo/federation package creates a nuanced GraphQL resource that does not guarentee itself to be independently consistent, but plugs seamlessly into a greater automation package. By comparison, stitching encourages services to be independently valid and self-contained GraphQL resources, which makes them quite primitive and durable. While federation automates service bindings at the cost of tightly-coupled complexity, stitching embraces loosely-coupled bindings at the cost of manual setup. The merits of each strategy are likely to be a deciding factor for developers selecting a platform. Stitching is a library used to build a framework like Federation.
 
+### Type merging in microservices architecture
+
+This is the main idea behind graphql gateway and schema stitching. In order to make use of a microservices architecture we need to implement type merging in our graphs. For an introducction in this topic check: [Single record type merging](https://github.com/gmac/schema-stitching-handbook/tree/master/type-merging-single-records).
+
 ---
 
-# GraphQL Gateway
+## Stack
 
-<img src="/assets/images/apollo-diagram.svg" alt="Apollo server diagram" width="70%" style="display: inline-block">
+Each microservice has the folowing stack: Apollo-GraphQL server with Nexus types, Prisma ORM and PostgresQL db.
 
-[Source: Apollo server documentation, introduction](https://www.apollographql.com/docs/apollo-server/)
+### Apollo server
 
-## GraphQL Tools: Schema stitching
+We use Apollo server for the prototype backend, please visit the great [documentation](https://www.apollographql.com/docs/apollo-server/) to get started with this library.
 
-We use [GraphQL Tools](https://www.graphql-tools.com/docs/schema-stitching/stitch-combining-schemas) by [The Guild](https://the-guild.dev/) to implement our GraphQL gateway. For more information regarding schema stitching visit the great [Schema Stitching Handbook by Greg MacWilliam](https://github.com/gmac/schema-stitching-handbook) which also has some videos. The current implementation is based in this chapter of the handbook: [Combining local and remote schemas](https://github.com/gmac/schema-stitching-handbook/tree/master/combining-local-and-remote-schemas) which also provides code to add authorization credentials. Instead of using <i>graphql-express</i> we use ApolloServer.
+### GraphQL Tools: Schema stitching
+
+We use [GraphQL Tools](https://www.graphql-tools.com/docs/schema-stitching/stitch-combining-schemas) by [The Guild](https://the-guild.dev/) to implement our GraphQL gateway. For more information regarding schema stitching visit the great [Schema Stitching Handbook by Greg MacWilliam](https://github.com/gmac/schema-stitching-handbook) which also has some videos. The current implementation is based in these chapters: [Combining local and remote schemas](https://github.com/gmac/schema-stitching-handbook/tree/master/combining-local-and-remote-schemas), [Single record type merging](https://github.com/gmac/schema-stitching-handbook/tree/master/type-merging-single-records). There is also a frozen version which implements user authentication, login... Instead of using <i>graphql-express</i> we use ApolloServer.
 
 Related articles:
 
@@ -57,15 +59,7 @@ Related articles:
 
 [7 benefits of using GraphQL in microservices architecture](https://nordicapis.com/7-unique-benefits-of-using-graphql-in-microservices/)
 
-# Microservices
-
-Each microservice has the folowing stack: Apollo-GraphQL server with Nexus types, Prisma ORM and PostgresQL db.
-
-## Apollo server
-
-We use Apollo server for the prototype backend, please visit the great [documentation](https://www.apollographql.com/docs/apollo-server/) to get started with this library.
-
-## Nexus
+### Nexus
 
 TODO
 
@@ -73,13 +67,25 @@ TODO
 
 > Robust, composable type definition for GraphQL in TypeScript/JavaScript.
 
-## Prisma
+### Prisma
 
 TODO (clarify, improve desciption)
 
 Prisma is an Object-Relational Mapping (ORM) that helps us converting the data from any Graphql request to a db compatible type, it also improves our code quality and automates the db management. Check the [documentation](https://www.prisma.io/docs/) to learn more about its capabilities.
 
-## Login
+---
+
+## Architecture
+
+<img src="/assets/images/apollo-diagram.svg" alt="Apollo server diagram" width="70%" style="display: inline-block">
+
+[Source: Apollo server documentation, introduction](https://www.apollographql.com/docs/apollo-server/)
+
+### Microservices: Cases
+
+### Microservices: Users
+
+### Frozen implementation: Login
 
 The login architecture for the backend is inspired in [this example from Prisma repositories](https://github.com/prisma/prisma-examples/tree/latest/typescript/graphql-auth). The [jwt (Json Web Token) library](https://jwt.io/introduction) is used alongside [bcryptjs](https://www.npmjs.com/package/bcryptjs). Users id are generated with the standard built-in implementaion of UUID of PostgresQL throuth the `@default(uuid)` rule in the _./prisma/schema.prisma_ data model. This can also be done manually in the resolvers or in the client with the [uuid library](https://www.npmjs.com/package/uuid). For the authorization rules, the [graphql-shield](https://graphql-shield.vercel.app/) and [graphql-middleware](https://www.npmjs.com/package/graphql-middleware) libraries are used.
 
