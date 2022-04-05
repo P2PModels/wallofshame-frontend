@@ -28,6 +28,7 @@ The prototype is still in development stage which means that some parts of it mi
 
 <img src="/assets/images/architecture.jpg" alt="Arquitecture diagram" width="80%">
 
+
 At the <b>frontend level</b> we have a React app with an Apollo client that connects to the backend API gateway. For more information read the [docs of the front end repo](https://github.com/P2PModels/wallofshame-frontend).
 
 At the <b>backend level</b> we have an API gateway implemented with Apollo server, GraphQL for the API's and GraphQL Tools for Schema Stitching. The main benefit of this piece of software is the use of a hybrid architecture, in which we can implement both modern web services and web3 services running simultaneusly seamlesly. 
