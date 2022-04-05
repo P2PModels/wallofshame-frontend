@@ -27,7 +27,9 @@ Already done:
 3. The tour only renders the first time. However, if you refresh the page, it will appear again.
 
 
-Map: in order to change the icon, we place a new icon called punteroMapa in the file config.json instead of the smart-logo.
+[ok] Map: in order to change the icon, we place a new icon called punteroMapa in the file config.json instead of the smart-logo.
+
+Post-Reunión:
 
 [ok] Onboarding: names are changed to spanish
 
@@ -37,22 +39,24 @@ we create a new retry button and show it when when an error occurs, not showing 
 we do both with a hook called retry which is set to true when we 
 
 
-falta el error decir oye reintenta pero me dice too many re renders
 
 usamos un infodialog que solo se mostrará una vez por cada retry, esto lo hacemos mediante open={showInfoDialogRetry && error}
 de esta manera, cada vez que pulsamos el botón de reintentar, showInfoDialogRetry se pondrá a cierto por si vuelve a haber error.
 [quité el setend]
 setActiveStep(0) lo he quitado porque una vez sales al volver se pone solo a 0, y si lo ponía hacía rerender infinito
 
-[ok] Retry button 
-[ok] done of onboarding changed to notDone
+[ok] Retry button + [ok] infoDialog
+     -> [] cuando pulsas enter se envía el formulario, por lo que si daba error sale
 
-[]Sticky in CardList:
+[ok] El done of onboarding changed to notDone
+
+[ok]Sticky in CardList:
 
 modaltitle change css to be sticky and top 0
 
 
-[ok] Cambiar coordenadas de Barcelona
-[ok] daba error en casos reportados porque si la descripción estaba vacía y la región no petaba
-[ok] hacer sticky título y cross: he metido el título en un grid con className para que tenga fondo blanco. Para solucionar lo de que pasaban por arriba cambié el padding del container
+[ok] Cambiar coordenadas de Barcelona 
+    -> [ ] no centrado mapa
+[ok] Daba error en casos reportados porque si la descripción estaba vacía y la región no petaba
+[ok] Hacer sticky título y cross: he metido el título en un grid con className para que tenga fondo blanco. Para solucionar lo de que pasaban por arriba cambié el padding del container
 

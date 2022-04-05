@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     },
     closeButton: {
         position: 'absolute',
-        right: theme.spacing(1),
+        right: -theme.spacing(2),
         top: 0,
         color: theme.palette.grey[500],
     },
@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '0px',
         padding: '2.5rem',
     },
+
 }))
 
 const ModalTitle = props => {

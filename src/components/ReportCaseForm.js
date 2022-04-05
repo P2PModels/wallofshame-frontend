@@ -150,7 +150,12 @@ export default function ReportCaseForm() {
         } else {
             // submitCheat()
             console.warn('Submiting after validation', values)
-            sendReport({ variables: { data: values } })
+            try {
+                sendReport({ variables: { data: values } })
+            }
+            catch(error){ 
+                console.log(error)
+            }
             
         }
     }
@@ -221,8 +226,8 @@ export default function ReportCaseForm() {
 
                                     <InfoDialog
                                         open={showInfoDialogRetry && error}
-                                        title="Error en el formulario"
-                                        contentText='Error al enviar el formulario. Inténtelo de nuevo'
+                                        title="Error al registrar tu caso"
+                                        contentText='Ha sucedido un error mientras intentábamos registrar tu caso. Inténtelo de nuevo'
                                         closeButtonText="Cerrar"
                                         onClose={() => {
                                             // Add js focus on field
