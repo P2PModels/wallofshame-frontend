@@ -1,4 +1,9 @@
-# 🎨✊📊 __Observatory of Spanish Artistic Precarity__ 📊✊🎨
+# __Observatory of Spanish Artistic Precarity__
+
+<img src="/assets/images/Map.png" alt="Map screenshot">
+<img src="/assets/images/Dashboard.png" alt="Dashboard screenshot">
+
+
 ## Introduction
 
 The Observatory of Spanish Artistic Precarity prototype is a dynamic platform that visualizes metric data regarding current worker conditions and provides more visibility to the problem of precarity for cultural workers. At the same time, it allows users to create networks with each other and reach out to help entities after posting their public denouncement. Thanks to blockchain technology, the platform will be transparent and harder to censor (contrary to other projects based on mainstream platforms, e.g.@TrabajosRuineros). By relying on a set of quantitative data provided by users, we should also be able to visualize and address salary gaps depending on gender, location and type of (artistic) profession, which can help further analysis and policy-making around precarity. 
@@ -11,30 +16,29 @@ The prototype has three main goals:
 
 - __Collectivization__: ease the process of contacting organizations, collectives and individuals with similar issues with the intention of increasing social participation outside the digital sphere.
 
-<img src="./assets/images/Map.png" alt="Map screenshot" width="48.5%" style="display: inline-block">
-<img src="./assets/images/Dashboard.png" alt="Dashboard screenshot" width="50.5%" style="display: inline-block">
-<img src="./assets/images/Form.png" alt="Form screenshot" style="display: inline-block">
+<img src="/assets/images/Form.png" alt="Form screenshot">
 
-Some screenshots from the current state of the prototype.
+## Demo
 
-## Instalation and Setup
+If you want to test the current version of the prototype check the [live demo](https://p2pmodels.eu).
 
-### Ubuntu 20.04 LTS
+## Prototype architecture
 
-In order to setup the whole prototype you need to  the front-end open your command-line and run the following commands:
+The prototype is still in development stage which means that some parts of it might change, get removed or added.
 
-```
-$ git clone https://github.com/p2pmodels/wallofshame-frontend
-$ cd wallofshame-frontend
-$ npm install
-$ npm start
-```
+<img src="/assets/images/architecture.jpg" alt="Arquitecture diagram" width="80%">
 
-A new tab in your default browser should open automatically.
+At the <b>frontend level</b> we have a React app with an Apollo client that connects to the backend API gateway. For more information read the [docs of the front end repo](https://github.com/P2PModels/wallofshame-frontend).
 
-If you want to modify and deploy the a diferent smart contract or subgraph visit the [Wall of Shame backend repo](https://github.com/P2PModels/wallofshame-backend)
+At the <b>backend level</b> we have an API gateway implemented with Apollo server, GraphQL for the API's and GraphQL Tools for Schema Stitching. The main benefit of this piece of software is the use of a hybrid architecture, in which we can implement both modern web services and web3 services running simultaneusly seamlesly. 
+
+The current services provided to the client are: users service (for email sharing between participants), cases backend service (for reporting a new case), cases subgraph servie (to get access to reported cases and metrics). For more information read the [docs of the back end repo](https://github.com/P2PModels/wallofshame-backend).
+
+At the <b>blockchain level</b> we find the Case Registry smart contract, which will serve as a registry for the reported cases. The cases subgraph will process the events triggered when a new case is registered to update the current metrics of the platform. For more information read the [docs of the back end repo](https://github.com/P2PModels/wallofshame-backend).
 
 ## Technology stack
+
+<img src="/assets/images/stack.jpg" alt="Arquitecture diagram" width="80%">
 
 The main frameworks and libraries used in this prototype are:
 
@@ -65,29 +69,8 @@ The main frameworks and libraries used in this prototype are:
 
 ### Deployment
 
-The backend of the project has been containerized using [Docker-compose](https://docs.docker.com/compose/).
+-   [Docker](https://www.docker.com/): containerize and automatize development.
 
-## Architecrure
+## License
 
-<img src="./assets/images/architecture.jpg" width="90%" style="display: inline-block">
-
-At the blockchain level we find the Invoice smart contract, which will serve as the application contract. The task of this contract is to abstract common characteristics of invoices and serve as a registry with permissions, events, status variables, etc.
-
-At the backend level we use an Apollo server with a GraphQL API to make use of a hybrid architecture in which we can implement three different models:
-
-1. Transparent use of blockchain without the option to recover account: The only ethereum account (EOA) would be the one of P2PModels and it will cover the costs for all the blockchain interactions. As mentioned in [Task assignment in Amara. Prototyping Round Robin with blockchain (I)](https://p2pmodels.eu/task-assignment-in-amara-prototype-round-robin/):
-
-    > The idea behind this component is to cover the costs related to these transactions. We want to spare the users (linguists) this expense, as it could severely affect the user experience and usability of the prototype. For the time being, costs will be assumed by a P2P Models Ethereum account, but in the future, an Amara account could be used to handle expenses. Another solution could be a multi-signature account controlled by the linguists themselves.
-
-2. Transparent use of blockchain with the possibility for the user of recovering the EOA and start using the web3 interface.
-3. Web3 interface by default: this means the user has to be familiar, or learn it, with the blockchain technology.
-
-In this prototype we are going to test the user experience for each scenario to provide some insights in the usability of web3 services for new users. ~~Therefore, the backend server will be used for handling blockchain logic in scenarios 1 and 2.~~ ¿? We use Prisma as middleware software to add this resolvers that may interact with ethereum and also to automate the database (PostgresQL) management and improve code quality.
-
-At the frontend level we have a react app with an Apollo client that connects both with the backend API and the graph (GraphQL endpoints) and also to ethereum through
-
-## References
-
--   [Dashboard template](https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/dashboard)
--   [Map charts library](https://www.react-simple-maps.io/)
--   [Form tutorial](https://www.youtube.com/watch?v=-XKaSCU0ZLM)
+This prototype is licensed under [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)

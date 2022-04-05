@@ -1,10 +1,10 @@
 # Frontend Architecture
 
-## Detailed stack
+## Architecture
 
 ---
 
-## Architecture
+## Detailed stack
 
 ---
 

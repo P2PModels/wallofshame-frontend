@@ -1,3 +1,0 @@
-# The research project
-
-## Introduction
