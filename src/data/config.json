@@ -15,8 +15,8 @@
             "lng": -5.98
         },
         "barcelona": {
-            "lat": 42.70,
-            "lng": -1.30
+            "lat": 41.35,
+            "lng":  2.17
         }
     },
     "categories": { 
@@ -68,19 +68,19 @@
     },
     "markersByType": {
         "maltrato": {
-            "iconUrl": "./assets/smart-logo.png",
+            "iconUrl": "./assets/punteroMapa.png",
             "iconSize": [40, 40],
             "iconAnchor": [22, 94],
             "popupAnchor": [-3, -76]
         },
         "retraso": {
-            "iconUrl": "./assets/smart-logo.png",
+            "iconUrl": "./assets/punteroMapa.png",
             "iconSize": [40, 40],
             "iconAnchor": [22, 94],
             "popupAnchor": [-3, -76]
         }, 
         "impago": {
-            "iconUrl": "./assets/smart-logo.png",
+            "iconUrl": "./assets/punteroMapa.png",
             "iconSize": [40, 40],
             "iconAnchor": [22, 94],
             "popupAnchor": [-3, -76]
