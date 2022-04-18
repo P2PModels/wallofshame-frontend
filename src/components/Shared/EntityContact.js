@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
         objectFit: 'contain',
         height: '10rem',
         width: '10rem',
+        padding: '1rem 0 2rem',
     },
     caption: {
         fontSize: '1.25rem',
