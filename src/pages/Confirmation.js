@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, Typography, Box } from '@material-ui/core'
 import Check from '@mui/icons-material/Check'
@@ -27,6 +27,12 @@ const useStyles = makeStyles(theme => ({
         fontSize: '2rem',
         fontWeight: '700',
         padding: '2rem 0 2rem',
+    },
+    heading3: {
+        color: theme.palette.secondary.main,
+        fontSize: '1.5rem',
+        fontWeight: '700',
+        padding: '2rem 3rem 1rem',
     },
     icon: {
         display: 'inline-block',
@@ -67,12 +73,29 @@ const useStyles = makeStyles(theme => ({
 export default function Confirmation(props) {
     const classes = useStyles()
     const { report } = props.location.state
+    const [data, setData] = useState(); //para guardar los datos del googlesheet
     // const mockEmails = [
     //     'mail1@test.es',
     //     'mail2@test.es',
     //     'mail3@test.es',
     //     'mail4@test.es',
     // ]
+    const getData = async() => { //obtenemos los datos del googlesheet 
+        try{
+            const res = await fetch('https://sheet.best/api/sheets/4953ba5d-f3ef-4e0d-a1d9-914c721d85cb')
+            const dataAux = await res.json();
+            console.log(dataAux);
+            setData(dataAux)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    } , [])
+    
+          
     const mockEntities = [
         {
             src: './assets/smart-logo.png',
@@ -224,15 +247,35 @@ export default function Confirmation(props) {
                             ))}
                         </ul>
                         <Typography variant="h3" className={classes.heading2}>
-                            Colectivos o entidades que podrían ayudarte
+                            Colectivos o entidades que podrían ayudarte 
                         </Typography>
-                        {mockEntities.map((entity, i) => (
+                        <Typography variant="h5" className={classes.heading3}>
+                            En tu ciudad
+                        </Typography>
+                        {data?.filter((entity) => entity.comunidad_autonoma  == report.region)
+                        .map((entity, i) => (
                             <EntityContact
-                                label={entity.label}
+                                label={entity.nombre_entidad}
                                 url={entity.url}
-                                src={entity.src}
+                                src={entity.url_imagen}
                                 className={classes.entity}
                             />
+                            
+                        ))}
+        
+                        <Typography variant="h5" className={classes.heading3}>
+                            Relacionados con tu profesión
+                        </Typography>
+                        
+                        {data?.filter((entity) => entity.profesion_es.includes(report.profession) )
+                        .map((entity, i) => (
+                            <EntityContact
+                                label={entity.nombre_entidad}
+                                url={entity.url}
+                                src={entity.url_imagen}
+                                className={classes.entity}
+                            />
+                            
                         ))}
                     </Grid>
                 </Grid>

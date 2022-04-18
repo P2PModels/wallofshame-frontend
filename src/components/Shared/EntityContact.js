@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
     },
     img: {
         objectFit: 'contain',
-        height: '100%',
-        width: '100%',
+        height: '10rem',
+        width: '10rem',
     },
     caption: {
         fontSize: '1.25rem',

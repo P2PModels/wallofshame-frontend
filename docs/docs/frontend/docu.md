@@ -60,3 +60,21 @@ modaltitle change css to be sticky and top 0
 [ok] Daba error en casos reportados porque si la descripción estaba vacía y la región no petaba
 [ok] Hacer sticky título y cross: he metido el título en un grid con className para que tenga fondo blanco. Para solucionar lo de que pasaban por arriba cambié el padding del container
 
+[checkear] No enviar formulario al pulsar enter. Al incluir una e en useForm: const submit = (e, queryFcn, payload) => e => {
+    la primera e, me funciona. Si quito el segundo e no va.
+
+
+[ ] google sheet
+
+- We use npm install tabletop: allows us to take our Google Sheet data and export it as a JSON object.
+
+https://docs.google.com/spreadsheets/d/1w2J9DuzFHkUmBQ0zHHY51gPY7NRzmbdUV_VckSfhbSA/edit#gid=0
+la key es 1w2J9DuzFHkUmBQ0zHHY51gPY7NRzmbdUV_VckSfhbSA
+
+tabletop will give us an array
+
+cambio de planes: sheet.best para conectar el googlesheet
+
+uso filter para filtrar
+uso includes en las profesiones porque en el google sheet puede haber varias
+cambio en entitycontact el img las height y width para ajustar el tamaño
