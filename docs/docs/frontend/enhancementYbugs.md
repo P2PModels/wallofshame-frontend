@@ -63,3 +63,18 @@ We need to have the sheet public for everyone with the url.
 In order to render and filter by job and region: we use the function filter 
 We use includes in the jobs because we can have more than one job in the sheet for one organization. 
 
+- PROBLEM: sheet.best only allows 250 views. Change of plans
+
+We use https://dev.to/calvinpak/how-to-read-write-google-sheets-with-react-193l
+We create a google account that will have access to the google sheet: 
+p2psheet@p2psheet.iam.gserviceaccount.com 
+
+
+npm install googleapis
+npm install  google-spreadsheet
+
+New file googleSheetCredentials.json with credentials
+
+https://console.developers.google.com/
+
+Need to use useEffect and hooks for async

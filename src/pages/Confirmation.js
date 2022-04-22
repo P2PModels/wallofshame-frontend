@@ -10,10 +10,12 @@ import EntityContact from '../components/Shared/EntityContact'
 import { useQuery } from '@apollo/client'
 import { GET_FILTERED_CASES } from '../services/cases_subgraph/queries'
 import { USERS } from '../services/users/queries'
+import { GoogleSpreadsheet } from "google-spreadsheet";
 import {
     professionToProfessionRenderName,
     regionToRegionRenderName,
 } from '../data/config.json'
+import { setQuarter } from 'date-fns'
 
 const useStyles = makeStyles(theme => ({
     title: {
@@ -70,32 +72,56 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function Confirmation(props) {
+//export default function Confirmation(props) {
+const Confirmation = (props) => {
     const classes = useStyles()
     const { report } = props.location.state
-    const [data, setData] = useState(); //para guardar los datos del googlesheet
+    const [filas, setRows] = useState([]);    
+
     // const mockEmails = [
     //     'mail1@test.es',
     //     'mail2@test.es',
     //     'mail3@test.es',
     //     'mail4@test.es',
     // ]
-    const getData = async() => { //obtenemos los datos del googlesheet 
-        try{
-            const res = await fetch('https://sheet.best/api/sheets/4953ba5d-f3ef-4e0d-a1d9-914c721d85cb')
-            const dataAux = await res.json();
-            console.log(dataAux);
-            setData(dataAux)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+ 
+
+
+    // Config variables
+    const SPREADSHEET_ID = "1T6u1i32a0cQxF13EYkmvTxsUs0AGMuf2nt-FZwyBios"; //cambiar a 1w2J9DuzFHkUmBQ0zHHY51gPY7NRzmbdUV_VckSfhbSA
+    const SHEET_ID = "0";
+    const CLIENT_EMAIL = "p2psheet@p2psheet.iam.gserviceaccount.com";
+    const PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDLBWXH7uTKt4sM\nOG730UOExGxFdPLnoUtQd7CVvvJOSpHxR2zeJuz10kfnp+Ud11Rgv/k8ABrQdrjx\nLxd9QsCi/c9bxUoeu75FKcO/4dJ2UkVfxx/s8nKlUp3SQJlC4zzbdC8AziosPOCS\nkiDf2qRp998icagmn0GEuDmf2kg0uL+YSn0Zji0k8IXk7xkKnllBMX/MeZ+JweC8\nRNK2iCfIG5gj9pVzOlONMJQKv78ulgJ3rIs/ykJFllJokvJrlZXFpJXZ10fdSINz\n7e2YS8Q9fxYVqaUys4eVrS5A3cHdM5ZAmJmqLmT4pTSYQIz//m5+E+ib1+h5XxWM\nhE7xGRqhAgMBAAECggEAAYejKey9022bFAjG9Inqja0YnSR/rfVXGMppmaPFbffJ\nsi8X8dO6k3LB6yPepgUi1gqtSkWMji2GWM4qYc2pb6L8q34E4C7ZTPpuzsbhAfZu\nTpWsstGMAc0ZyolFRGHbqhJN1j5fdstPxIf6jKBITtJ871yqlA2tOd6k48SSeKf4\nKHYWyTsusM/bmQpADu/f+8jQHfITu/YsWL3kVtgw7VRotox/KNqF1z1vAMpLPa7Y\nyiEh51XzX5bbO/XFIekTwvhtvv2KAGFSF37msDFqQKtiGGX+JzyEEQP0CFPmMl3k\nzBq0WSqXFluwEPpz8WQWQy4Ej9/mA7cOllKH6FLjAQKBgQD9NgXWH7WBuPn0kjkf\nUWbehVuaqWpojSS+TkrmhaCWgPBNJIvly7UB4a07PDdL4QdX3RHgkIhRvXKod5Qk\ntk8CprXYeT4ggUOXPbsX0BQEogrNzLlQOg0H2eWGiBsvNCrHKqJN1wXI9TE13wGi\nuhGMOZTJ5r5iEDqgdcS3qli9AQKBgQDNQdrGI8VNnRZRGLsTbqL4u0K5u/JNgAoT\n+aM+9glEcwqMQTk8DTk+KMEvDuKiAHNzCTCPMcVnNFmaMYgggdS3eulhAFrzuZ1b\noSrRdOYlyDEH4C4Kj9EoOVkNhOy+W68HCisAWo2ccfw08CbmViyQvkS1f8Z+2fuw\nS6z0rUE9oQKBgA7cCr+kILy6JEEMC7ogxs6sONH8uzfjgJKCebbJhMEQVAnS6TrV\nF4xCuC3PvNcBH7MyUAhDsxxI59+nFNSKtlxLeER56QFzVIodn0sodORItiWZrA5f\nOcCKMwQQHLhKcXA6ukejJL3EVdz5d1kbXkhCYM7wcZ/DoA0mnCLDJm4BAoGBAMul\nvij+jqCt7dlyXxItoBaGvPJIzmQkWFtvQI+UTqeSOHHluKKjQBszFlDZRPSU2/bT\ntFEugXwfDZOV90jBZ8rPcUPjtVnB3KVv52q/wCTWVgdJXoTuIgf1tixaqQVJNAQZ\nC4cjUQNaeHARoZbBAyBtFwC5ELkFD9nfi2+LgoJhAoGBAOaIZpVIX0n3g9sOekNU\noD8WnkIbz4rWP3JNqTfcVTvsUvXylI+l3fmZi54uOCmbKXqIrpvon3oLtym+EFdK\novbufT+OiJBH7u1NsnPG8e2oqkG+85D5w3mZiue4zRoR5W77TBnCirVfGQp25NZ9\nI2LcszwTJiOKKg81IS/lYweQ\n-----END PRIVATE KEY-----\n";
+
+    const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
     useEffect(() => {
-        getData();
-    } , [])
+        const readSpreadsheet = async () => {
+            try {
+                await doc.useServiceAccountAuth({
+                client_email: CLIENT_EMAIL,
+                private_key:PRIVATE_KEY ,
+            });
+                // loads document properties and worksheets
+                await doc.loadInfo();
+        
+                //const sheet = doc.sheetsById[SHEET_ID];
+                const sheet = doc.sheetsByIndex[0];
+                const rows = await sheet.getRows();
+                setRows(rows);
+        
+            } catch (e) {
+                console.error('Error: ', e);
+            }
+            };
+        readSpreadsheet();
+    } , []) 
+
+
     
-          
+
+
+    
     const mockEntities = [
         {
             src: './assets/smart-logo.png',
@@ -181,8 +207,15 @@ export default function Confirmation(props) {
                 closeButtonText="Cerrar"
             />
         )
-
-    return (
+    const datos = filas?.map((entity, i) => (
+        <EntityContact
+        label={entity.nombre_entidad}
+        url={entity.url}
+        src={entity.url_imagen}
+        className={classes.entity}
+        />
+      ));
+    return ( 
         <Page container={false}>
             <Container maxWidth="xl">
                 <Grid container className={classes.grid}>
@@ -252,34 +285,36 @@ export default function Confirmation(props) {
                         <Typography variant="h5" className={classes.heading3}>
                             En tu ciudad
                         </Typography>
-                        {data?.filter((entity) => entity.comunidad_autonoma  == report.region)
+                        
+                   
+                        {filas?.filter((entity) => (entity.comunidad_autonoma).includes(report.region) )
                         .map((entity, i) => (
-                            <EntityContact
-                                label={entity.nombre_entidad}
-                                url={entity.url}
-                                src={entity.url_imagen}
-                                className={classes.entity}
-                            />
-                            
-                        ))}
-        
+                        <EntityContact
+                        label={entity.nombre_entidad}
+                        url={entity.url}
+                        src={entity.url_imagen}
+                        className={classes.entity}
+                        />))}
+                        
                         <Typography variant="h5" className={classes.heading3}>
                             Relacionados con tu profesión
                         </Typography>
                         
-                        {data?.filter((entity) => entity.profesion_es.includes(report.profession) )
+                         {filas?.filter((entity) => (entity.profesion_es).includes(report.profession) )
                         .map((entity, i) => (
                             <EntityContact
-                                label={entity.nombre_entidad}
-                                url={entity.url}
-                                src={entity.url_imagen}
-                                className={classes.entity}
-                            />
+                        label={entity.nombre_entidad}
+                        url={entity.url}
+                        src={entity.url_imagen}
+                        className={classes.entity}
+                        />))}
                             
-                        ))}
                     </Grid>
                 </Grid>
             </Container>
         </Page>
     )
 }
+
+export default  Confirmation;
+
