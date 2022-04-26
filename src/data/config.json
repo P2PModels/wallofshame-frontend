@@ -1,26 +1,324 @@
 {
     "regionToId": {
         "spain": "0",
-        "madrid": "1",
-        "barcelona": "2",
-        "sevilla": "3"
+        "avila": "1",
+        "cadiz": "2",
+        "valencia": "3",
+        "madrid": "4",
+        "cantabria": "5",
+        "bizkaia": "6",
+        "asturias": "7",
+        "las_palmas": "8",
+        "pontevedra": "9",
+        "jaen": "10",
+        "guadalajara": "11",
+        "illes_baleares": "12",
+        "navarra": "13",
+        "granada": "14",
+        "la_rioja": "15",
+        "a_coruña": "16",
+        "teruel": "17",
+        "zaragoza": "18",
+        "badajoz": "19",
+        "huesca": "20",
+        "araba": "21",
+        "girona": "22",
+        "alacant": "23",
+        "murcia": "24",
+        "segovia": "25",
+        "zamora": "26",
+        "palencia": "27",
+        "albacete": "28",
+        "caceres": "29",
+        "ciudad_real": "30",
+        "lleida": "31",
+        "malaga": "32",
+        "lugo": "33",
+        "barcelona": "34",
+        "cuenca": "35",
+        "soria": "36",
+        "toledo": "37",
+        "castello": "38",
+        "huelva": "39",
+        "santa_cruz_de_tenerife": "40",
+        "almeria": "41",
+        "ourense": "42",
+        "tarragona": "43",
+        "cordoba": "44",
+        "leon": "45",
+        "burgos": "46",
+        "gipuzcoa": "47",
+        "salamanca": "48",
+        "melilla": "49",
+        "sevilla": "50",
+        "valladolid": "51",
+        "ceuta": "52"
     },
     "regionToLatLng": {
-        "madrid": {
-            "lat": 40.35,
-            "lng": -3.7
+        "avila":{ 
+            "lat": 40.5710367492,
+            "lng": -4.94553505619
         },
-        "sevilla": {
-            "lat": 37.30,
-            "lng": -5.98
+        "cadiz": { 
+            "lat": 36.5538729195,
+            "lng": -5.7604183752
         },
-        "barcelona": {
-            "lat": 41.35,
-            "lng":  2.17
+        "valencia": { 
+            "lat": 39.3702562375,
+            "lng": -0.800789615081
+        },
+        "madrid": { 
+            "lat": 40.4950873744,
+            "lng": -3.71704619215
+        },
+        "cantabria": { 
+            "lat": 43.1975220484,
+            "lng": -4.03002122038
+        },
+        "bizkaia": { 
+            "lat": 43.2376797057,
+            "lng": -2.85260007926
+        },
+        "asturias": { 
+            "lat": 43.292357861,
+            "lng": -5.99350932547
+        },
+        "las_palmas": { 
+            "lat": 28.3624928216,
+            "lng": -14.5509933924
+        },
+        "pontevedra": { 
+            "lat": 42.435764706,
+            "lng": -8.46106294738
+        },
+        "jaen": { 
+            "lat": 38.0165122783,
+            "lng": -3.44169215171
+        },
+        "guadalajara": { 
+            "lat": 40.8134495654,
+            "lng": -2.62368878371
+        },
+        "illes_baleares": { 
+            "lat": 39.5751889864,
+            "lng": 2.91229172079
+        },
+        "navarra": { 
+            "lat": 42.6672011509,
+            "lng": -1.64611414443
+        },
+        "granada": { 
+            "lat": 37.3125169672,
+            "lng": -3.26788107732
+        },
+        "la_rioja": { 
+            "lat": 42.2748706958,
+            "lng": -2.5170441194
+        },
+        "a_coruña": { 
+            "lat": 43.1257958229,
+            "lng": -8.4642836868
+        },
+        "teruel": { 
+            "lat": 40.6612619615,
+            "lng": -0.815532258446
+        },
+        "zaragoza": { 
+            "lat": 41.6203648019,
+            "lng": -1.06449678144
+        },
+        "badajoz": { 
+            "lat": 38.7097707381,
+            "lng": -6.14158521981
+        },
+        "huesca": { 
+            "lat": 42.2030557371,
+            "lng": -0.0728865943582
+        },
+        "araba": { 
+            "lat": 42.8351264353,
+            "lng": -2.72060346921
+        },
+        "girona": { 
+            "lat": 42.1280117119,
+            "lng": 2.6735559327
+        },
+        "alacant": { 
+            "lat": 38.4786378049,
+            "lng": -0.568699068376
+        },
+        "murcia": { 
+            "lat": 38.0023681653,
+            "lng": -1.48575629332
+        },
+        "segovia": { 
+            "lat": 41.1710254065,
+            "lng": -4.05415057783
+        },
+        "zamora": { 
+            "lat": 41.7271743961,
+            "lng": -5.98053925522
+        },
+        "palencia": { 
+            "lat": 42.3718338546,
+            "lng": -4.53585717538
+        },
+        "albacete": { 
+            "lat": 38.8254086192,
+            "lng": -1.98037326935
+        },
+        "caceres": { 
+            "lat": 39.7118899607,
+            "lng": -6.16082194997
+        },
+        "ciudad_real": { 
+            "lat": 38.9256128254,
+            "lng": -3.82809764894
+        },
+        "lleida": { 
+            "lat": 42.0439686698,
+            "lng": 1.04798206104
+        },
+        "malaga": { 
+            "lat": 36.8138591651,
+            "lng": -4.72586195603
+        },
+        "lugo": { 
+            "lat": 43.011764,
+            "lng": -7.44638404764
+        },
+        "barcelona": { 
+            "lat": 41.7310008895,
+            "lng": 1.98405401772
+        },
+        "cuenca": { 
+            "lat": 39.8960496846,
+            "lng": -2.19567153274
+        },
+        "soria": { 
+            "lat": 41.6207742504,
+            "lng": -2.58874304739
+        },
+        "toledo": { 
+            "lat": 39.7937341614,
+            "lng": -4.14815562595
+        },
+        "castello": { 
+            "lat": 40.2413705852,
+            "lng": -0.146777086937
+        },
+        "huelva": { 
+            "lat": 37.5771794021,
+            "lng": -6.82930221031
+        },
+        "santa_cruz_de_tenerife": { 
+            "lat": 28.3125567678,
+            "lng": -17.017856743
+        },
+        "almeria": { 
+            "lat": 37.1960852121,
+            "lng": -2.3448128003
+        },
+        "ourense": { 
+            "lat": 42.1964503002,
+            "lng": -7.59259790937
+        },
+        "tarragona": { 
+            "lat": 41.0876143957,
+            "lng": 0.818127863314
+        },
+        "cordoba": { 
+            "lat": 37.9926944409,
+            "lng": -4.80926161095
+        },
+        "leon": { 
+            "lat": 42.6199552439,
+            "lng": -5.83988102629
+        },
+        "burgos": { 
+            "lat": 42.3687127267,
+            "lng": -3.58574245567
+        },
+        "gipuzcoa": { 
+            "lat": 43.1437759117,
+            "lng": -2.19417845709
+        },
+        "salamanca": { 
+            "lat": 40.8049892162,
+            "lng": -6.06541224773
+        },
+        "melilla": { 
+            "lat": 35.2908279949,
+            "lng": -2.95053552337
+        },
+        "sevilla": { 
+            "lat": 37.4356699135,
+            "lng": -5.68277303032
+        },
+        "valladolid": { 
+            "lat": 41.6341260695,
+            "lng": -4.84719141141
+        },
+        "ceuta": { 
+            "lat": 35.8934069863,
+            "lng": -5.34342403891
         }
     },
     "categories": { 
-        "regions": ["madrid", "barcelona", "sevilla"],
+        "regions": [
+            "avila",
+            "cadiz",
+            "valencia",
+            "madrid",
+            "cantabria",
+            "bizkaia",
+            "asturias",
+            "las_palmas",
+            "pontevedra",
+            "jaen",
+            "guadalajara",
+            "illes_baleares",
+            "navarra",
+            "granada",
+            "la_rioja",
+            "a_coruña",
+            "teruel",
+            "zaragoza",
+            "badajoz",
+            "huesca",
+            "araba",
+            "girona",
+            "alacant",
+            "murcia",
+            "segovia",
+            "zamora",
+            "palencia",
+            "albacete",
+            "caceres",
+            "ciudad_real",
+            "lleida",
+            "malaga",
+            "lugo",
+            "barcelona",
+            "cuenca",
+            "soria",
+            "toledo",
+            "castello",
+            "huelva",
+            "santa_cruz_de_tenerife",
+            "almeria",
+            "ourense",
+            "tarragona",
+            "cordoba",
+            "leon",
+            "burgos",
+            "gipuzcoa",
+            "salamanca",
+            "melilla",
+            "sevilla",
+            "valladolid",
+            "ceuta"
+        ],
         "types": ["maltrato", "retraso", "impago"],
         "professions": ["artes_escenicas", "diseño_arquitectura", "fotografia", "artes_plasticas", "traduccion", "gestion_cultural"],
         "genders": ["femenino", "masculino", "no_binario"],
@@ -29,9 +327,58 @@
     },
     "regionToRegionRenderName": {
         "spain": "España",
+        "avila": "Ávila",
+        "cadiz": "Cádiz",
+        "valencia": "València",
         "madrid": "Madrid",
+        "cantabria": "Cantabria",
+        "bizkaia": "Bizkaia",
+        "asturias": "Asturias",
+        "las_palmas": "Las Palmas",
+        "pontevedra": "Pontevedra",
+        "jaen": "Jaén",
+        "guadalajara": "Guadalajara",
+        "illes_baleares": "Illes Balears",
+        "navarra": "Navarra",
+        "granada": "Granada",
+        "la_rioja": "La Rioja",
+        "a_coruña": "A Coruña",
+        "teruel": "Teruel",
+        "zaragoza": "Zaragoza",
+        "badajoz": "Badajoz",
+        "huesca": "Huesca",
+        "araba": "Araba",
+        "girona": "Girona",
+        "alacant": "Alacant",
+        "murcia": "Murcia",
+        "segovia": "Segovia",
+        "zamora": "Zamora",
+        "palencia": "Palencia",
+        "albacete": "Albacete",
+        "caceres": "Cáceres",
+        "ciudad_real": "Ciudad Real",
+        "lleida": "Lleida",
+        "malaga": "Málaga",
+        "lugo": "Lugo",
         "barcelona": "Barcelona",
-        "sevilla": "Sevilla"
+        "cuenca": "Cuenca",
+        "soria": "Soria",
+        "toledo": "Toledo",
+        "castello": "Castelló",
+        "huelva": "Huelva",
+        "santa_cruz_de_tenerife": "Santa Cruz de Tenerife",
+        "almeria": "Almería",
+        "ourense": "Ourense",
+        "tarragona": "Tarragona",
+        "cordoba": "Córdoba",
+        "leon": "León",
+        "burgos": "Burgos",
+        "gipuzcoa": "Gipuzcoa",
+        "salamanca": "Salamanca",
+        "melilla": "Melilla",
+        "sevilla": "Sevilla",
+        "valladolid": "Valladolid",
+        "ceuta": "Ceuta"
     },
     "typeToTypeRenderName": {
         "maltrato": "Maltrato",

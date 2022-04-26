@@ -7,15 +7,6 @@ import ReportCaseForm from '../components/ReportCaseForm'
 
 const useStyles = makeStyles(theme => ({
     appBarSpacer: theme.mixins.toolbar,
-    title: {
-        color: theme.palette.primary.main,
-        fontSize: '4rem',
-        fontWeight: '700',
-        padding: '4rem 0 2rem',
-    },
-    caption: {
-        fontSize: '1.25rem',
-    },
     flexItemEnd: {
         display: 'flex',
         justifyContent: 'flex-end',
@@ -32,9 +23,8 @@ export default function IssueBadge() {
     return (
         <Page container={false}>
             <Container maxWidth="xl">
-                <Grid container>
-                        
-                        <ReportCaseForm />
+                <Grid container>    
+                    <ReportCaseForm />
                 </Grid>
             </Container>
         </Page>

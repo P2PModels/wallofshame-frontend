@@ -15,6 +15,15 @@ import ReportCaseFormPart2 from './ReportCaseFormPart2'
 import { Check } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
+    title: {
+        color: theme.palette.primary.main,
+        fontSize: '4rem',
+        fontWeight: '700',
+        padding: '4rem 0 2rem',
+    },
+    caption: {
+        fontSize: '1.25rem',
+    },
     stepper: {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(1),
@@ -168,7 +177,10 @@ export default function ReportCaseForm() {
                 ageRange: values.ageRange,
                 experience: values.experience,
             }
-
+            console.log("[ReportCaseForm] User: ")
+            console.log(user)
+            console.log("[ReportCaseForm] Case: ")
+            console.log(reportCase)
             try {
                 addUser({ variables: { data: user } })
                 sendReport({ variables: { data: reportCase } })
@@ -282,12 +294,12 @@ export default function ReportCaseForm() {
         <Grid item  lg={12} className = {classes.flexColumn}>
             <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
 
-            <Typography textAlign='center' className={classes.loadingText1}>
+            <Typography className={classes.loadingText1}>
                 Estamos registrando tu denuncia.                                    
             </Typography>
 
 
-            <Typography textAlign='center' className={classes.loadingText2}>
+            <Typography className={classes.loadingText2}>
                 Este proceso puede tardar unos segundos...                                    
             </Typography>    
 
