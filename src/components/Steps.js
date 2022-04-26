@@ -7,7 +7,7 @@ export const steps= [
           <img src={logoSrc} />
           <h4>Bienvenida/o al</h4>
           <h2>Observatorio de la Precariedad en el Sector Cultural</h2>
-          <p>Aquí podrás encotrar denuncias anónimas a irregularidades respecto a pagos de empresas españolas a trabajadoras/es del sector cultural agrupadas por Comunidades Autónomas.</p>
+          <p>Aquí podrás encontrar denuncias anónimas a irregularidades respecto a pagos de empresas españolas a trabajadoras/es del sector cultural agrupadas por Comunidades Autónomas.</p>
           <p>Esta iniciativa pretende mostrar cuál es la realidad del sector cultural en España y convertirse en un espacio de autodefensa y apoyo mutuo para profesionales autónomos</p>
           <p>✊🏻 ✊🏾 ✊🏿</p>
         </div>

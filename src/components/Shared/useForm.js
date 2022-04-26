@@ -12,7 +12,7 @@ export function useForm(initialFValues) {
         })
     }
 
-    const submit = (queryFcn, payload) => e => {
+    const submit = (e, queryFcn, payload) => e => {
         e.preventDefault()
         // Triger mutation
         try {
