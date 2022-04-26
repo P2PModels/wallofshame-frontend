@@ -15,6 +15,15 @@ import ReportCaseFormPart2 from './ReportCaseFormPart2'
 import { Check } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
+    title: {
+        color: theme.palette.primary.main,
+        fontSize: '4rem',
+        fontWeight: '700',
+        padding: '4rem 0 2rem',
+    },
+    caption: {
+        fontSize: '1.25rem',
+    },
     stepper: {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(1),
