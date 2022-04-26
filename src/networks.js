@@ -4,7 +4,7 @@ const RPC_URLS = {
   rinkeby: 'INFURA_RINKEBY_URL',
 }
 
-const INSTANCE = process.env.REACT_APP_DBADGE_INSTANCE
+// const INSTANCE = process.env.REACT_APP_DBADGE_INSTANCE
 
 // Staging configuration
 const STAGING_CHAIN_ID = 4

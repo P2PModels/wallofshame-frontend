@@ -8,6 +8,7 @@ import Controls from '../components/Shared/controls/Controls'
 import clsx from 'clsx'
 import DenseTable from '../components/DenseTable'
 import { Warning } from '@material-ui/icons'
+import useRestart from '../hooks/useRestart'
 
 const useStyles = makeStyles(theme => ({
     mainGrid: {
@@ -21,6 +22,37 @@ const useStyles = makeStyles(theme => ({
     },
     mb: {
         marginBottom: theme.spacing(2)
+    },
+    loadingSpinner: {
+        color: theme.palette.primary.main,
+        display: 'grid',
+        gridAutoFlow: 'column',
+        alignItems: 'center',
+        justifyItems: 'center',
+        margin: '7rem auto 0rem',
+
+    },
+    loadingText1: {
+        color: theme.palette.primary.main,
+        fontSize: '2rem',
+        fontWeight: '400',
+        padding: '2rem 0 0rem',
+        margin: '2rem 0 0rem',
+        textAlign:'center',
+       
+    },
+    loadingText2: {
+        color: theme.palette.primary.main,
+        fontSize: '1rem',
+        fontWeight: '400',
+        padding: '0rem 0 2rem',
+        margin: '1rem 0 2rem',
+        textAlign:'center',
+    },
+    flexColumn:{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
     }
 }))
 
@@ -28,6 +60,33 @@ export default function Admin() {
     const classes = useStyles()
     const [cases, setCases] = useState([])
     const [casesHeaders, setCasesHeaders] = useState([])
+    const [ restartContract, {data, loading, error} ] = useRestart()
+
+    if (loading) return (
+        //<Box position="relative" display="inline-flex">
+        <Grid item  lg={12} className = {classes.flexColumn}>
+            <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
+            <Typography textAlign='center' className={classes.loadingText1}>
+                Reiniciando...                                    
+            </Typography>
+            <Typography textAlign='center' className={classes.loadingText2}>
+                Este proceso puede tardar unos segundos...                                    
+            </Typography>    
+
+                            
+        </Grid>      
+    )
+
+    if (error) return (
+        <Grid item  lg={12} className = {classes.flexColumn}>
+            <Typography textAlign='center' className={classes.loadingText1}>
+                Error!                                    
+            </Typography>
+            <Typography textAlign='center' className={classes.loadingText2}>
+                {error}                                    
+            </Typography> 
+        </Grid>      
+    )
 
     return (
         <Page container={false}>
@@ -48,9 +107,15 @@ export default function Admin() {
                             <Controls.Button 
                                 type="submit"
                                 text="REINICIAR"
-                                // onClick={restartPrototype}
+                                onClick={restartContract}
                                 className={clsx(classes.mb,classes.formButton)}
                             />
+                            { data ? (
+                                    <Typography textAlign='center' className={classes.loadingText2}>
+                                        Reiniciado: {data}                                   
+                                    </Typography> 
+                                ) : null
+                            }
                         </Grid>
                         <Grid item xs={12}>
                             {cases === [] ? null : ( <DenseTable headers={casesHeaders} dataset={cases} /> )}

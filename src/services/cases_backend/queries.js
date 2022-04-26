@@ -15,9 +15,9 @@ export const REPORT = gql`
 `
 
 export const RESTART = gql`
-    mutation restart() {
-        restart() {
-            success
+    mutation restart {
+        restart {
+            connected
         }
     }
 `
