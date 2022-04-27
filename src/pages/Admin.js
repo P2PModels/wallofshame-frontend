@@ -1,6 +1,7 @@
 import { React, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, DataGrid, Typography, Icon } from '@material-ui/core'
+import CircularProgress from '@mui/material/CircularProgress';
 import Page from '../components/Page'
 import { CasesProvider } from '../providers/CasesProvider/provider'
 import DropZone from '../components/DropZone'
@@ -64,28 +65,30 @@ export default function Admin() {
 
     if (loading) return (
         //<Box position="relative" display="inline-flex">
-        <Grid item  lg={12} className = {classes.flexColumn}>
-            <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
-            <Typography textAlign='center' className={classes.loadingText1}>
-                Reiniciando...                                    
-            </Typography>
-            <Typography textAlign='center' className={classes.loadingText2}>
-                Este proceso puede tardar unos segundos...                                    
-            </Typography>    
-
-                            
-        </Grid>      
+        <Page container={false}>
+            <Grid item  lg={12} className = {classes.flexColumn}>
+                <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
+                <Typography className={classes.loadingText1}>
+                    Reiniciando...                                    
+                </Typography>
+                <Typography className={classes.loadingText2}>
+                    Este proceso puede tardar unos segundos...                                    
+                </Typography>               
+            </Grid> 
+        </Page>
     )
 
     if (error) return (
-        <Grid item  lg={12} className = {classes.flexColumn}>
-            <Typography textAlign='center' className={classes.loadingText1}>
-                Error!                                    
-            </Typography>
-            <Typography textAlign='center' className={classes.loadingText2}>
-                {error}                                    
-            </Typography> 
-        </Grid>      
+        <Page container={false}>
+            <Grid item  lg={12} className = {classes.flexColumn}>
+                <Typography className={classes.loadingText1}>
+                    Error!                                    
+                </Typography>
+                <Typography className={classes.loadingText2}>
+                    {error}                                    
+                </Typography> 
+            </Grid>  
+        </Page>
     )
 
     return (
@@ -111,7 +114,7 @@ export default function Admin() {
                                 className={clsx(classes.mb,classes.formButton)}
                             />
                             { data ? (
-                                    <Typography textAlign='center' className={classes.loadingText2}>
+                                    <Typography className={classes.loadingText2}>
                                         Reiniciado: {data}                                   
                                     </Typography> 
                                 ) : null
