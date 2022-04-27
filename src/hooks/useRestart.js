@@ -10,8 +10,9 @@ export default function useRestart() {
     const [ sendRestart, { data: response, loading: restartLoading, error: restartError } ] = useMutation(RESTART)
 
     const restartContract = () => {
+        console.log("Restarting contract")
         try {
-            sendRestart({ variables: { data: true } })
+            sendRestart()
         }
         catch(error){ 
             console.log(error)
@@ -25,14 +26,15 @@ export default function useRestart() {
             setError(restartError)
         }
         if(restartLoading) {
-            setLoading(restartLoading)
+            setLoading(true)
         }
         if(response) {
             console.log("[useRestart] Restart: ")
             console.log(response)
             setData(response)
+            setLoading(false)
         }
-    }, [data, loading, error]) 
+    }, [response, restartLoading, restartError]) 
 
     return [ restartContract, {data,loading,error} ]
 }
