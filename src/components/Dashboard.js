@@ -154,10 +154,6 @@ export default function Dashboard() {
                     <Skeleton variant='rectangular' height={300} width={500} ></Skeleton>
 
                 </Grid>
-
-                
-   
-               
             </Grid>
         ) : (
             <Grid
@@ -167,7 +163,6 @@ export default function Dashboard() {
                 justify="flex-start"
                 alignItems="center"
             >
-                <div className = 'dashboard'>
                     <Grid item xs={12}>
                         <Title
                             component="h2"
@@ -180,9 +175,7 @@ export default function Dashboard() {
                             {stat.casesByRegion} casos han denunciado abusos de empresas
                             o entidades públicas en la zona.
                         </Typography>
-                    </Grid>                    
-                </div>    
-                    
+                    </Grid>                                        
                     <Grid item xs={12} className={classes.typeOfReport}>
                         <Title
                             component="h2"
