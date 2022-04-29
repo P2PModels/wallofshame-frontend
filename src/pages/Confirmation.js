@@ -77,7 +77,7 @@ const Confirmation = (props) => {
     const classes = useStyles()
     const { report } = props.location.state
     const [filas, setRows] = useState([]);    
-
+    console.log(report.region)
     // const mockEmails = [
     //     'mail1@test.es',
     //     'mail2@test.es',
@@ -88,10 +88,9 @@ const Confirmation = (props) => {
 
 
     // Config variables
-    const SPREADSHEET_ID = "1T6u1i32a0cQxF13EYkmvTxsUs0AGMuf2nt-FZwyBios"; //cambiar a 1w2J9DuzFHkUmBQ0zHHY51gPY7NRzmbdUV_VckSfhbSA
-    const SHEET_ID = "0";
-    const CLIENT_EMAIL = "p2psheet@p2psheet.iam.gserviceaccount.com";
-    const PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDLBWXH7uTKt4sM\nOG730UOExGxFdPLnoUtQd7CVvvJOSpHxR2zeJuz10kfnp+Ud11Rgv/k8ABrQdrjx\nLxd9QsCi/c9bxUoeu75FKcO/4dJ2UkVfxx/s8nKlUp3SQJlC4zzbdC8AziosPOCS\nkiDf2qRp998icagmn0GEuDmf2kg0uL+YSn0Zji0k8IXk7xkKnllBMX/MeZ+JweC8\nRNK2iCfIG5gj9pVzOlONMJQKv78ulgJ3rIs/ykJFllJokvJrlZXFpJXZ10fdSINz\n7e2YS8Q9fxYVqaUys4eVrS5A3cHdM5ZAmJmqLmT4pTSYQIz//m5+E+ib1+h5XxWM\nhE7xGRqhAgMBAAECggEAAYejKey9022bFAjG9Inqja0YnSR/rfVXGMppmaPFbffJ\nsi8X8dO6k3LB6yPepgUi1gqtSkWMji2GWM4qYc2pb6L8q34E4C7ZTPpuzsbhAfZu\nTpWsstGMAc0ZyolFRGHbqhJN1j5fdstPxIf6jKBITtJ871yqlA2tOd6k48SSeKf4\nKHYWyTsusM/bmQpADu/f+8jQHfITu/YsWL3kVtgw7VRotox/KNqF1z1vAMpLPa7Y\nyiEh51XzX5bbO/XFIekTwvhtvv2KAGFSF37msDFqQKtiGGX+JzyEEQP0CFPmMl3k\nzBq0WSqXFluwEPpz8WQWQy4Ej9/mA7cOllKH6FLjAQKBgQD9NgXWH7WBuPn0kjkf\nUWbehVuaqWpojSS+TkrmhaCWgPBNJIvly7UB4a07PDdL4QdX3RHgkIhRvXKod5Qk\ntk8CprXYeT4ggUOXPbsX0BQEogrNzLlQOg0H2eWGiBsvNCrHKqJN1wXI9TE13wGi\nuhGMOZTJ5r5iEDqgdcS3qli9AQKBgQDNQdrGI8VNnRZRGLsTbqL4u0K5u/JNgAoT\n+aM+9glEcwqMQTk8DTk+KMEvDuKiAHNzCTCPMcVnNFmaMYgggdS3eulhAFrzuZ1b\noSrRdOYlyDEH4C4Kj9EoOVkNhOy+W68HCisAWo2ccfw08CbmViyQvkS1f8Z+2fuw\nS6z0rUE9oQKBgA7cCr+kILy6JEEMC7ogxs6sONH8uzfjgJKCebbJhMEQVAnS6TrV\nF4xCuC3PvNcBH7MyUAhDsxxI59+nFNSKtlxLeER56QFzVIodn0sodORItiWZrA5f\nOcCKMwQQHLhKcXA6ukejJL3EVdz5d1kbXkhCYM7wcZ/DoA0mnCLDJm4BAoGBAMul\nvij+jqCt7dlyXxItoBaGvPJIzmQkWFtvQI+UTqeSOHHluKKjQBszFlDZRPSU2/bT\ntFEugXwfDZOV90jBZ8rPcUPjtVnB3KVv52q/wCTWVgdJXoTuIgf1tixaqQVJNAQZ\nC4cjUQNaeHARoZbBAyBtFwC5ELkFD9nfi2+LgoJhAoGBAOaIZpVIX0n3g9sOekNU\noD8WnkIbz4rWP3JNqTfcVTvsUvXylI+l3fmZi54uOCmbKXqIrpvon3oLtym+EFdK\novbufT+OiJBH7u1NsnPG8e2oqkG+85D5w3mZiue4zRoR5W77TBnCirVfGQp25NZ9\nI2LcszwTJiOKKg81IS/lYweQ\n-----END PRIVATE KEY-----\n";
+    const SPREADSHEET_ID = process.env.REACT_APP_SPREADSHEET_ID ;
+    const CLIENT_EMAIL =  process.env.REACT_APP_CLIENT_EMAIL;
+    const PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY
 
     const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
@@ -287,7 +286,7 @@ const Confirmation = (props) => {
                         </Typography>
                         
                    
-                        {filas?.filter((entity) => (entity.comunidad_autonoma).includes(report.region) )
+                        {filas?.filter((entity) => (entity.comunidad_autonoma).includes(report.region) || (entity.comunidad_autonoma) == ("Todas" || "Internacional"))
                         .map((entity, i) => (
                         <EntityContact
                         label={entity.nombre_entidad}
