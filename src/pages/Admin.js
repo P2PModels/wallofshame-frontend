@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, DataGrid, Typography, Icon } from '@material-ui/core'
 import CircularProgress from '@mui/material/CircularProgress';
@@ -8,8 +8,9 @@ import DropZone from '../components/DropZone'
 import Controls from '../components/Shared/controls/Controls'
 import clsx from 'clsx'
 import DenseTable from '../components/DenseTable'
-import { Warning } from '@material-ui/icons'
+import { Warning, Check, Error } from '@material-ui/icons'
 import useRestart from '../hooks/useRestart'
+import useBulkReport from '../hooks/useBulkReport'
 
 const useStyles = makeStyles(theme => ({
     mainGrid: {
@@ -59,11 +60,30 @@ const useStyles = makeStyles(theme => ({
 
 export default function Admin() {
     const classes = useStyles()
-    const [cases, setCases] = useState([])
+    const [cases, setCases] = useState(null)
     const [casesHeaders, setCasesHeaders] = useState([])
-    const [ restartContract, {data, loading, error} ] = useRestart()
+    const [ restartContract, {data: restartData, loading: restartLoading, error: restartError} ] = useRestart()
+    const [ bulkReport , {data, loading, error} ] = useBulkReport()
 
-    if (loading) return (
+    // console.log("[Admin] Cases loaded from drop zone: ")
+    // console.log(cases)
+
+    useEffect(() => {
+        if(loading){
+            console.log("[Admin] Bulk report in progress...")
+        }
+        if(error){
+            console.log("[Admin] Bulk report error:")
+            console.log(error)
+        }
+        if(data){
+            console.log("[Admin] Update:")
+            console.log(data)
+        }
+    }, [data, loading, error])
+    
+
+    if (restartLoading) return (
         //<Box position="relative" display="inline-flex">
         <Page container={false}>
             <Grid item  lg={12} className = {classes.flexColumn}>
@@ -78,18 +98,21 @@ export default function Admin() {
         </Page>
     )
 
-    if (error) return (
-        <Page container={false}>
-            <Grid item  lg={12} className = {classes.flexColumn}>
-                <Typography className={classes.loadingText1}>
-                    Error!                                    
-                </Typography>
-                <Typography className={classes.loadingText2}>
-                    {error}                                    
-                </Typography> 
-            </Grid>  
-        </Page>
-    )
+    if (restartError) {
+        console.log(restartError)
+        return (
+            <Page container={false}>
+                <Grid item  lg={12} className = {classes.flexColumn}>
+                    <Typography className={classes.loadingText1}>
+                        Error!                                    
+                    </Typography>
+                    <Typography className={classes.loadingText2}>
+                        {restartError}                                    
+                    </Typography> 
+                </Grid>  
+            </Page>
+        )
+    }
 
     return (
         <Page container={false}>
@@ -100,7 +123,7 @@ export default function Admin() {
                             <Typography variant="h1" align='center'>Administrar prototipo</Typography>
                         </Grid>
                         <Grid item xs={6}>
-                            <Typography variant="h2" className={classes.mb} >Carga masiva de casos</Typography>
+                            <Typography variant="h2" className={classes.mb} >Carga múltiple de casos</Typography>
                             <Typography variant="body1" className={classes.mb} >Arrastra un documento en formato csv. El documento (normalmente exportado desde una hoja de cálculo) debe contener una primera fila con las siguientes etiquetas de columna: companyName, caseType, description, region, profession, gender, ageRange, experience, terms, email. El resto de filas serán los datos correspondientes a cada una de las entradas a reportar.</Typography>
                             <DropZone setDataEntries={setCases} setDataHeaders={setCasesHeaders} className={classes.mb} />
                         </Grid>
@@ -113,16 +136,30 @@ export default function Admin() {
                                 onClick={restartContract}
                                 className={clsx(classes.mb,classes.formButton)}
                             />
-                            { data ? (
-                                    <Typography className={classes.loadingText2}>
-                                        Reiniciado: {data}                                   
+                            { restartData ? (
+                                    <Typography variant="body1" className={classes.mb}>
+                                        Reiniciado: {restartData.restart.connected ? <Check /> : <Error />}                                   
                                     </Typography> 
+                                                                           
+
                                 ) : null
                             }
                         </Grid>
-                        <Grid item xs={12}>
-                            {cases === [] ? null : ( <DenseTable headers={casesHeaders} dataset={cases} /> )}
-                        </Grid>
+                        {cases === null ? null : ( 
+                            <Grid item xs={12}>
+                                <Controls.Button 
+                                    type="submit"
+                                    text="CARGA MÚLTIPLE"
+                                    onClick={() => {
+                                        console.log("[Admin] Cases: ")
+                                        console.log(cases)
+                                        bulkReport(cases)
+                                    }}
+                                    className={clsx(classes.mb,classes.formButton)}
+                                />
+                                <DenseTable headers={casesHeaders} dataset={cases} /> 
+                            </Grid>
+                        )}
                     </Grid>
                 </Container>
             </CasesProvider>

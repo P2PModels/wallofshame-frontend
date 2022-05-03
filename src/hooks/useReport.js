@@ -12,15 +12,28 @@ export default function useReport() {
     const [ addUser, { data: addedUser, loading: userLoading, error: userError }] = useMutation(ADD_USER)
 
     const reportCase = (caseToReport) => {
+        
+        console.log("[useReport] Reporting case")
+        console.log(caseToReport)
 
-        let user = {
-            email: caseToReport.email,
-            terms: caseToReport.terms,
-            region: caseToReport.region,
-            profession: caseToReport.profession,
-            gender: caseToReport.gender,
+        if(caseToReport.terms){
+            console.log("[useReport] Creating user...")
+            let user = {
+                email: caseToReport.email,
+                terms: caseToReport.terms,
+                region: caseToReport.region,
+                profession: caseToReport.profession,
+                gender: caseToReport.gender,
+            }
+            try {
+                addUser({ variables: { data: user } })
+            }
+            catch(error){ 
+                console.log(error)
+            }
         }
 
+        console.log("[useReport] Reporting case...")
         let reportCase = {
             companyName: caseToReport.companyName,
             caseType: caseToReport.caseType,
@@ -31,9 +44,7 @@ export default function useReport() {
             ageRange: caseToReport.ageRange,
             experience: caseToReport.experience,
         }
-
         try {
-            addUser({ variables: { data: user } })
             sendReport({ variables: { data: reportCase } })
         }
         catch(error){ 
@@ -57,9 +68,9 @@ export default function useReport() {
             console.log(caseReported)
             console.log("[useReport] User created: ")
             console.log(addedUser)
-            setData({reportedCase,addedUser})
+            setData({caseReported,addedUser})
         }
-    }, [data, loading, error]) 
+    }, [caseReported, addedUser, caseLoading, userLoading, caseError, userError]) 
 
     return [ reportCase, {data,loading,error} ]
 }

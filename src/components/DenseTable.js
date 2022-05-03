@@ -15,9 +15,9 @@ export default function DenseTable(props) {
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            {headers.map(header => {
+            {headers.map((header,i) => {
                 return (
-                    <TableCell align='left'>{header}</TableCell>
+                    <TableCell align='left' key={"cell-" + i}>{header}</TableCell>
                 )
             })}
           </TableRow>

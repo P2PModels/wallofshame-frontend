@@ -1,3 +1,66 @@
+import config from '../data/config.json'
+
+export function regionRenderNameToValue(region) {
+    console.log("[regionRenderNameToValue] Searching for region...")
+
+    console.log(region)
+
+    let val = ''
+    Object.keys(config.regionToRegionRenderName).map( key => {
+        console.log(key)
+        if(config.regionToRegionRenderName[key] === region)
+            val = key
+    })
+    console.log(val)
+    return val
+}
+
+export function typeRenderNameToValue(type) {
+    let val = ''
+    Object.keys(config.typeToTypeRenderName).map( key => {
+        if(config.typeToTypeRenderName[key] === type)
+            val = key
+    })
+    return val
+}
+
+export function professionRenderNameToValue(profession) {
+    let val = ''
+    Object.keys(config.professionToProfessionRenderName).map( key => {
+        if(config.professionToProfessionRenderName[key] === profession)
+            val = key
+    })
+    return val
+}
+
+export function genderRenderNameToValue(gender) {
+    let val = ''
+    Object.keys(config.genderToGenderRenderName).map( key => {
+        if(config.genderToGenderRenderName[key] === gender)
+            val = key
+    })
+    return val
+}
+
+export function ageRangeRenderNameToValue(ageRange) {
+    let val = ''
+    Object.keys(config.ageRangeToAgeRangeRenderName).map( key => {
+        if(config.ageRangeToAgeRangeRenderName[key] === ageRange)
+            val = key
+    })
+    return val
+}
+
+export function experienceRenderNameToValue(experience) {
+    let val = ''
+    Object.keys(config.experienceToExperienceRenderName).map( key => {
+        if(config.experienceToExperienceRenderName[key] === experience)
+            val = key
+    })
+    return val
+}
+
+
 export function capitalizeFirstLetter(word) {
     if (typeof word === 'string')
         return word.charAt(0).toUpperCase() + word.slice(1)
