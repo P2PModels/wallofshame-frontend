@@ -91,6 +91,7 @@ export default function ReportCaseForm() {
     const classes = useStyles()
     
     const [end, setEnd] = useState(false)
+    const [email, setEmail] = useState("")
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
     const [sendReport, { data: response, loading, error }] = useMutation(REPORT)
@@ -176,7 +177,10 @@ export default function ReportCaseForm() {
                 gender: values.gender,
                 ageRange: values.ageRange,
                 experience: values.experience,
+                //email: values.email,
             }
+            setEmail(values.email)
+            
             console.log("[ReportCaseForm] User: ")
             console.log(user)
             console.log("[ReportCaseForm] Case: ")
@@ -324,7 +328,7 @@ export default function ReportCaseForm() {
             <Redirect
                 to={{
                     pathname: '/confirmation',
-                    state: { report: response.report },
+                    state: { report: [response.report,  email] },
                 }}
             />
         )

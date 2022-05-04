@@ -46,6 +46,11 @@ const useStyles = makeStyles(theme => ({
         fontSize: '1.25rem',
         display: 'inline-block',
     },
+    captionOrg: {
+        fontSize: '1.25rem',
+        display: 'inline-block',
+        padding: '2rem 3rem 1rem',
+    },
     smallCaption: {
         fontSize: '18px',
         display: 'inline-block',
@@ -75,9 +80,10 @@ const useStyles = makeStyles(theme => ({
 //export default function Confirmation(props) {
 const Confirmation = (props) => {
     const classes = useStyles()
+
     const { report } = props.location.state
+    console.log(report)
     const [filas, setRows] = useState([]);    
-    console.log(report.region)
     // const mockEmails = [
     //     'mail1@test.es',
     //     'mail2@test.es',
@@ -117,45 +123,27 @@ const Confirmation = (props) => {
     } , []) 
 
 
-    
-
-
-    
-    const mockEntities = [
-        {
-            src: './assets/smart-logo.png',
-            label: 'Smart Iberia',
-            url: 'https://smart.es',
-        },
-        {
-            src: './logo192.png',
-            label: 'P2P Models',
-            url: 'https://p2pmodels.eu',
-        },
-        {
-            src: './assets/smart-logo.png',
-            label: 'Smart Iberia',
-            url: 'https://smart.es',
-        },
-        {
-            src: './logo192.png',
-            label: 'P2P Models',
-            url: 'https://p2pmodels.eu',
-        },
-    ]
     const regionQueryFilter = {
-        region: report.region,
+        region: report[0].region,
     }
     const professionQueryFilter = {
         profession: report.profession,
     }
+
+    const emailQueryFilter = {
+        email: report[1],
+    }
+    
     const usersQueryFilter = {
         OR: [
                 {
-                    region: report.region
+                    region: report[0].region
                 },
                 {
-                    profession: report.profession
+                    profession: report[0].profession
+                },
+                {
+                    email: report[1]
                 }
             ]
     }
@@ -208,12 +196,17 @@ const Confirmation = (props) => {
         )
     const datos = filas?.map((entity, i) => (
         <EntityContact
-        label={entity.nombre_entidad}
-        url={entity.url}
-        src={entity.url_imagen}
-        className={classes.entity}
+            label={entity.nombre_entidad}
+            url={entity.url}
+            src={entity.url_imagen}
+            className={classes.entity}
         />
       ));
+
+    const orgsCiudad = filas?.filter((entity) => (entity.comunidad_autonoma).includes(report[0].region) || (entity.comunidad_autonoma) == ("Todas" || "Internacional"))
+    const orgsProfesion = filas?.filter((entity) => (entity.profesion_es).includes(report[0].profession) )
+    const userMails = dataUsers.users.filter((u) => (u.email != report[1])) 
+    console.log(report[1])
     return ( 
         <Page container={false}>
             <Container maxWidth="xl">
@@ -245,14 +238,14 @@ const Confirmation = (props) => {
                                 caption={`casos de 
                                 ${
                                     professionToProfessionRenderName[
-                                        report.profession
+                                        report[0].profession
                                     ]
                                 }`}
                             />
                             <DisplayValue
                                 value={casesByRegion.cases.length}
                                 caption={`casos de 
-                                ${regionToRegionRenderName[report.region]}`}
+                                ${regionToRegionRenderName[report[0].region]}`}
                             />
                         </Box>
                         <Typography variant="h3" className={classes.heading2}>
@@ -268,45 +261,66 @@ const Confirmation = (props) => {
                             Ha autorizado a dar su email así que ¡no te cortes!
                         </Typography>
                         <ul className={classes.contactList}>
-                            {dataUsers.users.map((u, i) => (
-                                <li>
-                                    <EmailContact
-                                        label={`Persona ${i + 1}`}
-                                        email={u.email}
-                                        key={`contacto-${i + 1}`}
-                                    />
-                                </li>
-                            ))}
+                
+                            {(userMails.length>0) ? (
+                                userMails.map((u, i) => (
+                                    <li>
+                                        <EmailContact
+                                            label={`Persona ${i + 1}`}
+                                            email={u.email}
+                                            key={`contacto-${i + 1}`}
+                                        />
+                                    </li>
+                                ))
+                            ) :(
+                                <Typography variant="subtitle"  className={classes.captionOrg}>
+                                    No tenemos emails para ti actualmente
+                                </Typography>
+                                
+                            )}
                         </ul>
+                        
                         <Typography variant="h3" className={classes.heading2}>
                             Colectivos o entidades que podrían ayudarte 
                         </Typography>
                         <Typography variant="h5" className={classes.heading3}>
                             En tu ciudad
                         </Typography>
-                        
-                   
-                        {filas?.filter((entity) => (entity.comunidad_autonoma).includes(report.region) || (entity.comunidad_autonoma) == ("Todas" || "Internacional"))
-                        .map((entity, i) => (
-                        <EntityContact
-                        label={entity.nombre_entidad}
-                        url={entity.url}
-                        src={entity.url_imagen}
-                        className={classes.entity}
-                        />))}
-                        
+                        {(orgsCiudad.length>0) ? (
+                            orgsCiudad.map((entity, i) => (
+                                <EntityContact
+                                    label={entity.nombre_entidad}
+                                    url={entity.url}
+                                    src={entity.url_imagen}
+                                    className={classes.entity}
+                                />
+                            ))
+                        ) :(
+                            <Typography variant="subtitle"  className={classes.captionOrg}>
+                                No tenemos organizaciones registradas en tu Comunidad Autónoma, pero si encuentras alguna contáctanos
+                            </Typography>
+                        )}
+
+                            
                         <Typography variant="h5" className={classes.heading3}>
                             Relacionados con tu profesión
                         </Typography>
                         
-                         {filas?.filter((entity) => (entity.profesion_es).includes(report.profession) )
-                        .map((entity, i) => (
-                            <EntityContact
-                        label={entity.nombre_entidad}
-                        url={entity.url}
-                        src={entity.url_imagen}
-                        className={classes.entity}
-                        />))}
+                        {(orgsProfesion.length>0) ? (
+                            orgsProfesion.map((entity, i) => (
+                                <EntityContact
+                                    label={entity.nombre_entidad}
+                                    url={entity.url}
+                                    src={entity.url_imagen}
+                                    className={classes.entity}
+                                />
+                            ))
+                        ) :(
+                            <Typography variant="subtitle"  className={classes.captionOrg}>
+                                No tenemos organizaciones registradas relacionadas con tu profesión, pero si encuentras alguna contáctanos
+                            </Typography>
+                            
+                        )}
                             
                     </Grid>
                 </Grid>
