@@ -12,12 +12,9 @@ export default function useReport() {
     const [ addUser, { data: addedUser, loading: userLoading, error: userError }] = useMutation(ADD_USER)
 
     const reportCase = (caseToReport) => {
-        
-        console.log("[useReport] Reporting case")
-        console.log(caseToReport)
 
         if(caseToReport.terms){
-            console.log("[useReport] Creating user...")
+            // console.log("[useReport] Creating user...")
             let user = {
                 email: caseToReport.email,
                 terms: caseToReport.terms,
@@ -33,7 +30,7 @@ export default function useReport() {
             }
         }
 
-        console.log("[useReport] Reporting case...")
+        // console.log("[useReport] Reporting case...")
         let reportCase = {
             companyName: caseToReport.companyName,
             caseType: caseToReport.caseType,
@@ -53,22 +50,37 @@ export default function useReport() {
     }
 
     useEffect(() => {
-        if(caseError || userError) {
-            console.log("[useReport] Case report error: ")
-            console.log(caseError)
-            console.log("[useReport] User creation error: ")
-            console.log(userError)
-            setError(caseError || userError ? {caseError,userError} : null)
+        if(caseError) {
+            // console.log("[useRestart] Case restart error: ")
+            // console.log(caseError)
+            setError(caseError)
+        }
+        if(userError) {
+            // console.log("[useRestart] Users restart error: ")
+            // console.log(userError)
+            setError(userError)
         }
         if(caseLoading || userLoading) {
             setLoading(caseLoading || userLoading)
         }
+        if(caseReported) {
+            // console.log("[useReport] Reported case: ")
+            // console.log(caseReported)
+            setData(_data => ({
+                ..._data,
+                caseReported
+            }))
+        }
+        if(addedUser) {
+            // console.log("[useReport] Created user: ")
+            // console.log(addedUser)
+            setData(_data => ({
+                ..._data,
+                addedUser
+            }))
+        }
         if(caseReported && addedUser) {
-            console.log("[useReport] Case reported: ")
-            console.log(caseReported)
-            console.log("[useReport] User created: ")
-            console.log(addedUser)
-            setData({caseReported,addedUser})
+            setLoading(false)
         }
     }, [caseReported, addedUser, caseLoading, userLoading, caseError, userError]) 
 

@@ -1,18 +1,29 @@
 import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
-import { RESTART } from '../services/cases_backend/queries'
+import { RESTART as RESTART_CASES } from '../services/cases_backend/queries'
+import { DELETE_USERS as RESTART_USERS } from '../services/users/queries'
 
 export default function useRestart() {
     const [ data, setData ] = useState()
     const [ loading, setLoading ] = useState()
     const [ error, setError ] = useState()
 
-    const [ sendRestart, { data: response, loading: restartLoading, error: restartError } ] = useMutation(RESTART)
+    const [ sendRestartCases, { data: restartedCases, loading: caseLoading, error: caseError } ] = useMutation(RESTART_CASES)
+    const [ sendRestartUsers, { data: restartedUsers, loading: userLoading, error: userError } ] = useMutation(RESTART_USERS)
 
     const restartContract = () => {
-        console.log("Restarting contract")
+
+        // console.log("[useRestart] Restarting database")
         try {
-            sendRestart()
+            sendRestartUsers()
+        }
+        catch(error){ 
+            console.log(error)
+        }
+
+        // console.log("[useRestart] Restarting contract")
+        try {
+            sendRestartCases()
         }
         catch(error){ 
             console.log(error)
@@ -20,21 +31,44 @@ export default function useRestart() {
     }
 
     useEffect(() => {
-        if(restartError) {
-            console.log("[useRestart] Case report error: ")
-            console.log(restartError)
-            setError(restartError)
+        if(caseError) {
+            // console.log("[useRestart] Case restart error: ")
+            // console.log(caseError)
+            setError(caseError)
         }
-        if(restartLoading) {
+        if(userError) {
+            // console.log("[useRestart] Users restart error: ")
+            // console.log(userError)
+            setError(userError)
+        }
+        if(caseLoading) {
             setLoading(true)
         }
-        if(response) {
-            console.log("[useRestart] Restart: ")
-            console.log(response)
-            setData(response)
+        if(userLoading) {
+            setLoading(true)
+        }
+        if(restartedCases) {
+            // console.log("[useRestart] Restarted cases: ")
+            // console.log(restartedCases)
+            setData(_data => ({
+                ..._data,
+                restartedCases: restartedCases.restart.connected
+            }))
+        }
+        if(restartedUsers) {
+            // console.log("[useRestart] Restarted users: ")
+            // console.log(restartedUsers)
+            setData(_data => ({
+                ..._data,
+                restartedUsers: restartedUsers.deleteUsers
+            }))
+        }
+        if(restartedUsers && restartedCases){
+            // console.log("[useRestart] Restarted completed: ")
+            // console.log(data)
             setLoading(false)
         }
-    }, [response, restartLoading, restartError]) 
+    }, [restartedCases, caseLoading, caseError, restartedUsers, userLoading, userError]) 
 
     return [ restartContract, {data,loading,error} ]
 }

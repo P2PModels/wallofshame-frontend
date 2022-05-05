@@ -48,11 +48,11 @@ export default function DropZone(props) {
                     .forEach( async (file) => {
                         const text = await file.text()
                         const data = parse(text).data
-                        // console.log("[DropZone] Headers")
-                        // console.log(data[0])
+                        console.log("[DropZone] Headers")
+                        console.log(data[0])
                         setDataHeaders(data[0])
-                        // console.log("[DropZone] Dataset")
-                        // console.log(data)
+                        console.log("[DropZone] Dataset")
+                        console.log(data)
                         data.shift()
                         setDataEntries(data)
 

@@ -13,54 +13,37 @@ export default function useBulkReport() {
     const [ lastReportIndex, setLastReportIndex ] = useState() 
     const [ reportCase, {data: currentData, loading: currentLoading, error: currentError} ] = useReport()
 
-    const bulkReport = (_casesToReport) => {
-        console.log("[useBulkReport] Starting bulk report:")
-        console.log("[useBulkReport] Input cases: ")
-        console.log(_casesToReport)
+    const bulkReport = (inputCasesToReport) => {
+        // console.log("[useBulkReport] Starting bulk report...")
         
         // Bulk report starts, set loading state
         setLoading(true)
         // Restart index
         setCurrentReportIndex(0)
         // Initialize reports state array
-        setReportsState(Array(_casesToReport.length))
-        console.log("[useBulkReport] Initial state:")
-        console.log(reportsState)
-        console.log(Array(_casesToReport.length))
-
+        setReportsState(Array(inputCasesToReport.length))
         // Set last index
-        setLastReportIndex(_casesToReport.length)
-        console.log("[useBulkReport] Number of cases:")
-        console.log(lastReportIndex)
-        console.log(_casesToReport.length)
+        setLastReportIndex(inputCasesToReport.length)
         // Store cases to report
-        setCasesToReport(_casesToReport)
-        console.log(casesToReport)
-
-        console.log("[useBulkReport] First case:")
-        console.log(casesToReport[currentReportIndex])
+        setCasesToReport(inputCasesToReport)
 
         // Bootstrap, report first case
         const caseToReport = {
-            companyName: _casesToReport[currentReportIndex][0],
-            caseType: typeRenderNameToValue(_casesToReport[currentReportIndex][1]),
-            description: _casesToReport[currentReportIndex][2],
-            profession: professionRenderNameToValue(_casesToReport[currentReportIndex][3]),
-            gender: genderRenderNameToValue(_casesToReport[currentReportIndex][4]),
-            region: regionRenderNameToValue(_casesToReport[currentReportIndex][5]),
-            experience: experienceRenderNameToValue(_casesToReport[currentReportIndex][6]),
-            ageRange: ageRangeRenderNameToValue(_casesToReport[currentReportIndex][7]),
-            terms: !!_casesToReport[currentReportIndex][8],
-            email: _casesToReport[currentReportIndex][9]
+            companyName: inputCasesToReport[0][0],
+            caseType: typeRenderNameToValue(inputCasesToReport[0][1]),
+            description: inputCasesToReport[0][2],
+            profession: professionRenderNameToValue(inputCasesToReport[0][3]),
+            gender: genderRenderNameToValue(inputCasesToReport[0][4]),
+            region: regionRenderNameToValue(inputCasesToReport[0][5]),
+            experience: experienceRenderNameToValue(inputCasesToReport[0][6]),
+            ageRange: ageRangeRenderNameToValue(inputCasesToReport[0][7]),
+            terms: !!inputCasesToReport[0][8],
+            email: inputCasesToReport[0][9]
         }
         reportCase(caseToReport)
     } 
 
     useEffect(() => {
-        console.log("[useBulkReport] useEffect")
-        console.log(currentError)
-        console.log(currentLoading)
-        console.log(currentData)
 
         if(currentError) {
             console.log("[useBulkReport] Error: ")
@@ -71,7 +54,7 @@ export default function useBulkReport() {
         if(currentLoading) {
             return
         }
-        if(currentData) {
+        if(currentData && !currentLoading) {
 
             console.log(`[useBulkReport] Case ${currentReportIndex+1} reported: `)
             console.log(currentData)
@@ -83,28 +66,30 @@ export default function useBulkReport() {
 
             setData({reportsState, casesToReport})
             
-            if(currentReportIndex < lastReportIndex){
-                console.log("[useBulkReport] Reporting next case...")
-                setCurrentReportIndex(index => index++)
+            if(currentReportIndex+1 < lastReportIndex){
+                // console.log("[useBulkReport] Reporting next case...")
+                setCurrentReportIndex(index => index+1)
                 
                 const caseToReport = {
-                    companyName: casesToReport[currentReportIndex][0],
-                    caseType: typeRenderNameToValue(casesToReport[currentReportIndex][1]),
-                    description: casesToReport[currentReportIndex][2],
-                    profession: professionRenderNameToValue(casesToReport[currentReportIndex][3]),
-                    gender: genderRenderNameToValue(casesToReport[currentReportIndex][4]),
-                    region: regionRenderNameToValue(casesToReport[currentReportIndex][5]),
-                    experience: experienceRenderNameToValue(casesToReport[currentReportIndex][6]),
-                    ageRange: ageRangeRenderNameToValue(casesToReport[currentReportIndex][7]),
-                    terms: !!casesToReport[currentReportIndex][8],
-                    email: casesToReport[currentReportIndex][9]
+                    companyName: casesToReport[currentReportIndex+1][0],
+                    caseType: typeRenderNameToValue(casesToReport[currentReportIndex+1][1]),
+                    description: casesToReport[currentReportIndex+1][2],
+                    profession: professionRenderNameToValue(casesToReport[currentReportIndex+1][3]),
+                    gender: genderRenderNameToValue(casesToReport[currentReportIndex+1][4]),
+                    region: regionRenderNameToValue(casesToReport[currentReportIndex+1][5]),
+                    experience: experienceRenderNameToValue(casesToReport[currentReportIndex+1][6]),
+                    ageRange: ageRangeRenderNameToValue(casesToReport[currentReportIndex+1][7]),
+                    terms: !!casesToReport[currentReportIndex+1][8],
+                    email: casesToReport[currentReportIndex+1][9]
                 }
                 reportCase(caseToReport)
+            } else if(currentReportIndex+1 == lastReportIndex) {
+                // Bulk report finished
+                setLoading(false)
             }
             return
         }
-        // Bulk report finished
-        setLoading(false)
+        
     }, [currentData, currentLoading, currentError]) 
 
     return [bulkReport, {data, loading, error}]

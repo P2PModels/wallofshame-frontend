@@ -1,17 +1,16 @@
 import config from '../data/config.json'
 
 export function regionRenderNameToValue(region) {
-    console.log("[regionRenderNameToValue] Searching for region...")
-
-    console.log(region)
+    // console.log("[regionRenderNameToValue] Searching for region...")
+    // console.log(region)
 
     let val = ''
     Object.keys(config.regionToRegionRenderName).map( key => {
-        console.log(key)
+        // console.log(key)
         if(config.regionToRegionRenderName[key] === region)
             val = key
     })
-    console.log(val)
+    // console.log(val)
     return val
 }
 

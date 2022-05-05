@@ -22,8 +22,15 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 0,
         color: theme.palette.text.light,
     },
+    flexVerticalAlignCenter: {
+        display: 'flex',
+        alignItems: 'center',
+    },
     mb: {
         marginBottom: theme.spacing(2)
+    },
+    mt: {
+        marginTop: theme.spacing(2)
     },
     loadingSpinner: {
         color: theme.palette.primary.main,
@@ -32,7 +39,11 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyItems: 'center',
         margin: '7rem auto 0rem',
-
+    },
+    loadingSpinnerBulkReport: {
+        color: theme.palette.secondary.main,
+        display: 'inline-block',
+        margin: '0 2rem',
     },
     loadingText1: {
         color: theme.palette.primary.main,
@@ -51,6 +62,13 @@ const useStyles = makeStyles(theme => ({
         margin: '1rem 0 2rem',
         textAlign:'center',
     },
+    loadingText3: {
+        color: theme.palette.secondary.main,
+        fontSize: '1.5rem',
+        fontWeight: '400',
+        textAlign:'center',
+        display: 'inline-block',
+    },
     flexColumn:{
         display: 'flex',
         flexDirection: 'column',
@@ -60,25 +78,44 @@ const useStyles = makeStyles(theme => ({
 
 export default function Admin() {
     const classes = useStyles()
-    const [cases, setCases] = useState(null)
-    const [casesHeaders, setCasesHeaders] = useState([])
-    const [ restartContract, {data: restartData, loading: restartLoading, error: restartError} ] = useRestart()
+    const [ cases, setCases ] = useState(null)
+    const [ bulkReportUsed, setBulkReportUsed ] = useState(false)
+    const [ casesHeaders, setCasesHeaders ] = useState([])
+    const [ restartPrototype, {data: restartData, loading: restartLoading, error: restartError} ] = useRestart()
     const [ bulkReport , {data, loading, error} ] = useBulkReport()
 
     // console.log("[Admin] Cases loaded from drop zone: ")
     // console.log(cases)
 
+    const getCasesWithReportState = () => {
+        let casesWithState = []
+        cases.map((c,i) => {
+            if(data){
+                casesWithState.push(data.reportsState[i] ? ['✅'].concat(c) : ['🔄'].concat(c))
+            }else {
+                casesWithState.push([' '].concat(c))
+            }
+        })
+        return casesWithState
+    }
+
+    const getCasesHeadersWithReportState = () => {
+        // console.log("[setHeaders] Headers:")
+        // console.log(["Estado"].concat(casesHeaders))
+        return ["Estado"].concat(casesHeaders)
+    }
+
     useEffect(() => {
         if(loading){
-            console.log("[Admin] Bulk report in progress...")
+            // console.log("[Admin] Bulk report in progress...")
         }
         if(error){
-            console.log("[Admin] Bulk report error:")
-            console.log(error)
+            // console.log("[Admin] Bulk report error:")
+            // console.log(error)
         }
         if(data){
-            console.log("[Admin] Update:")
-            console.log(data)
+            // console.log("[Admin] Update:")
+            // console.log(data)
         }
     }, [data, loading, error])
     
@@ -133,32 +170,50 @@ export default function Admin() {
                             <Controls.Button 
                                 type="submit"
                                 text="REINICIAR"
-                                onClick={restartContract}
+                                onClick={restartPrototype}
                                 className={clsx(classes.mb,classes.formButton)}
                             />
                             { restartData ? (
                                     <Typography variant="body1" className={classes.mb}>
-                                        Reiniciado: {restartData.restart.connected ? <Check /> : <Error />}                                   
+                                        Reiniciado: {restartData.restartedUsers && restartData.restartedCases ? <Check /> : <Error />}                                   
                                     </Typography> 
-                                                                           
-
                                 ) : null
                             }
                         </Grid>
                         {cases === null ? null : ( 
-                            <Grid item xs={12}>
-                                <Controls.Button 
-                                    type="submit"
-                                    text="CARGA MÚLTIPLE"
-                                    onClick={() => {
-                                        console.log("[Admin] Cases: ")
-                                        console.log(cases)
-                                        bulkReport(cases)
-                                    }}
-                                    className={clsx(classes.mb,classes.formButton)}
-                                />
-                                <DenseTable headers={casesHeaders} dataset={cases} /> 
-                            </Grid>
+                            <>
+                                <Grid item xs={4} className={classes.flexVerticalAlignCenter}>
+                                    <Controls.Button 
+                                        type="submit"
+                                        text="CARGA MÚLTIPLE"
+                                        onClick={() => {
+                                            setBulkReportUsed(true)
+                                            bulkReport(cases)
+                                        }}
+                                        className={clsx(classes.formButton)}
+                                    />
+                                </Grid>
+                                { loading ? (
+                                    <Grid item xs={8} className={classes.flexVerticalAlignCenter}>
+                                        <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinnerBulkReport}/>  
+                                        <Typography className={classes.loadingText3}>
+                                            Carga en curso, este proceso puede tardar varios minutos...                                    
+                                        </Typography>
+                                    </Grid>
+                                ) : ( bulkReportUsed ? 
+                                    (
+                                        <Grid item xs={8} className={classes.flexVerticalAlignCenter}>
+                                            <Typography variant="body1">
+                                                Carga completada: { error ? <Error /> : <Check /> }                                   
+                                            </Typography>
+                                        </Grid> 
+                                    ) : null
+                                )}
+
+                                <Grid item xs={12} className={classes.mt}>
+                                    <DenseTable headers={getCasesHeadersWithReportState()} dataset={getCasesWithReportState()} /> 
+                                </Grid>
+                            </>
                         )}
                     </Grid>
                 </Container>
