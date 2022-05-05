@@ -3,7 +3,6 @@ import {
     MapContainer,
     TileLayer,
     Marker,
-    Popup,
     ZoomControl,
 } from 'react-leaflet'
 import MapScrollZoomOnFocus from './MapScrollZoomOnFocus'
@@ -21,8 +20,6 @@ import {
 import CaseCardList from './CaseCardList'
 import { regionToRegionRenderName } from '../data/config.json'
 
-
-
 // TODO: redraw on zoom change
 const Map = props => {
     const { ...other } = props
@@ -30,9 +27,6 @@ const Map = props => {
     const { region, setRegion } = useAppState()
     const [listState, setListState] = useState(false)
     const clusterClicked = cluster => {
-        // Assure type and decimals
-        cluster.latlng.lat = Number(cluster.latlng.lat.toFixed(2))
-        cluster.latlng.lng = Number(cluster.latlng.lng.toFixed(2))
 
         // Find region match by lat adn lng
         const r = findChildObject(cluster.latlng, regionToLatLng)
@@ -56,9 +50,7 @@ const Map = props => {
         return <Typography>{casesContext.error.message}</Typography>
     } else {
         const cases = casesContext.cases
-        console.log(cases)
         
-
         // Set map boundaries to inlcude all marker(cases)
         let mapBounds = []
         cases.map(c => {
@@ -102,24 +94,12 @@ return (
                         return (
                             <Marker
                                 position={[bounds.lat, bounds.lng]}
-                                /* icon = {L.divIcon({
-                                    className: 'marker',
-                                    iconAnchor: [20, 20],
-                                    iconSize: [40, 40]
-                                })}  */
-                                
+                                eventHandlers={{
+                                    click: clusterClicked
+                                }}
                                 icon={icons[c.caseType]}
-                                
                                 key={c.id + '-report'}
-                            >
-                                {/* <Popup>
-                                    <h3>{`Case #${c.id}`}</h3>
-                                    <h4>
-                                        {c.companyName + ' ' + c.caseType}
-                                    </h4>
-                                    <p>{c.description}</p>
-                                </Popup> */} 
-                            </Marker>
+                            />
                         )
                     }
                 })}

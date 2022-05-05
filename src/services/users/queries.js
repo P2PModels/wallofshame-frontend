@@ -22,3 +22,8 @@ export const ADD_USER = gql`
         }
     }
 `
+export const DELETE_USERS = gql`
+    mutation deleteUsers {
+        deleteUsers 
+    }
+`

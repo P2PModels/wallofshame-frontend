@@ -5,8 +5,8 @@ import { getAppByName } from '../helpers/app-connector-helpers'
 import { Actions } from '../actions-types'
 import { toBytes32 } from '../helpers/web3-helpers'
 
-const APP_NAME = process.env.REACT_APP_TASK_ALLOCATION_APP_NAME
-const PRIVATE_KEY = process.env.REACT_APP_SERVER_ACCOUNT_PRIVATE_KEY
+// const APP_NAME = process.env.REACT_APP_TASK_ALLOCATION_APP_NAME
+// const PRIVATE_KEY = process.env.REACT_APP_SERVER_ACCOUNT_PRIVATE_KEY
 const GAS_LIMIT = 450000
 const { AcceptTask, RejectTask } = Actions
 
