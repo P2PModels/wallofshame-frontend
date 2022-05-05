@@ -13,6 +13,7 @@ import AuthProvider from './providers/Auth/provider'
 // import ApolloProviderAuth from './components/ApolloProviderAuth'
 import BackendProvider from './components/BackendProvider'
 import Landing from './pages/Landing'
+import Admin from './pages/Admin'
 import Info from './pages/Info'
 import Confirmation from './pages/Confirmation'
 import Report from './pages/Report'
@@ -104,6 +105,9 @@ function App() {
                                         <Confirmation {...props} />
                                     )}
                                 />
+                                <Route exact path="/admin">
+                                    <Admin />
+                                </Route>
                             </Switch>
                             <Footer />
                         </ThemeProvider>

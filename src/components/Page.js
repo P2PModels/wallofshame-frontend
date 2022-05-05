@@ -4,6 +4,9 @@ import { CssBaseline, Container } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     appBarSpacer: theme.mixins.toolbar,
+    main: {
+        minHeight: `calc(100vh - 136px)`
+    }
 }))
 
 export default function Page(props) {
@@ -14,7 +17,7 @@ export default function Page(props) {
         (
             <div>
                 <CssBaseline />
-                <main>
+                <main className={classes.main}>
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth={maxWidth || "lg"} className={className}>
                         {children}
@@ -26,7 +29,7 @@ export default function Page(props) {
     (
         <div>
             <CssBaseline />
-            <main>
+            <main className={classes.main}>
                 <div className={classes.appBarSpacer} />
                 {children}
             </main>

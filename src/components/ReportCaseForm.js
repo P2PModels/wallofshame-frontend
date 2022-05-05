@@ -87,20 +87,18 @@ const initialFValues = {
 }
 
 export default function ReportCaseForm() {
-    const anda = true
     const classes = useStyles()
     
     const [end, setEnd] = useState(false)
     const [email, setEmail] = useState("")
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
-    const [sendReport, { data: response, loading, error }] = useMutation(REPORT)
+    const [sendReport, { data: reportedCase, loading: loadingCase, error: errorCase }] = useMutation(REPORT)
     const [addUser, { data: addedUser, loading: loadingUser, error: errorUser }] = useMutation(ADD_USER)
     const [showInfoDialog, setShowInfoDialog] = useState(false)
-    const [showInfoDialogRetry, setShowInfoDialogRetry] = useState(true)
-
     const [infoDialogMsg, setInfoDialogMsg] = useState('')
-    // const submitCheat = () => console.log('The dark side wants to submit...')
+    const [infoDialogTitle, setInfoDialogTitle] = useState('')
+
     const validatePart1 = event => {
         event.preventDefault()
         if (values.companyName == '') {
@@ -122,15 +120,8 @@ export default function ReportCaseForm() {
         } 
     }
 
-    const reintentar = event => {
-        setShowInfoDialog(true)
-            setInfoDialogMsg(
-                ''
-            )
-        validatePart2() 
-    }
     const validatePart2 = event => {
-        setShowInfoDialogRetry(true) 
+
         event.preventDefault()
         if (values.region == '') {
             setShowInfoDialog(true)
@@ -237,55 +228,32 @@ export default function ReportCaseForm() {
                         />
                         <Grid container spacing={1}>
                             <Grid item xs={8} className={classes.buttonRow}>
-                            
-                                { 
-                                
-                                !error  ? (
-                                     
-                                <Controls.Button
-                                    type="submit"
-                                    text="FINALIZAR"
-                                    onClick={validatePart2}
-                                    className={classes.formButton}
-                                    // disabled={!active}
-                                />
-                                )
-                                :
-                                (
-                                <> 
-                                    <Controls.Button
-                                        type="submit"
-                                        text="REINTENTAR"
-                                        onClick={validatePart2}
-                                        className={classes.formButton}
-                                    />
-
-                                    <InfoDialog
-                                        open={showInfoDialogRetry && error}
-                                        title="Error al registrar tu caso"
-                                        contentText='Ha sucedido un error mientras intentábamos registrar tu caso. Inténtelo de nuevo'
-                                        closeButtonText="Cerrar"
-                                        onClose={() => {
-                                            // Add js focus on field
-                                            setShowInfoDialogRetry(false)
-                                        }}
-                                    />
-                                </>
-                                )
-                            
-                            }
-                                
+                                { !errorCase && !errorUser  ? (     
+                                        <Controls.Button
+                                            type="submit"
+                                            text="FINALIZAR"
+                                            onClick={validatePart2}
+                                            className={classes.formButton}
+                                            // disabled={!active}
+                                        />
+                                    ) : (
+                                        <Controls.Button
+                                            type="submit"
+                                            text="REINTENTAR"
+                                            onClick={validatePart2}
+                                            className={classes.formButton}
+                                        />
+                                )}
                                 <InfoDialog
                                     open={showInfoDialog}
-                                    title="Error en el formulario"
+                                    title={infoDialogTitle}
                                     contentText={infoDialogMsg}
                                     closeButtonText="Cerrar"
                                     onClose={() => {
                                         // Add js focus on field
                                         setShowInfoDialog(false)
                                     }}
-                                />
-                                
+                                />   
                             </Grid>
                         </Grid>
                     </>
@@ -293,37 +261,40 @@ export default function ReportCaseForm() {
         }
     }
 
-    if (loading) return (
-          //<Box position="relative" display="inline-flex">
-        <Grid item  lg={12} className = {classes.flexColumn}>
-            <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
+    useEffect(() => {
+        if (errorUser) {
+            // console.log(errorUser)
+            setShowInfoDialog(true)
+            setInfoDialogTitle('Error al guardar tu contacto')
+            setInfoDialogMsg(errorUser.message)
+        }
 
-            <Typography className={classes.loadingText1}>
-                Estamos registrando tu denuncia.                                    
-            </Typography>
+        if (errorCase) {
+            // console.log(errorCase)
+            setShowInfoDialog(true)
+            setInfoDialogTitle('Error registrar tu caso')
+            setInfoDialogMsg(errorCase.message)
+        }
 
+    }, [reportedCase, addedUser, errorUser, errorCase, loadingCase])
 
-            <Typography className={classes.loadingText2}>
-                Este proceso puede tardar unos segundos...                                    
-            </Typography>    
+    //  else {
 
-                          
-        </Grid>
-                
-    );
-
-    if (errorUser) 
+    if (loadingCase || loadingUser) 
         return (
-            <InfoDialog
-                title="Error"
-                contentText={errorUser.message}
-                closeButtonText="Cerrar"
-            />
+            <Grid item  lg={12} className = {classes.flexColumn}>
+                <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
+                <Typography className={classes.loadingText1}>
+                    Estamos registrando tu denuncia.                                    
+                </Typography>
+                <Typography className={classes.loadingText2}>
+                    Este proceso puede tardar unos segundos...                                    
+                </Typography>     
+            </Grid>    
         )
 
-    if(response && ! error){
-        //setActiveStep(0) //no error
-        console.log("<ReportForm> Success!")
+    if(reportedCase && addedUser){
+        // console.log("[ReportForm] Success!")
         return(
             <Redirect
                 to={{
@@ -332,36 +303,35 @@ export default function ReportCaseForm() {
                 }}
             />
         )
-    } else {
+    }
 
-        return(
-            <Grid item lg={6}>
-                <Typography variant="h2" className={classes.title}>
-                    Informa sobre tu caso
-                </Typography>
-                <Typography variant="body1" className={classes.caption}>
-                    La información es poder. Si has sufrido algún tipo
-                    de abuso por parte de pagadores privados,
-                    administración o algún otro tipo de entidad pública
-                    o privada, déjanos un testimonio anónimo para ayudar
-                    a otros/as compañeros/as de profesión.
-                </Typography>
-                        
-                <Box className={classes.root}>
-                    <HorizontalStepper
-                        activeStep={activeStep}
-                        className={classes.stepper}
-                        />
-                    <Form
-                        onSubmit={submit(sendReport, { variables: { data: values } })}
-                        // onSubmit={submitCheat}
-                        id="report-case-form"
-                        >
-                        {renderActiveStep(activeStep)}
-                    </Form>
-                </Box>
-            </Grid>
-        )
-    }    
+    return(
+        <Grid item lg={6}>
+            <Typography variant="h2" className={classes.title}>
+                Informa sobre tu caso
+            </Typography>
+            <Typography variant="body1" className={classes.caption}>
+                La información es poder. Si has sufrido algún tipo
+                de abuso por parte de pagadores privados,
+                administración o algún otro tipo de entidad pública
+                o privada, déjanos un testimonio anónimo para ayudar
+                a otros/as compañeros/as de profesión.
+            </Typography>
+                    
+            <Box className={classes.root}>
+                <HorizontalStepper
+                    activeStep={activeStep}
+                    className={classes.stepper}
+                    />
+                <Form
+                    // onSubmit={submit(sendReport, { variables: { data: values } })}
+                    id="report-case-form"
+                    >
+                    {renderActiveStep(activeStep)}
+                </Form>
+            </Box>
+        </Grid>
+    )
+    // }    
 
 }

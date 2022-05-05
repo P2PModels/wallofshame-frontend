@@ -5,8 +5,6 @@ import Dashboard from '../components/Dashboard'
 import Map from '../components/Map'
 import Page from '../components/Page'
 import { CasesProvider } from '../providers/CasesProvider/provider'
-import { steps } from "../components/Steps";
-import Joyride from "react-joyride";
 
 const useStyles = makeStyles(theme => ({
     map: {

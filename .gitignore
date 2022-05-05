@@ -5,3 +5,4 @@ private/
 *.env
 src/secrets.json
 .DS_Store
+package-lock.json
