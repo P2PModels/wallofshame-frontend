@@ -40,7 +40,6 @@ const useStyles = makeStyles(theme => ({
     },
     loadingSpinner: {
         color: theme.palette.primary.main,
-        //padding: '4rem 0 2rem', // por lo que se mueve
         display: 'grid',
         gridAutoFlow: 'column',
         alignItems: 'center',
@@ -89,7 +88,6 @@ const initialFValues = {
 export default function ReportCaseForm() {
     const classes = useStyles()
     
-    const [end, setEnd] = useState(false)
     const [email, setEmail] = useState("")
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
@@ -168,7 +166,6 @@ export default function ReportCaseForm() {
                 gender: values.gender,
                 ageRange: values.ageRange,
                 experience: values.experience,
-                //email: values.email,
             }
             setEmail(values.email)
             
@@ -299,7 +296,7 @@ export default function ReportCaseForm() {
             <Redirect
                 to={{
                     pathname: '/confirmation',
-                    state: { report: [response.report,  email] },
+                    state: { report: [reportedCase.report,  email] },
                 }}
             />
         )
