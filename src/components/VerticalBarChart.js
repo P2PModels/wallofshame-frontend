@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Bar, XAxis, YAxis, ResponsiveContainer, BarChart } from 'recharts'
+import { Bar, XAxis, YAxis, ResponsiveContainer, BarChart , LabelList} from 'recharts'
 import { useTheme } from '@material-ui/styles'
 import { Grid, Typography } from '@material-ui/core'
 import { createDataObjectFromArrays } from '../helpers/general-helpers'
@@ -23,8 +23,21 @@ const useStyles = makeStyles(theme => ({
         lineHeight: '20px',
     },
 }))
+ 
+const renderCustomizedLabel = (props, percent) => {
+    const { x, y, width, value } = props;
+  
+    return (
+        <g>
+        <text x={x + 10 + width } y={y + 15} fill="red" position= "right" >
+        {`${value}%`}
+      </text>
+      </g>
+    );
+  };
 
-export default function VerticalBarChart(props) {
+
+  export default function VerticalBarChart(props) {
     const theme = useTheme()
     const classes = useStyles()
     const { keys, values, labels, ...other } = props
@@ -43,6 +56,7 @@ export default function VerticalBarChart(props) {
                             bottom: 10,
                         }}
                         barGap={2}
+                        
                     >
                         <XAxis type="number" domain={[0, 100]} hide />
                         <YAxis dataKey="key" type="category" hide />
@@ -51,12 +65,10 @@ export default function VerticalBarChart(props) {
                             barSize={20}
                             fill={theme.palette.primary.main}
                             background={{ fill: '#E4E4E4' }}
-                            label={{
-                                fill: theme.palette.primary.main,
-                                fontSize: 16,
-                                position: 'right',
-                            }}
-                        />
+                           
+                        >
+                            <LabelList dataKey="value" content={renderCustomizedLabel} />
+                        </Bar>
                     </BarChart>
                 </ResponsiveContainer>
             </Grid>

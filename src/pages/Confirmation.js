@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, Typography, Box } from '@material-ui/core'
 import Check from '@mui/icons-material/Check'
@@ -8,11 +8,14 @@ import DisplayValue from '../components/Shared/DisplayValue'
 import EmailContact from '../components/Shared/EmailContact'
 import EntityContact from '../components/Shared/EntityContact'
 import { useQuery } from '@apollo/client'
-import { GET_FILTERED_CASES } from '../services/cases/queries'
+import { GET_FILTERED_CASES } from '../services/cases_subgraph/queries'
+import { USERS } from '../services/users/queries'
+import { GoogleSpreadsheet } from "google-spreadsheet";
 import {
     professionToProfessionRenderName,
     regionToRegionRenderName,
 } from '../data/config.json'
+import { setQuarter } from 'date-fns'
 
 const useStyles = makeStyles(theme => ({
     title: {
@@ -27,6 +30,12 @@ const useStyles = makeStyles(theme => ({
         fontWeight: '700',
         padding: '2rem 0 2rem',
     },
+    heading3: {
+        color: theme.palette.secondary.main,
+        fontSize: '1.5rem',
+        fontWeight: '700',
+        padding: '2rem 3rem 1rem',
+    },
     icon: {
         display: 'inline-block',
         marginRight: '1rem',
@@ -36,6 +45,11 @@ const useStyles = makeStyles(theme => ({
     caption: {
         fontSize: '1.25rem',
         display: 'inline-block',
+    },
+    captionOrg: {
+        fontSize: '1.25rem',
+        display: 'inline-block',
+        padding: '2rem 3rem 1rem',
     },
     smallCaption: {
         fontSize: '18px',
@@ -63,42 +77,75 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function Confirmation(props) {
+//export default function Confirmation(props) {
+const Confirmation = (props) => {
     const classes = useStyles()
+
     const { report } = props.location.state
-    const mockEmails = [
-        'mail1@test.es',
-        'mail2@test.es',
-        'mail3@test.es',
-        'mail4@test.es',
-    ]
-    const mockEntities = [
-        {
-            src: './assets/smart-logo.png',
-            label: 'Smart Iberia',
-            url: 'https://smart.es',
-        },
-        {
-            src: './logo192.png',
-            label: 'P2P Models',
-            url: 'https://p2pmodels.eu',
-        },
-        {
-            src: './assets/smart-logo.png',
-            label: 'Smart Iberia',
-            url: 'https://smart.es',
-        },
-        {
-            src: './logo192.png',
-            label: 'P2P Models',
-            url: 'https://p2pmodels.eu',
-        },
-    ]
+    console.log(report)
+    const [filas, setRows] = useState([]);    
+    // const mockEmails = [
+    //     'mail1@test.es',
+    //     'mail2@test.es',
+    //     'mail3@test.es',
+    //     'mail4@test.es',
+    // ]
+ 
+
+
+    // Config variables
+    const SPREADSHEET_ID = process.env.REACT_APP_SPREADSHEET_ID ;
+    const CLIENT_EMAIL =  process.env.REACT_APP_CLIENT_EMAIL;
+    const PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY
+
+    const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
+
+    useEffect(() => {
+        const readSpreadsheet = async () => {
+            try {
+                await doc.useServiceAccountAuth({
+                client_email: CLIENT_EMAIL,
+                private_key:PRIVATE_KEY ,
+            });
+                // loads document properties and worksheets
+                await doc.loadInfo();
+        
+                //const sheet = doc.sheetsById[SHEET_ID];
+                const sheet = doc.sheetsByIndex[0];
+                const rows = await sheet.getRows();
+                setRows(rows);
+        
+            } catch (e) {
+                console.error('Error: ', e);
+            }
+            };
+        readSpreadsheet();
+    } , []) 
+
+
     const regionQueryFilter = {
-        region: report.region,
+        region: report[0].region,
     }
     const professionQueryFilter = {
         profession: report.profession,
+    }
+
+    const emailQueryFilter = {
+        email: report[1],
+    }
+    
+    const usersQueryFilter = {
+        OR: [
+                {
+                    region: report[0].region
+                },
+                {
+                    profession: report[0].profession
+                },
+                {
+                    email: report[1]
+                }
+            ]
     }
 
     const {
@@ -121,22 +168,46 @@ export default function Confirmation(props) {
         },
     })
 
-    if (loadingCasesByRegion || loadingCasesByProfession)
+    const {
+        data: dataUsers,
+        loading: loadingUsers,
+        error: errorUsers,
+    } = useQuery(USERS, {
+        variables: {
+            filter: JSON.stringify(usersQueryFilter),
+        },
+    })
+
+    if (loadingCasesByRegion || loadingCasesByProfession || loadingUsers)
         return <Typography>Cargando datos de tu interés...</Typography>
-    if (errorCasesByRegion || errorCasesByProfession)
+    if (errorCasesByRegion || errorCasesByProfession || errorUsers)
         return (
             <InfoDialog
                 title="Error"
                 contentText={
-                    errorCasesByRegion.message
+                    errorCasesByRegion
                         ? errorCasesByRegion.message
-                        : errorCasesByProfession.message
+                        : ( errorCasesByProfession 
+                            ? errorCasesByProfession.message:
+                            errorUsers.message )
                 }
                 closeButtonText="Cerrar"
             />
         )
+    const datos = filas?.map((entity, i) => (
+        <EntityContact
+            label={entity.nombre_entidad}
+            url={entity.url}
+            src={entity.url_imagen}
+            className={classes.entity}
+        />
+      ));
 
-    return (
+    const orgsCiudad = filas?.filter((entity) => (entity.comunidad_autonoma).includes(report[0].region) || (entity.comunidad_autonoma) == ("Todas" || "Internacional"))
+    const orgsProfesion = filas?.filter((entity) => (entity.profesion_es).includes(report[0].profession) )
+    const userMails = dataUsers.users.filter((u) => (u.email != report[1])) 
+    console.log(report[1])
+    return ( 
         <Page container={false}>
             <Container maxWidth="xl">
                 <Grid container className={classes.grid}>
@@ -167,18 +238,18 @@ export default function Confirmation(props) {
                                 caption={`casos de 
                                 ${
                                     professionToProfessionRenderName[
-                                        report.profession
+                                        report[0].profession
                                     ]
                                 }`}
                             />
                             <DisplayValue
                                 value={casesByRegion.cases.length}
                                 caption={`casos de 
-                                ${regionToRegionRenderName[report.region]}`}
+                                ${regionToRegionRenderName[report[0].region]}`}
                             />
                         </Box>
                         <Typography variant="h3" className={classes.heading2}>
-                            Personas que también han sufrido impagos
+                            Personas de contacto en tu ciudad o tu profesión
                         </Typography>
                         <Typography
                             variant="body1"
@@ -190,29 +261,73 @@ export default function Confirmation(props) {
                             Ha autorizado a dar su email así que ¡no te cortes!
                         </Typography>
                         <ul className={classes.contactList}>
-                            {mockEmails.map((email, i) => (
-                                <li>
-                                    <EmailContact
-                                        label={`Persona ${i + 1}`}
-                                        email={email}
-                                    />
-                                </li>
-                            ))}
+                
+                            {(userMails.length>0) ? (
+                                userMails.map((u, i) => (
+                                    <li>
+                                        <EmailContact
+                                            label={`Persona ${i + 1}`}
+                                            email={u.email}
+                                            key={`contacto-${i + 1}`}
+                                        />
+                                    </li>
+                                ))
+                            ) :(
+                                <Typography variant="subtitle"  className={classes.captionOrg}>
+                                    No tenemos emails para ti actualmente
+                                </Typography>
+                                
+                            )}
                         </ul>
+                        
                         <Typography variant="h3" className={classes.heading2}>
-                            Colectivos o entidades que podrían ayudarte
+                            Colectivos o entidades que podrían ayudarte 
                         </Typography>
-                        {mockEntities.map((entity, i) => (
-                            <EntityContact
-                                label={entity.label}
-                                url={entity.url}
-                                src={entity.src}
-                                className={classes.entity}
-                            />
-                        ))}
+                        <Typography variant="h5" className={classes.heading3}>
+                            En tu ciudad
+                        </Typography>
+                        {(orgsCiudad.length>0) ? (
+                            orgsCiudad.map((entity, i) => (
+                                <EntityContact
+                                    label={entity.nombre_entidad}
+                                    url={entity.url}
+                                    src={entity.url_imagen}
+                                    className={classes.entity}
+                                />
+                            ))
+                        ) :(
+                            <Typography variant="subtitle"  className={classes.captionOrg}>
+                                No tenemos organizaciones registradas en tu Comunidad Autónoma, pero si encuentras alguna contáctanos
+                            </Typography>
+                        )}
+
+                            
+                        <Typography variant="h5" className={classes.heading3}>
+                            Relacionados con tu profesión
+                        </Typography>
+                        
+                        {(orgsProfesion.length>0) ? (
+                            orgsProfesion.map((entity, i) => (
+                                <EntityContact
+                                    label={entity.nombre_entidad}
+                                    url={entity.url}
+                                    src={entity.url_imagen}
+                                    className={classes.entity}
+                                />
+                            ))
+                        ) :(
+                            <Typography variant="subtitle"  className={classes.captionOrg}>
+                                No tenemos organizaciones registradas relacionadas con tu profesión, pero si encuentras alguna contáctanos
+                            </Typography>
+                            
+                        )}
+                            
                     </Grid>
                 </Grid>
             </Container>
         </Page>
     )
 }
+
+export default  Confirmation;
+

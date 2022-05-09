@@ -23,6 +23,18 @@ const COLORS = [
     '#616472',
     '#D8D8D8',
 ]
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN) + 5;
+    const y = cy + radius * Math.sin(-midAngle * RADIAN) + 5;
+  
+    return (
+      <text x={x} y={y} fill={COLORS[index % COLORS.length]} textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+}; 
 
 export default function PieChart(props) {
     const { keys, values, labels, ...other } = props
@@ -36,7 +48,7 @@ export default function PieChart(props) {
                     cx="33.3%"
                     cy="50%"
                     labelLine={false}
-                    label
+                    label={renderCustomizedLabel}
                     outerRadius={80}
                     fill="#8884d8"
                 >
@@ -44,6 +56,7 @@ export default function PieChart(props) {
                         <Cell
                             key={`cell-${index}`}
                             fill={COLORS[index % COLORS.length]}
+                            
                         />
                     ))}
                 </Pie>
