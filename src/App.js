@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import Joyride, {  STATUS } from 'react-joyride';
+
+import { steps } from "./components/Steps";
 
 import './App.css'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -10,6 +13,7 @@ import AuthProvider from './providers/Auth/provider'
 // import ApolloProviderAuth from './components/ApolloProviderAuth'
 import BackendProvider from './components/BackendProvider'
 import Landing from './pages/Landing'
+import Admin from './pages/Admin'
 import Info from './pages/Info'
 import Confirmation from './pages/Confirmation'
 import Report from './pages/Report'
@@ -29,8 +33,21 @@ import theme from './themes/smart'
 //     supportedChains: [ChainId.Rinkeby],
 // }
 
+
+
+
+
 function App() {
+    const [notDone, setnotDone] = useState(true)
+    
+    //window.localStorage.setItem('notDone', true)
+    if(localStorage.getItem('notDone') == 'false'){
+        localStorage.setItem('notDone','false');
+    }
+    else {localStorage.setItem('notDone', 'true')}
+
     return (
+    
         <AppStateProvider>
             <AuthProvider>
                 <BackendProvider>
@@ -41,7 +58,39 @@ function App() {
                             <Header />
                             <Switch>
                                 <Route exact path="/">
+                                <div className="demo-wrapper">
+                                    
+                                        <Joyride
+                                            continuous={true}  
+                                            //disableOverlay        
+                                            
+                                            callback={(data) => {
+                                                const { status } = data;
+
+                                                if ([STATUS.FINISHED].includes(status) || [STATUS.SKIPPED].includes(status)) {
+                                                    localStorage.setItem('notDone', 'false');
+                                                    setnotDone(false);
+                                                } 
+                                                
+                                            }} 
+                                            scrollToFirstStep={true} //el botoncito
+                                            showProgress={true}
+                                            showSkipButton={true}
+                                            run = {localStorage.getItem('notDone') == 'true' ? (true):(false)}
+                                            steps={steps}
+                                            styles={{
+                                                options: {
+                                                zIndex: 10000,
+                                                },
+                                                buttonClose: {
+                                                    display: 'none',
+                                                },
+                                            }}
+                                        />
+                                    
                                     <Landing />
+                                </div>
+
                                 </Route>
                                 <Route exact path="/info">
                                     <Info />
@@ -56,6 +105,9 @@ function App() {
                                         <Confirmation {...props} />
                                     )}
                                 />
+                                <Route exact path="/admin">
+                                    <Admin />
+                                </Route>
                             </Switch>
                             <Footer />
                         </ThemeProvider>
@@ -66,6 +118,8 @@ function App() {
             </AuthProvider>
         </AppStateProvider>
     )
+
 }
 
 export default App
+

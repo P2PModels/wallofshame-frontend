@@ -12,6 +12,7 @@ nav:
           - Architecture: frontend/architecture.md
           - Login: frontend/login.md
           - Map: frontend/map.md
+          - Documentacion: frontend/docu.md
     - Backend:
           - Introduction: backend/intro.md
           - Architecture: backend/architecture.md

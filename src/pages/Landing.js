@@ -21,11 +21,13 @@ export default function Landing() {
     return (
         <Page container={false}>
             <CasesProvider>
+                <div className="map">
                 {/* <CasesProvider cases={data.cases}> */}
                 {/* Map */}
-                <Map className={classes.map} />
+                    <Map className={classes.map}/> 
+                </div>
                 {/* Dashboard */}
-                <Container maxWidth="xl">
+                <Container  maxWidth="xl">
                     <Dashboard />
                 </Container>
             </CasesProvider>

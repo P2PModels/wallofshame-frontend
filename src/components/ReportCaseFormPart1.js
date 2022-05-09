@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: '2rem',
     },
     note: {
-        marginLeft: '19.75rem',
+        marginLeft: '2rem',
         maxWidth: '500px',
     },
     description: {
