@@ -127,7 +127,7 @@ const Confirmation = (props) => {
         region: report[0].region,
     }
     const professionQueryFilter = {
-        profession: report.profession,
+        profession: report[0].profession,
     }
 
     const emailQueryFilter = {
