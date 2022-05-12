@@ -1,6 +1,10 @@
-node_modules/
 cache/
 artifacts/
 private/
 *.env
-src/secrets.json
+# Ignore source code in prod branch
+src/
+public/
+node_modules/
+docs/
+package*
