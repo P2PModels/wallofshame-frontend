@@ -416,20 +416,20 @@
     "markersByType": {
         "maltrato": {
             "iconUrl": "./assets/punteroMapa.png",
-            "iconSize": [40, 40],
-            "iconAnchor": [22, 94],
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 30],
             "popupAnchor": [-3, -76]
         },
         "retraso": {
             "iconUrl": "./assets/punteroMapa.png",
-            "iconSize": [40, 40],
-            "iconAnchor": [22, 94],
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 30],
             "popupAnchor": [-3, -76]
         }, 
         "impago": {
             "iconUrl": "./assets/punteroMapa.png",
-            "iconSize": [40, 40],
-            "iconAnchor": [22, 94],
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 30],
             "popupAnchor": [-3, -76]
         }
     },
