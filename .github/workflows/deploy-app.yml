@@ -1,0 +1,18 @@
+# This workflow dpeloy the app to the server
+
+name: Deploy
+
+on:
+  push:
+    branches: [ pre-prod ]
+
+jobs:
+  deploy:
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout repo
+    - uses: actions/checkout@v3
+    - name: Deploy to webroot
+    - run: mv build/ /home/prototype/wallofshame-fronted/build/
