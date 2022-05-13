@@ -14,6 +14,9 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
+    - name: Remove previous back-up
+      run: rm /home/prototype/wallofshame-frontend/build-backup/
+    - name: Move previous build to back-up
+      run: mv /home/prototype/wallofshame-frontend/build/ /home/prototype/wallofshame-frontend/build-backup/
     - name: Deploy to webroot
-    - run: rm /home/prototype/wallofshame-frontend/build/
-    - run: mv build/ /home/prototype/wallofshame-frontend/build/
+      run: mv build/ /home/prototype/wallofshame-frontend/build/
