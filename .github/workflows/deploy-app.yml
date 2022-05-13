@@ -1,6 +1,6 @@
 # This workflow dpeloy the app to the server
 
-name: Deploy
+name: Deploy client app
 
 on:
   push:
@@ -13,6 +13,6 @@ jobs:
 
     steps:
     - name: Checkout repo
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
     - name: Deploy to webroot
-    - run: mv build/ /home/prototype/wallofshame-fronted/build/
+      run: mv build/ /home/prototype/wallofshame-fronted/build/
