@@ -15,4 +15,4 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
     - name: Deploy to webroot
-      run: mv build/ /home/prototype/wallofshame-fronted/build/
+      run: mv build/ /home/prototype/wallofshame-frontend/build/
