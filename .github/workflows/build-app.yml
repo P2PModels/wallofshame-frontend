@@ -29,10 +29,9 @@ jobs:
     - name: Build static files
       run: npm run build --if-present
     - name: Push from develop to pre-prod branch
-      uses: Automattic/action-commit-to-branch@master
-      with:
-        dest_branch: 'pre-prod'
-        source_branch: 'develop'
-        commit_message: 'Automated build from develop'
+      run: |
+        git add . 
+        git commit -m "Update prod build"
+        git push https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/luishporras/wallofshame-frontend.git
       env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Required
+        PERSONAL_ACCESS_TOKEN:
