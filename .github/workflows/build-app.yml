@@ -5,9 +5,7 @@ name: Build client app
 
 on:
   push:
-    branches: [ pre-prod ]
-  pull_request:
-    branches: [ pre-prod ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -26,6 +24,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    #- run: npm test
+    - name: Install dependencies
+      run: npm ci
+    - name: Build static files
+      run: npm run build --if-present
+    - name: Push from develop to pre-prod branch
+      uses: Automattic/action-commit-to-branch@master
+      with:
+        dest_branch: 'pre-prod'
+        source_branch: 'develop'
+        commit_message: 'Automated build from develop'
+      env:
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Required
