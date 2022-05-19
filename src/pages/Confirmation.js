@@ -199,6 +199,8 @@ const Confirmation = (props) => {
         />
       ));
 
+    console.log("Filas")
+    console.log(filas)
     const orgsCiudad = filas?.filter((entity) => (entity.comunidad_autonoma).includes(report[0].region) || (entity.comunidad_autonoma) == ("Todas" || "Internacional"))
     const orgsProfesion = filas?.filter((entity) => (entity.profesion_es).includes(report[0].profession) )
     const userMails = dataUsers.users.filter((u) => (u.email != report[1])) 
