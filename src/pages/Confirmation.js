@@ -82,6 +82,7 @@ const Confirmation = (props) => {
     const classes = useStyles()
 
     const { report } = props.location.state
+    console.log("Report object: ")
     console.log(report)
     const [filas, setRows] = useState([]);    
     // const mockEmails = [
