@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import { typeToTypeRenderName, chipColors } from '../data/config.json'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import config from '../data/config.json'
 
 const ExpandMore = styled(props => {
     const { expand, ...other } = props
@@ -35,10 +36,14 @@ const useStyles = makeStyles(theme => ({
         marginBottom: '2rem',
     },
     cardTitle: {
-        padding: '0.5rem 1rem',
+        padding: '0.5rem',
     },
     name: {
         display: 'block',
+    },
+    profession: {
+        opacity: '0.5',
+        marginTop: '0.2rem',
     },
     chip: {
         fontSize: '0.9rem',
@@ -50,8 +55,8 @@ const useStyles = makeStyles(theme => ({
 export default function CaseCard(props) {
     const classes = useStyles()
     const theme = useTheme()
-    const { caseDetails } = props
-    const [expanded, setExpanded] = React.useState(false)
+    const { caseDetails, expandedProp } = props
+    const [expanded, setExpanded] = React.useState(expandedProp)
 
     const handleExpandClick = () => {
         setExpanded(!expanded)
@@ -61,7 +66,10 @@ export default function CaseCard(props) {
         <Card className={classes.container}>
             <CardContent className={classes.cardTitle}>
                 <Typography variant="h4" className={classes.name}>
-                    Caso #{caseDetails.id}
+                    Persona {caseDetails.id}
+                </Typography>
+                <Typography variant="h4" className={classes.profession}>
+                    {config.professionToProfessionRenderName[caseDetails.profession]}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>

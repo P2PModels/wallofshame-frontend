@@ -24,25 +24,25 @@ const useStyles = makeStyles(theme => ({
         marginLeft: '2rem',
         maxWidth: '500px',
     },
-    description: {
+    description: (values) => ({
         marginBottom: '3rem',
         position: 'relative',
         '&:after': {
-            content: "'150 - 500'",
+            content: `'${values.description.length == 0 ? '150 - 500' : values.description.length + '/500'}'`,
             color: theme.palette.text.secondary,
             display: 'block',
             position: 'absolute',
             bottom: '-1rem',
             right: 0,
         },
-    },
+    }),
     spacer: {
         width: '52%',
     },
 }))
 
 export default function ReportCaseFormPart1({ values, handleInputChange }) {
-    const classes = useStyles()
+    const classes = useStyles(values)
 
     return (
         <Grid container spacing={1}>

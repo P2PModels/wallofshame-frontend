@@ -5,9 +5,7 @@ name: Build client app
 
 on:
   push:
-    branches: [ pre-prod ]
-  pull_request:
-    branches: [ pre-prod ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -16,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -26,6 +24,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    #- run: npm test
+    - name: Install dependencies
+      run: npm ci
+    - name: Build static files
+      run: npm run build --if-present
+    - name: Push from develop to pre-prod branch
+      run: |
+        git add . 
+        git commit -m "Update prod build"
+        git push https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/luishporras/wallofshame-frontend.git
+      env:
+        PERSONAL_ACCESS_TOKEN:

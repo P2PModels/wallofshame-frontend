@@ -8,6 +8,11 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'row',
     },
+    flexRowPT: {
+        display: 'flex',
+        flexDirection: 'row',
+        paddingTop: '1rem',
+    },
     flexCol: {
         display: 'flex',
         flexDirection: 'col',
@@ -19,6 +24,9 @@ const useStyles = makeStyles(theme => ({
     footerContent: {
         justifyContent: 'space-between',
         height: '100px',
+        '& span': {
+            fontSize: '12px',
+        },
     },
     logos: {
         maxWidth: '480px',
@@ -58,6 +66,7 @@ const useStyles = makeStyles(theme => ({
 export default function Footer() {
     const {
         flexRow,
+        flexRowPT,
         flexCol,
         footer,
         footerContent,
@@ -75,7 +84,7 @@ export default function Footer() {
                     <img src="./assets/EU-logo.png" />
                     <img src="./assets/ERC_logo.png" />
                 </div>
-                <Box className={clsx(flexRow, info)}>
+                <Box className={clsx(flexRowPT, info)}>
                     <Box className={flexCol}>
                         <i className={githubIcon}>
                             <img src="./assets/ico-github.svg" />

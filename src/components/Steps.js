@@ -11,7 +11,7 @@ export const steps= [
           <p>Esta iniciativa pretende mostrar cuál es la realidad del sector cultural en España y convertirse en un espacio de autodefensa y apoyo mutuo para profesionales autónomos</p>
           <p>✊🏻 ✊🏾 ✊🏿</p>
         </div>
-      ) ,
+      ),
       locale: { skip: <strong aria-label="skip">Cerrar</strong>, next: 'Siguiente', back: 'Atrás' , last: 'Fin' },
       styles: {
         options: {
@@ -25,6 +25,7 @@ export const steps= [
       disableBeacon: true,
       target: 'body',
     },
+
     {
       content: <p>Haciendo click en los puntos del mapa podrás ver el número de denuncias que profesionales como tú han emitido contra empresas que han incurrido en irregularidades en sus contratos o pagos.</p>,
       floaterProps: {
@@ -62,8 +63,10 @@ export const steps= [
 
       },
       locale: { skip: <strong aria-label="skip">Cerrar</strong>, next: 'Siguiente', back: 'Atrás'  },
-      target: '.dashboard div',
+      target: '.map + .MuiContainer-root div',
+      title: 'Panel de datos',
     },
+
     {
       content: (
         <div>

@@ -32,6 +32,6 @@ If you want to modify and deploy the a diferent smart contract or subgraph visit
 -   [Map charts library](https://www.react-simple-maps.io/)
 -   [Form tutorial](https://www.youtube.com/watch?v=-XKaSCU0ZLM)
 
-# Deployment
+## Deployment
 
 [![Deploy client app](https://github.com/P2PModels/wallofshame-frontend/actions/workflows/deploy-app.yml/badge.svg)](https://github.com/P2PModels/wallofshame-frontend/actions/workflows/deploy-app.yml)
