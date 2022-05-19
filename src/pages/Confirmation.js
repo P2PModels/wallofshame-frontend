@@ -80,18 +80,8 @@ const useStyles = makeStyles(theme => ({
 //export default function Confirmation(props) {
 const Confirmation = (props) => {
     const classes = useStyles()
-
     const { report } = props.location.state
-    console.log("Report object: ")
-    console.log(report)
     const [filas, setRows] = useState([]);    
-    // const mockEmails = [
-    //     'mail1@test.es',
-    //     'mail2@test.es',
-    //     'mail3@test.es',
-    //     'mail4@test.es',
-    // ]
- 
 
 
     // Config variables
@@ -207,7 +197,7 @@ const Confirmation = (props) => {
     const orgsCiudad = filas?.filter((entity) => (entity.comunidad_autonoma).includes(report[0].region) || (entity.comunidad_autonoma) == ("Todas" || "Internacional"))
     const orgsProfesion = filas?.filter((entity) => (entity.profesion_es).includes(report[0].profession) )
     const userMails = dataUsers.users.filter((u) => (u.email != report[1])) 
-    console.log(report[1])
+
     return ( 
         <Page container={false}>
             <Container maxWidth="xl">
