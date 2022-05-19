@@ -81,15 +81,20 @@ const useStyles = makeStyles(theme => ({
 const Confirmation = (props) => {
     const classes = useStyles()
     const { report } = props.location.state
-    const [filas, setRows] = useState([]);    
+    const [filas, setRows] = useState([])    
 
 
     // Config variables
-    const SPREADSHEET_ID = process.env.REACT_APP_SPREADSHEET_ID ;
-    const CLIENT_EMAIL =  process.env.REACT_APP_CLIENT_EMAIL;
+    const SPREADSHEET_ID = process.env.REACT_APP_SPREADSHEET_ID
+    const CLIENT_EMAIL =  process.env.REACT_APP_CLIENT_EMAIL
     const PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY
 
-    const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
+    console.log("env vars: ")
+    console.log(SPREADSHEET_ID)
+    console.log(CLIENT_EMAIL)
+    console.log(PRIVATE_KEY)
+
+    const doc = new GoogleSpreadsheet(SPREADSHEET_ID)
 
     useEffect(() => {
         const readSpreadsheet = async () => {
@@ -101,13 +106,13 @@ const Confirmation = (props) => {
                 // loads document properties and worksheets
                 await doc.loadInfo();
         
-                //const sheet = doc.sheetsById[SHEET_ID];
-                const sheet = doc.sheetsByIndex[0];
-                const rows = await sheet.getRows();
+                //const sheet = doc.sheetsById[SHEET_ID]
+                const sheet = doc.sheetsByIndex[0]
+                const rows = await sheet.getRows()
                 setRows(rows);
         
             } catch (e) {
-                console.error('Error: ', e);
+                console.error('Error: ', e)
             }
             };
         readSpreadsheet();
@@ -212,7 +217,7 @@ const Confirmation = (props) => {
                                 variant="body1"
                                 className={classes.caption}
                             >
-                                Tu información se ha guardado correctamente
+                                Tu información se ha guardado correctamente. <br /> Cuando vuelvas a la página principal recuerda recargar para ver tu caso en el mapa.
                             </Typography>
                         </Box>
 
@@ -254,7 +259,7 @@ const Confirmation = (props) => {
                         <ul className={classes.contactList}>
                 
                             {(userMails.length>0) ? (
-                                userMails.map((u, i) => (
+                                userMails.slice(0,5).map((u, i) => (
                                     <li>
                                         <EmailContact
                                             label={`Persona ${i + 1}`}
@@ -262,7 +267,7 @@ const Confirmation = (props) => {
                                             key={`contacto-${i + 1}`}
                                         />
                                     </li>
-                                ))
+                                )                                )
                             ) :(
                                 <Typography variant="subtitle"  className={classes.captionOrg}>
                                     No tenemos emails para ti actualmente
