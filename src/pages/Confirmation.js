@@ -89,11 +89,6 @@ const Confirmation = (props) => {
     const CLIENT_EMAIL =  process.env.REACT_APP_CLIENT_EMAIL
     const PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY
 
-    console.log("env vars: ")
-    console.log(CLIENT_EMAIL)
-    // console.log(SPREADSHEET_ID)
-    console.log(PRIVATE_KEY)
-
     const doc = new GoogleSpreadsheet('1w2J9DuzFHkUmBQ0zHHY51gPY7NRzmbdUV_VckSfhbSA')
 
     useEffect(() => {
