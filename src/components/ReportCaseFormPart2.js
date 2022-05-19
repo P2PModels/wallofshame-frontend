@@ -59,9 +59,10 @@ export default function ReportCaseFormPart2({ values, handleInputChange }) {
                     name="region"
                     label="Provincia"
                     options={createOptionsObjectFromArrays(
-                        categories.regions,
-                        regionToRegionRenderName
-                    )}
+                            categories.regions,
+                            regionToRegionRenderName
+                        ).sort((a, b) => a.label.localeCompare(b.label))
+                    }
                     value={values.region}
                     onChange={handleInputChange}
                     className={clsx(classes.field, classes.smallField)}
