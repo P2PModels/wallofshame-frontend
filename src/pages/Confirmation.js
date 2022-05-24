@@ -214,7 +214,7 @@ const Confirmation = (props) => {
                                 variant="body1"
                                 className={classes.caption}
                             >
-                                Tu información se ha guardado correctamente. <br /> Cuando vuelvas a la página principal recuerda recargar para ver tu caso en el mapa.
+                                Tu información se ha guardado correctamente. <br /> <strong>Cuando vuelvas a la página principal recuerda recargar para ver tu caso en el mapa.</strong>
                             </Typography>
                         </Box>
 
