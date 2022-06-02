@@ -6,13 +6,13 @@ import { Redirect } from 'react-router-dom'
 import { useForm, Form } from './Shared/useForm'
 import Controls from './Shared/controls/Controls'
 import InfoDialog from './Shared/InfoDialog'
+import ActionDialog from './Shared/ActionDialog'
 import CircularProgress from '@mui/material/CircularProgress';
 import { REPORT } from '../services/cases_backend/queries'
 import { ADD_USER } from '../services/users/queries'
 import HorizontalStepper from './Shared/HorizontalStepper'
 import ReportCaseFormPart1 from './ReportCaseFormPart1'
 import ReportCaseFormPart2 from './ReportCaseFormPart2'
-import { Check } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
     title: {
@@ -88,12 +88,12 @@ const initialFValues = {
 export default function ReportCaseForm() {
     const classes = useStyles()
     
-    const [email, setEmail] = useState("")
     const [activeStep, setActiveStep] = useState(0)
     const { values, handleInputChange, submit } = useForm(initialFValues)
     const [sendReport, { data: reportedCase, loading: loadingCase, error: errorCase }] = useMutation(REPORT)
     const [addUser, { data: addedUser, loading: loadingUser, error: errorUser }] = useMutation(ADD_USER)
     const [showInfoDialog, setShowInfoDialog] = useState(false)
+    const [showConfirmationDialog, setShowConfirmationDialog] = useState(false)
     const [infoDialogMsg, setInfoDialogMsg] = useState('')
     const [infoDialogTitle, setInfoDialogTitle] = useState('')
 
@@ -148,39 +148,40 @@ export default function ReportCaseForm() {
             setShowInfoDialog(true)
             setInfoDialogMsg('E-mail inválido.')
         } else {
+            setShowConfirmationDialog(true)
+        }
+    }
 
-            // console.warn('Submiting after validation', values)
-            let user = {
-                email: values.email,
-                terms: values.terms,
-                region: values.region,
-                profession: values.profession,
-                gender: values.gender,
-            }
-            let reportCase = {
-                companyName: values.companyName,
-                caseType: values.caseType,
-                description: values.description,
-                region: values.region,
-                profession: values.profession,
-                gender: values.gender,
-                ageRange: values.ageRange,
-                experience: values.experience,
-            }
-            setEmail(values.email)
-            
-            console.log("[ReportCaseForm] User: ")
-            console.log(user)
-            console.log("[ReportCaseForm] Case: ")
-            console.log(reportCase)
-            try {
-                addUser({ variables: { data: user } })
-                sendReport({ variables: { data: reportCase } })
-            }
-            catch(error){ 
-                console.log(error)
-            }
-
+    const reportAction = () => {
+        // console.warn('Submiting after validation', values)
+        let user = {
+            email: values.email,
+            terms: values.terms,
+            region: values.region,
+            profession: values.profession,
+            gender: values.gender,
+        }
+        let reportCase = {
+            companyName: values.companyName,
+            caseType: values.caseType,
+            description: values.description,
+            region: values.region,
+            profession: values.profession,
+            gender: values.gender,
+            ageRange: values.ageRange,
+            experience: values.experience,
+        }
+        
+        // console.log("[ReportCaseForm] User: ")
+        // console.log(user)
+        // console.log("[ReportCaseForm] Case: ")
+        // console.log(reportCase)
+        try {
+            addUser({ variables: { data: user } })
+            sendReport({ variables: { data: reportCase } })
+        }
+        catch(error){ 
+            console.log(error)
         }
     }
 
@@ -250,7 +251,21 @@ export default function ReportCaseForm() {
                                         // Add js focus on field
                                         setShowInfoDialog(false)
                                     }}
-                                />   
+                                />
+                                <ActionDialog 
+                                    open={showConfirmationDialog}
+                                    title="¿Confirmas que quieres enviar tu caso?"
+                                    contentText={'Tus datos serán almacenados de forma permanente sin posibilidad de ser editados.'}
+                                    primaryActionButton="Confirmar"
+                                    primaryActionHandler={() => {
+                                        setShowConfirmationDialog(false)
+                                        reportAction()
+                                    }}
+                                    secondaryActionButton="Cerrar"
+                                    secondaryActionHandler={() => setShowConfirmationDialog(false)}
+                                    closeButtonText="Confirmar"
+                                    onClose={() => setShowConfirmationDialog(false)}
+                                />  
                             </Grid>
                         </Grid>
                     </>
@@ -296,7 +311,7 @@ export default function ReportCaseForm() {
             <Redirect
                 to={{
                     pathname: '/confirmation',
-                    state: { report: [reportedCase.report,  email] },
+                    state: { report: [reportedCase.report,  addedUser.email] },
                 }}
             />
         )
