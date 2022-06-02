@@ -41,8 +41,9 @@ const useStyles = makeStyles(theme => ({
         '@media (max-width: 900px)': {
             paddingLeft: 0,
         },
-        padding: '1rem',
-        maxHeight: theme.mixins.toolbar.minHeight,
+        padding: '1rem 0',
+        minHeight: theme.mixins.toolbar.minHeight,
+        backgroundColor: 'white'
     },
     logoAndTitleContainer: {
         display: 'flex',
@@ -77,7 +78,6 @@ const useStyles = makeStyles(theme => ({
         },
     },
     menuButton: {
-        marginLeft: '2rem',
         background: 'transparent',
         color: theme.palette.primary.main,
         fontWeight: 'bold',
@@ -88,6 +88,9 @@ const useStyles = makeStyles(theme => ({
             color: theme.palette.primary.main,
             boxShadow: 'none',
         },
+        '&:first-child': {
+            marginLeft: '2rem'
+        }
     },
     callToAction: {
         marginLeft: '2rem',
