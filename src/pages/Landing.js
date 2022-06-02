@@ -12,6 +12,12 @@ const useStyles = makeStyles(theme => ({
         maxWidth: '100vw',
         marginBottom: theme.spacing(2),
         position: 'relative',
+        '& .marker-cluster-medium': {
+            backgroundColor: 'rgba(110,204,57,0.2) !important'
+        },
+        '& .marker-cluster > div': {
+            backgroundColor: 'rgba(110,204,57,0.6) !important'
+        }
     },
 }))
 

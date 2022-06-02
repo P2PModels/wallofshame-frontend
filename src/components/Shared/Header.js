@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { steps } from "../Steps";
 import Joyride from "react-joyride";
-
 import {
     AppBar,
     Toolbar,

@@ -20,7 +20,7 @@ import {
 import CaseCardList from './CaseCardList'
 import { regionToRegionRenderName } from '../data/config.json'
 
-// TODO: redraw on zoom change
+
 const Map = props => {
     const { ...other } = props
     const casesContext = useCases()
