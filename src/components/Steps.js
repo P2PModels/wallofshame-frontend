@@ -70,7 +70,7 @@ export const steps= [
     {
       content: (
         <div>
-          <p>Desde estos enlaces podrás obtener información o reportar tu caso mediante un formulario para incorporarlo a nuestra base de datos. Al finalizar el proceso, tendrás acceso a otras personas anónimas que se han encontrado en la misma situación que tú para contactarls y que te aconsejen.</p>
+          <p>Desde estos enlaces podrás obtener información o reportar tu caso mediante un formulario para incorporarlo a nuestra base de datos. Al finalizar el proceso, tendrás acceso a otras personas anónimas que se han encontrado en la misma situación que tú para contactarlas y que te aconsejen.</p>
           <p>También encontrarás algunas entidades que pueden ayudarte</p>
         </div>
         ),
