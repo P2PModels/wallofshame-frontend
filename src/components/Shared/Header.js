@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { Link as RouterLink } from 'react-router-dom'
+import useCases from '../../providers/CasesProvider/use'
 import Controls from './controls/Controls'
 import Title from '../Title'
 
@@ -149,6 +150,9 @@ export default function Header() {
         drawerContainer,
     } = useStyles()
 
+    const { refetch: refetchCases } = useCases()
+
+
     const [state, setState] = useState({
         mobileView: false,
         drawerOpen: false,
@@ -246,6 +250,11 @@ export default function Header() {
             {...{
                 to: '/',
                 component: RouterLink,
+            }}
+            onClick={() => {
+                console.log("Refreshing cases...")
+                console.log(refetchCases)
+                console.log(refetchCases())
             }}
         >   
             <Box className={logo}>

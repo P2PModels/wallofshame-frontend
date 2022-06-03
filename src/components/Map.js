@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     MapContainer,
     TileLayer,
@@ -24,6 +24,7 @@ import { regionToRegionRenderName } from '../data/config.json'
 const Map = props => {
     const { ...other } = props
     const casesContext = useCases()
+    const [cases, setCases] = useState([])
     const { region, setRegion } = useAppState()
     const [listState, setListState] = useState(false)
     const clusterClicked = cluster => {
@@ -40,6 +41,10 @@ const Map = props => {
         }
     }
 
+    useEffect(() => { 
+        setCases(casesContext.cases)
+    }, [casesContext.cases])
+
     if (casesContext.loading) {
         //return <Typography>Loading map...</Typography>
         return (
@@ -48,16 +53,19 @@ const Map = props => {
 
     } else if (casesContext.error) {
         return <Typography>{casesContext.error.message}</Typography>
-    } else {
-        const cases = casesContext.cases
-        
+    } else if ( cases.length !== 0 ) {
+        // const cases = casesContext.cases
+        console.log("Cases: ")
+        console.log(cases)
+        console.log( cases.length)
+        console.log( cases.length !== 0 )
         // Set map boundaries to inlcude all marker(cases)
         let mapBounds = []
         cases.map(c => {
             if(c.region != "" && c.description != ""){
                 const bounds = regionToLatLng[c.region]
                 mapBounds.push([bounds.lat, bounds.lng])
-        }
+            }
         })
 
         // Set marker icons by type
@@ -66,57 +74,57 @@ const Map = props => {
             icons[type] = L.icon(markersByType[type])
         }
 
-
-
-return (
-    <MapContainer
-        bounds={mapBounds}
-        zoom={103}
-        scrollWheelZoom={false}
-        zoomControl={false}
-        {...other}
-    >
-        <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {/* Enable map controls on focus, disable on blur */}
-        <MapScrollZoomOnFocus>
-            <MarkerClusterGroup 
-                onClick={clusterClicked}
-                spiderfyOnMaxZoom={false}
-                disableClusteringAtZoom={10}
-                zoomToBoundsOnClick={true}
+        return (
+            <MapContainer
+                bounds={mapBounds}
+                zoom={103}
+                scrollWheelZoom={false}
+                zoomControl={false}
+                {...other}
             >
-                {cases.map(c => {
-                    if(c.region != "" && c.description != ""){
-                        const bounds = regionToLatLng[c.region]
-                        return (
-                            <Marker
-                                position={[bounds.lat, bounds.lng]}
-                                eventHandlers={{
-                                    click: clusterClicked
-                                }}
-                                icon={icons[c.caseType]}
-                                key={c.id + '-report'}
-                            />
-                        )
-                    }
-                })}
-            </MarkerClusterGroup>
-            <ZoomControl position="bottomright" />
-        </MapScrollZoomOnFocus>
-        <CaseCardList
-            title={`Casos reportados en ${regionToRegionRenderName[region]}`}
-            cases={filterCasesByRegion(cases, region)}
-            open={listState}
-            onClose={() => {
-                setListState(false)
-            }}
-        />
-    </MapContainer>
-)
-}
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {/* Enable map controls on focus, disable on blur */}
+                <MapScrollZoomOnFocus>
+                    <MarkerClusterGroup 
+                        onClick={clusterClicked}
+                        spiderfyOnMaxZoom={false}
+                        disableClusteringAtZoom={10}
+                        zoomToBoundsOnClick={true}
+                    >
+                        {cases.map(c => {
+                            if(c.region != "" && c.description != ""){
+                                const bounds = regionToLatLng[c.region]
+                                return (
+                                    <Marker
+                                        position={[bounds.lat, bounds.lng]}
+                                        eventHandlers={{
+                                            click: clusterClicked
+                                        }}
+                                        icon={icons[c.caseType]}
+                                        key={c.id + '-report'}
+                                    />
+                                )
+                            }
+                        })}
+                    </MarkerClusterGroup>
+                    <ZoomControl position="bottomright" />
+                </MapScrollZoomOnFocus>
+                <CaseCardList
+                    title={`Casos reportados en ${regionToRegionRenderName[region]}`}
+                    cases={filterCasesByRegion(cases, region)}
+                    open={listState}
+                    onClose={() => {
+                        setListState(false)
+                    }}
+                />
+            </MapContainer>
+        )
+    } else {
+        return (<></>)
+    }
 }
 
 export default Map
