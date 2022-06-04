@@ -1,9 +1,10 @@
 import { createContext } from 'react'
 
 const casesInitialContext = {
-    loading: true,
+    loading: false,
     error: '',
-    cases: {},
+    cases: [],
+    refetch: () => {}
 }
 
 const CasesContext = createContext(casesInitialContext)

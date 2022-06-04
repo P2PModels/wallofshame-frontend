@@ -34,7 +34,7 @@ export default function CaseCardList(props) {
             {cases.map((c,i) => {
                 
                 if(c.region != "" && c.description != ""){                
-                    return <CaseCard caseDetails={c} expandedProp={i == 0 ? true : false} key={`casecard-${c.id}`} />
+                    return <CaseCard caseDetails={c} expandedProp={true} key={`casecard-${c.id}`} />
             }})}
         </Card>
     )

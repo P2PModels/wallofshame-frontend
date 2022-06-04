@@ -9,7 +9,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 
 import { AppStateProvider } from './providers/AppStateProvider/provider'
 
-import AuthProvider from './providers/Auth/provider'
+import { CasesProvider } from './providers/CasesProvider/provider'
 // import ApolloProviderAuth from './components/ApolloProviderAuth'
 import BackendProvider from './components/BackendProvider'
 import Landing from './pages/Landing'
@@ -49,8 +49,8 @@ function App() {
     return (
     
         <AppStateProvider>
-            <AuthProvider>
-                <BackendProvider>
+            <BackendProvider>
+                <CasesProvider>
                     {/* <ApolloProviderAuth> */}
                     {/* <DAppProvider config={dAppConfig}> */}
                     <BrowserRouter>
@@ -113,9 +113,9 @@ function App() {
                         </ThemeProvider>
                     </BrowserRouter>
                     {/* </DAppProvider> */}
-                </BackendProvider>
+                </CasesProvider>
                 {/* </ApolloProviderAuth> */}
-            </AuthProvider>
+            </BackendProvider>
         </AppStateProvider>
     )
 
