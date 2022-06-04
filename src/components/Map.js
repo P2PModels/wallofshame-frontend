@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     MapContainer,
     TileLayer,
@@ -12,7 +12,6 @@ import { regionToLatLng, markersByType } from '../data/config.json'
 import { Typography } from '@material-ui/core'
 import { useAppState } from '../providers/AppStateProvider/use'
 import Skeleton from '@mui/material/Skeleton';
-import LoadingRectangle from './Shared/LoadingRectangle'
 import {
     findChildObject,
     filterCasesByRegion,
@@ -20,10 +19,10 @@ import {
 import CaseCardList from './CaseCardList'
 import { regionToRegionRenderName } from '../data/config.json'
 
-// TODO: redraw on zoom change
+
 const Map = props => {
     const { ...other } = props
-    const casesContext = useCases()
+    const { loading, error, cases } = useCases()
     const { region, setRegion } = useAppState()
     const [listState, setListState] = useState(false)
     const clusterClicked = cluster => {
@@ -37,19 +36,20 @@ const Map = props => {
             setListState(true)
         } else {
             console.log('<Map> No matching region found')
+            console.log(cluster)
+
         }
     }
 
-    if (casesContext.loading) {
+    if (loading) {
         //return <Typography>Loading map...</Typography>
         return (
             <Skeleton variant='rectangular' height={600} width={2000}></Skeleton>
             )
 
-    } else if (casesContext.error) {
-        return <Typography>{casesContext.error.message}</Typography>
-    } else {
-        const cases = casesContext.cases
+    } else if (error) {
+        return <Typography>{error.message}</Typography>
+    } else if ( cases.length !== 0 && !loading ) {
         
         // Set map boundaries to inlcude all marker(cases)
         let mapBounds = []
@@ -57,7 +57,7 @@ const Map = props => {
             if(c.region != "" && c.description != ""){
                 const bounds = regionToLatLng[c.region]
                 mapBounds.push([bounds.lat, bounds.lng])
-        }
+            }
         })
 
         // Set marker icons by type
@@ -66,57 +66,57 @@ const Map = props => {
             icons[type] = L.icon(markersByType[type])
         }
 
-
-
-return (
-    <MapContainer
-        bounds={mapBounds}
-        zoom={103}
-        scrollWheelZoom={false}
-        zoomControl={false}
-        {...other}
-    >
-        <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {/* Enable map controls on focus, disable on blur */}
-        <MapScrollZoomOnFocus>
-            <MarkerClusterGroup 
-                onClick={clusterClicked}
-                spiderfyOnMaxZoom={false}
-                disableClusteringAtZoom={10}
-                zoomToBoundsOnClick={true}
+        return (
+            <MapContainer
+                bounds={mapBounds}
+                zoom={103}
+                scrollWheelZoom={false}
+                zoomControl={false}
+                {...other}
             >
-                {cases.map(c => {
-                    if(c.region != "" && c.description != ""){
-                        const bounds = regionToLatLng[c.region]
-                        return (
-                            <Marker
-                                position={[bounds.lat, bounds.lng]}
-                                eventHandlers={{
-                                    click: clusterClicked
-                                }}
-                                icon={icons[c.caseType]}
-                                key={c.id + '-report'}
-                            />
-                        )
-                    }
-                })}
-            </MarkerClusterGroup>
-            <ZoomControl position="bottomright" />
-        </MapScrollZoomOnFocus>
-        <CaseCardList
-            title={`Casos reportados en ${regionToRegionRenderName[region]}`}
-            cases={filterCasesByRegion(cases, region)}
-            open={listState}
-            onClose={() => {
-                setListState(false)
-            }}
-        />
-    </MapContainer>
-)
-}
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {/* Enable map controls on focus, disable on blur */}
+                <MapScrollZoomOnFocus>
+                    <MarkerClusterGroup 
+                        onClick={clusterClicked}
+                        spiderfyOnMaxZoom={false}
+                        disableClusteringAtZoom={10}
+                        zoomToBoundsOnClick={true}
+                    >
+                        {cases.map(c => {
+                            if(c.region != "" && c.description != ""){
+                                const bounds = regionToLatLng[c.region]
+                                return (
+                                    <Marker
+                                        position={[bounds.lat, bounds.lng]}
+                                        eventHandlers={{
+                                            click: clusterClicked
+                                        }}
+                                        icon={icons[c.caseType]}
+                                        key={c.id + '-report'}
+                                    />
+                                )
+                            }
+                        })}
+                    </MarkerClusterGroup>
+                    <ZoomControl position="bottomright" />
+                </MapScrollZoomOnFocus>
+                <CaseCardList
+                    title={`Casos reportados en ${regionToRegionRenderName[region]}`}
+                    cases={filterCasesByRegion(cases, region)}
+                    open={listState}
+                    onClose={() => {
+                        setListState(false)
+                    }}
+                />
+            </MapContainer>
+        )
+    } else {
+        return (<></>)
+    }
 }
 
 export default Map

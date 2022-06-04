@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { steps } from "../Steps";
-import Joyride from "react-joyride";
-
 import {
     AppBar,
     Toolbar,
@@ -16,6 +13,7 @@ import {
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { Link as RouterLink } from 'react-router-dom'
+import useCases from '../../providers/CasesProvider/use'
 import Controls from './controls/Controls'
 import Title from '../Title'
 
@@ -41,8 +39,9 @@ const useStyles = makeStyles(theme => ({
         '@media (max-width: 900px)': {
             paddingLeft: 0,
         },
-        padding: '1rem',
-        maxHeight: theme.mixins.toolbar.minHeight,
+        padding: '1rem 0',
+        minHeight: theme.mixins.toolbar.minHeight,
+        backgroundColor: 'white'
     },
     logoAndTitleContainer: {
         display: 'flex',
@@ -77,7 +76,6 @@ const useStyles = makeStyles(theme => ({
         },
     },
     menuButton: {
-        marginLeft: '2rem',
         background: 'transparent',
         color: theme.palette.primary.main,
         fontWeight: 'bold',
@@ -88,6 +86,9 @@ const useStyles = makeStyles(theme => ({
             color: theme.palette.primary.main,
             boxShadow: 'none',
         },
+        '&:first-child': {
+            marginLeft: '2rem'
+        }
     },
     callToAction: {
         marginLeft: '2rem',
@@ -146,6 +147,9 @@ export default function Header() {
         toolbar,
         drawerContainer,
     } = useStyles()
+
+    const { refetch: refetchCases } = useCases()
+
 
     const [state, setState] = useState({
         mobileView: false,
@@ -245,6 +249,7 @@ export default function Header() {
                 to: '/',
                 component: RouterLink,
             }}
+            onClick={refetchCases}
         >   
             <Box className={logo}>
                 <img src={logoSrc} />

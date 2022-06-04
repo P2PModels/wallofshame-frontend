@@ -28,7 +28,7 @@ const MapChart = () => {
                             const curr = jobs.find(
                                 j => j.id === geo.properties.NAME_2
                             )
-                            console.log(curr)
+                            // console.log(curr)
                             return (
                                 <Geography
                                     key={geo.rsmKey}
