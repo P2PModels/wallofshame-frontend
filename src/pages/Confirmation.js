@@ -98,11 +98,11 @@ const Confirmation = (props) => {
 
 
     // Config variables
-    const SPREADSHEET_ID = process.env.REACT_APP_SPREADSHEET_ID
+    // const SPREADSHEET_ID = process.env.REACT_APP_SPREADSHEET_ID
     const CLIENT_EMAIL =  process.env.REACT_APP_CLIENT_EMAIL
     const PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY
-
-    const doc = new GoogleSpreadsheet(SPREADSHEET_ID)
+    
+    const doc = new GoogleSpreadsheet('1w2J9DuzFHkUmBQ0zHHY51gPY7NRzmbdUV_VckSfhbSA')
 
     useEffect(() => {
         const readSpreadsheet = async () => {
@@ -207,6 +207,8 @@ const Confirmation = (props) => {
         />
       ));
 
+    console.log("Filas")
+    console.log(filas)
     const orgsCiudad = filas?.filter((entity) => (entity.comunidad_autonoma).includes(report[0].region) || (entity.comunidad_autonoma) == ("Todas" || "Internacional"))
     const orgsProfesion = filas?.filter((entity) => (entity.profesion_es).includes(report[0].profession) )
     const userMails = dataUsers.users.filter((u) => (u.email != report[1])) 
@@ -225,7 +227,7 @@ const Confirmation = (props) => {
                                 variant="body1"
                                 className={classes.caption}
                             >
-                                Tu información se ha guardado correctamente. <br /> Cuando vuelvas a la página principal recuerda recargar para ver tu caso en el mapa.
+                                Tu información se ha guardado correctamente. <br /> <strong>Cuando vuelvas a la página principal recuerda recargar para ver tu caso en el mapa.</strong>
                             </Typography>
                         </Box>
 
