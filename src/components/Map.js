@@ -12,7 +12,6 @@ import { regionToLatLng, markersByType } from '../data/config.json'
 import { Typography } from '@material-ui/core'
 import { useAppState } from '../providers/AppStateProvider/use'
 import Skeleton from '@mui/material/Skeleton';
-import LoadingRectangle from './Shared/LoadingRectangle'
 import {
     findChildObject,
     filterCasesByRegion,
@@ -23,8 +22,7 @@ import { regionToRegionRenderName } from '../data/config.json'
 
 const Map = props => {
     const { ...other } = props
-    const casesContext = useCases()
-    const [cases, setCases] = useState([])
+    const { loading, error, cases } = useCases()
     const { region, setRegion } = useAppState()
     const [listState, setListState] = useState(false)
     const clusterClicked = cluster => {
@@ -38,27 +36,21 @@ const Map = props => {
             setListState(true)
         } else {
             console.log('<Map> No matching region found')
+            console.log(cluster)
+
         }
     }
 
-    useEffect(() => { 
-        setCases(casesContext.cases)
-    }, [casesContext.cases])
-
-    if (casesContext.loading) {
+    if (loading) {
         //return <Typography>Loading map...</Typography>
         return (
             <Skeleton variant='rectangular' height={600} width={2000}></Skeleton>
             )
 
-    } else if (casesContext.error) {
-        return <Typography>{casesContext.error.message}</Typography>
-    } else if ( cases.length !== 0 ) {
-        // const cases = casesContext.cases
-        console.log("Cases: ")
-        console.log(cases)
-        console.log( cases.length)
-        console.log( cases.length !== 0 )
+    } else if (error) {
+        return <Typography>{error.message}</Typography>
+    } else if ( cases.length !== 0 && !loading ) {
+        
         // Set map boundaries to inlcude all marker(cases)
         let mapBounds = []
         cases.map(c => {

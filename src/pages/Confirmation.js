@@ -3,10 +3,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, Typography, Box } from '@material-ui/core'
 import Check from '@mui/icons-material/Check'
 import Page from '../components/Page'
+import { Link as RouterLink } from 'react-router-dom'
 import InfoDialog from '../components/Shared/InfoDialog'
 import DisplayValue from '../components/Shared/DisplayValue'
 import EmailContact from '../components/Shared/EmailContact'
 import EntityContact from '../components/Shared/EntityContact'
+import Controls from '../components/Shared/controls/Controls'
 import { useQuery } from '@apollo/client'
 import { GET_FILTERED_CASES } from '../services/cases_subgraph/queries'
 import { USERS } from '../services/users/queries'
@@ -15,6 +17,7 @@ import {
     professionToProfessionRenderName,
     regionToRegionRenderName,
 } from '../data/config.json'
+import useCases from '../providers/CasesProvider/use'
 import { setQuarter } from 'date-fns'
 
 const useStyles = makeStyles(theme => ({
@@ -58,6 +61,8 @@ const useStyles = makeStyles(theme => ({
     },
     grid: {
         marginBottom: '6rem',
+        display: 'flex',
+        flexDirection: 'column'
     },
     successMsgContainer: {
         display: 'flex',
@@ -75,11 +80,19 @@ const useStyles = makeStyles(theme => ({
     entity: {
         marginLeft: '2rem',
     },
+    formButton: {
+        boxShadow: 'none',
+        borderRadius: 0,
+        color: theme.palette.text.light,
+        marginTop: '3rem',
+        marginLeft: '78%',
+    },
 }))
 
 //export default function Confirmation(props) {
 const Confirmation = (props) => {
     const classes = useStyles()
+    const { refetch: refetchCases } = useCases()
     const { report } = props.location.state
     const [filas, setRows] = useState([])    
 
@@ -88,11 +101,6 @@ const Confirmation = (props) => {
     const SPREADSHEET_ID = process.env.REACT_APP_SPREADSHEET_ID
     const CLIENT_EMAIL =  process.env.REACT_APP_CLIENT_EMAIL
     const PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY
-
-    console.log("env vars: ")
-    console.log(SPREADSHEET_ID)
-    console.log(CLIENT_EMAIL)
-    console.log(PRIVATE_KEY)
 
     const doc = new GoogleSpreadsheet(SPREADSHEET_ID)
 
@@ -317,6 +325,16 @@ const Confirmation = (props) => {
                             </Typography>
                             
                         )}
+
+                        <Controls.Button
+                            text="VOLVER AL INICIO"
+                            {...{
+                                to: '/',
+                                component: RouterLink,
+                            }}
+                            onClick={refetchCases}
+                            className={classes.formButton}
+                        />
                             
                     </Grid>
                 </Grid>

@@ -154,13 +154,16 @@ export default function ReportCaseForm() {
 
     const reportAction = () => {
         // console.warn('Submiting after validation', values)
-        let user = {
-            email: values.email,
-            terms: values.terms,
-            region: values.region,
-            profession: values.profession,
-            gender: values.gender,
+        if(values.email !== ''){
+            let user = {
+                email: values.email,
+                terms: values.terms,
+                region: values.region,
+                profession: values.profession,
+                gender: values.gender,
+            }
         }
+
         let reportCase = {
             companyName: values.companyName,
             caseType: values.caseType,
@@ -172,12 +175,14 @@ export default function ReportCaseForm() {
             experience: values.experience,
         }
         
-        // console.log("[ReportCaseForm] User: ")
-        // console.log(user)
-        // console.log("[ReportCaseForm] Case: ")
-        // console.log(reportCase)
         try {
-            addUser({ variables: { data: user } })
+            if(values.email !== ''){
+                // console.log("[ReportCaseForm] User: ")
+                // console.log(user)
+                addUser({ variables: { data: user } })
+            }
+            // console.log("[ReportCaseForm] Case: ")
+            // console.log(reportCase)
             sendReport({ variables: { data: reportCase } })
         }
         catch(error){ 
@@ -305,13 +310,13 @@ export default function ReportCaseForm() {
             </Grid>    
         )
 
-    if(reportedCase && addedUser){
+    if(reportedCase && addedUser || reportedCase && values.email == ''){
         // console.log("[ReportForm] Success!")
         return(
             <Redirect
                 to={{
                     pathname: '/confirmation',
-                    state: { report: [reportedCase.report,  addedUser.email] },
+                    state: { report: [reportedCase.report,  addedUser ? addedUser.email : ''] },
                 }}
             />
         )
