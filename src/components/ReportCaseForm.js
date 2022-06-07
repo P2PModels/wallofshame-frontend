@@ -154,8 +154,9 @@ export default function ReportCaseForm() {
 
     const reportAction = () => {
         // console.warn('Submiting after validation', values)
+        let user = {}
         if(values.email !== ''){
-            let user = {
+            user = {
                 email: values.email,
                 terms: values.terms,
                 region: values.region,
@@ -297,7 +298,8 @@ export default function ReportCaseForm() {
 
     //  else {
 
-    if (loadingCase || loadingUser) 
+    if (loadingCase || loadingUser) {
+        // console.log("Loading...")
         return (
             <Grid item  lg={12} className = {classes.flexColumn}>
                 <CircularProgress size={44} color="inherit"  className = {classes.loadingSpinner}/>  
@@ -309,7 +311,7 @@ export default function ReportCaseForm() {
                 </Typography>     
             </Grid>    
         )
-
+    }
     if(reportedCase && addedUser || reportedCase && values.email == ''){
         // console.log("[ReportForm] Success!")
         return(
