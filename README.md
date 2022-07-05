@@ -1,12 +1,13 @@
 # 📊 Wall of Shame 📊
 
-The Wall of Shame prototype will combine data-activism with the Ethereum blockchain to provide a censorship-resistant dashboard of unpaid invoices from cultural workers.
+The Wall of Shame prototype combines data-activism with the Ethereum blockchain to provide a censorship-resistant dashboard of unpaid or delayed invoices from cultural workers.
 
 ## Screenshots
 
-<img src="/docs/docs/assets/images/Form.png" width="49%" >
-
-<img src="/docs/docs/assets/images/Dashboard.png" width="49%" style="display: inline-block">
+<img src="./public/assets/map.png" width="49%" style="display: inline-block">
+<img src="./public/assets/dashboard.png" width="49%" style="display: inline-block">
+<img src="./public/assets/form.png" width="49%" >
+<img src="./public/assets/form2.png" width="49%" >
 
 ## Instalation and Setup
 
@@ -20,6 +21,10 @@ $ npm start
 A new tab in your default browser should open automatically.
 
 If you want to modify and deploy the a diferent smart contract or subgraph visit the [Wall of Shame backend repo](https://github.com/P2PModels/wallofshame-backend)
+
+## Documentation
+
+Read the [docs](https://observatorio.docs.p2pmodels.eu) for more information
 
 ## References
 
