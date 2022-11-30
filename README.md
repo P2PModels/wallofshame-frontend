@@ -1,6 +1,22 @@
-# 📊 Wall of Shame 📊
+# Wall of Shame
 
-The Wall of Shame prototype combines data-activism with the Ethereum blockchain to provide a censorship-resistant dashboard of unpaid or delayed invoices from cultural workers.
+## Introduction
+
+The Observatory of Spanish Artistic Precarity prototype is a dynamic platform that visualizes metric data regarding current worker conditions and provides more visibility to the problem of precarity for cultural workers. At the same time, it allows users to create networks with each other and reach out to help entities after posting their public denouncement. Thanks to blockchain technology, the platform will be transparent and harder to censor (contrary to other projects based on mainstream platforms, e.g.@TrabajosRuineros). By relying on a set of quantitative data provided by users, we should also be able to visualize and address salary gaps depending on gender, location and type of (artistic) profession, which can help further analysis and policy-making around precarity. 
+
+The prototype has three main goals:
+
+- __Monitorization__: provide data to organizations and collectives in order to develop strategies for solving this issue through social means.
+
+- __Visibilization__: raise awareness of job insecurity in Spain to the public.
+
+- __Collectivization__: ease the process of contacting organizations, collectives and individuals with similar issues with the intention of increasing social participation outside the digital sphere.
+
+<img src="/assets/images/Form.png" alt="Form screenshot">
+
+## Demo & documentation
+
+If you want to test the current version of the prototype check the [live demo](https://observatorio.p2pmodels.eu). The [documentation](https://docs.observatorio.p2pmodels.eu) of the prototype is available.
 
 ## Screenshots
 
